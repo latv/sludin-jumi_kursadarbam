@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
-const Wish = db.wish;
+const Poster = db.poster;
 const Op = Sequelize.Op;
 
 exports.allAccess = (req, res) => {
@@ -42,10 +42,12 @@ exports.registerWish = (req, res) => {
   User.findOne({ where: { id: token.id } }).then(result => {
     let tokenUserName = result.username;
     Wish.create({
-      idUsername: tokenUserName,
-      wish: req.body.wish
+      id_username: tokenUserName,
+      poster: req.body.poster,
+      price: req.body.price,
+      image : req.body.image
     });
-    res.status(200).send("Registered wish");
+    res.status(200).send("Registered poster");
 
   });
 };
