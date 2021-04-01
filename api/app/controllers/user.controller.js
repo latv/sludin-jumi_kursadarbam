@@ -6,6 +6,7 @@ const User = db.user;
 const Poster = db.poster;
 const Op = Sequelize.Op;
 
+
 exports.allAccess = (req, res) => {
   // console.log("tokens, ",req.body.x-access-token)
   // console.log(jwt.decode(req.body.x-access-token, config.secret))
@@ -34,18 +35,19 @@ exports.allAccess = (req, res) => {
 
 };
 
-exports.registerWish = (req, res) => {
-  let token = req.headers["x-access-token"];
+exports.registerPoster = (req, res) => {
+  console.log(req.file);
+  let token = req.body["x-access-token"];
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
   User.findOne({ where: { id: token.id } }).then(result => {
-    let tokenUserName = result.username;
-    Wish.create({
-      id_username: tokenUserName,
+    // let tokenUserName = result.username;
+    Poster.create({
+      user_id: token.id,
       poster: req.body.poster,
       price: req.body.price,
-      image : req.body.image
+      image : req.file.path
     });
     res.status(200).send("Registered poster");
 
