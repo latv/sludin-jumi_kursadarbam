@@ -7,7 +7,7 @@ import { PlusOutlined, LogoutOutlined,  } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 import LogInModal from '../LogInModal';
-
+import AddPosterModal from '../AddPosterModal';
 
 
 const DefaultLayout = () =>{
@@ -56,7 +56,7 @@ return (
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
   </Layout>
   <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} />
-  
+  <AddPosterModal isAddPosterModalVisible={isAddPosterModalVisible} setIsAddPosterModalVisible={setIsAddPosterModalVisible} />
 </>
 )}
 

@@ -1,40 +1,40 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
+import { Layout,Modal,Button,message,Row,Col,Form,Input,Upload } from 'antd';
 import React, { useState } from 'react';
 import './styles.css';
-import jwt from '../../utils/jwt';
-import { SearchOutlined, HeartOutlined, UserOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
+import FormatValidator from '../../utils/validator.js'
+import {UploadOutlined, LockOutlined } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
-import Cookies from 'js-cookie';
 
-export default function LogInModal({}) {
+
+export default function AddPosterModal({isAddPosterModalVisible , setIsAddPosterModalVisible}) {
     const [loading, setLoading] = useState(false);
-
+    const [addPriceAmount, setAddPriceAmount] = useState("");
+    const [inputError, setInputError] = useState(null);
 
 
     const onFinish = async (values) => {
         try {
           setLoading(true);
           let response = await APIClient.request(
-            '/api/auth/signin',
-            {username: values.username, password: values.password},
+            '/api/test/register-poster',
+            {image: values.image, poster: values.poster, price : addPriceAmount},
             'POST'
           );
-          jwt.saveToken(response.accessToken, response.expiresIn);
+
           setLoading(false);
-          setIsModalVisible(false);
-          message.info("Tu esi ielogojies");
-          setIsSignedIn(true);
-          // history.replace('/');
+          setIsAddPosterModalVisible(false);
+          message.info("Esi pievienojis sludinājumu");
+
         } catch (err) {
-          message.error("Lietotājvārds vai parole ir nepareiza!");
+          message.error("Neizdevās pievienot sludinājumu");
           console.log(err);
-          setLoading(false);
+
         }
       };
 
     return (
         <>
-        <Modal title="Ielogošana" visible={isModalVisible} footer={null}  onCancel={() => setIsModalVisible(false)}>
+        <Modal title="Pievienot sludinājumu" visible={isAddPosterModalVisible} footer={null}  onCancel={() => setIsAddPosterModalVisible(false)}>
               <Row align="middle" justify="center" className="h-100" >
             <Col xs={22} sm={16} md={12} lg={8}>
               <div className="login-card">
@@ -47,37 +47,56 @@ export default function LogInModal({}) {
                   }}
                   onFinish={onFinish}
                 >
-                  <Form.Item
-                    name="username"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please input your Username!',
-                      },
-                    ]}
+                <Form.Item
+                name="upload"
+                label="Upload"
+                valuePropName="fileList"
+            
+        
                   >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                    <Upload name="file" listType="picture">
+                      <Button icon={<UploadOutlined />}>Click to upload</Button>
+                    </Upload>
                   </Form.Item>
-                  <Form.Item
-                    name="password"
+                    <Form.Item
+                    name="poster"
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your Password!',
+                        message: 'Lūdzu ievadi sludinājuma saturu!',
                       },
                     ]}
                   >
                     <Input
-                      prefix={<LockOutlined className="site-form-item-icon" />}
-                      type="password"
-                      placeholder="Password"
+                      // prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="text"
+                      placeholder="Ievadi saturu"
                     />
                   </Form.Item>
+                 
+     
+               
+                  <Input
+        error={inputError}
+        placeholder="0.00"
+        value={addPriceAmount}
+        onChange={(el) => {
+          const amount = el.target.value;
+
+          if (FormatValidator.isMoney(amount)) {
+            setAddPriceAmount(amount);
+            setInputError(null);
+          } else {
+            setInputError("Vajaga būt ar diviem cipariem aiz decimālkomata");
+          }
+        }}
+      />
+
                   <Form.Item>
                     <Button loading={loading} block type="primary" htmlType="submit" className="login-form-button">
                       Log in
                     </Button>
-                    {/* <NavLink to='/signup'>sign up</NavLink> */}
+                    
                     
                   </Form.Item>
                 </Form>
