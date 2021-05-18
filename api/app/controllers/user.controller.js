@@ -47,7 +47,8 @@ exports.registerPoster = (req, res) => {
       user_id: token.id,
       poster: req.body.poster,
       price: req.body.price,
-      image : req.file.path
+      image : req.file.path,
+      phone_number: req.body.phone_number
     });
     res.status(200).send("Registered poster");
 

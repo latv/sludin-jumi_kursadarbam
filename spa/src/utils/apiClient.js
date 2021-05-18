@@ -4,6 +4,7 @@ import {message} from 'antd';
 const request = async (url, data, method,isAuthorized=true) => {
   
   const requestConfig = {
+    
     url: url,
     method: method,
     baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -12,7 +13,10 @@ const request = async (url, data, method,isAuthorized=true) => {
   };
   if (jwt.isAuthorized())
   {
-    requestConfig.headers = {"x-access-token" : jwt.getHeader()};
+    requestConfig.headers = {
+   
+      'Content-Type': 'multipart/form-data',
+      "x-access-token" : jwt.getHeader()};
   }
 
   if (method === 'GET') {

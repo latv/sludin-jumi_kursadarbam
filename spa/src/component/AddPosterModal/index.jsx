@@ -3,22 +3,31 @@ import React, { useState } from 'react';
 import './styles.css';
 import FormatValidator from '../../utils/validator.js'
 import {UploadOutlined, LockOutlined } from '@ant-design/icons';
-import APIClient from '../../utils/apiClient';
+// import APIClient from '../../utils/apiClient';
+import jwt from '../../utils/jwt';
+
+
+import axios from 'axios';
 
 
 export default function AddPosterModal({isAddPosterModalVisible , setIsAddPosterModalVisible}) {
     const [loading, setLoading] = useState(false);
     const [addPriceAmount, setAddPriceAmount] = useState("");
     const [inputError, setInputError] = useState(null);
+    const [addPicture, setAddPicture]= useState();
 
 
     const onFinish = async (values) => {
         try {
           setLoading(true);
-          let response = await APIClient.request(
+          let data = new FormData();
+          data.append("x-access-token",jwt.getHeader());
+          data.append("image",addPicture);
+          data.append("poster",values.poster)
+          data.append("price",addPriceAmount);
+          axios.post(
             '/api/test/register-poster',
-            {image: values.image, poster: values.poster, price : addPriceAmount},
-            'POST'
+            data
           );
 
           setLoading(false);
@@ -27,11 +36,14 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
 
         } catch (err) {
           message.error("Neizdevās pievienot sludinājumu");
+          setLoading(false);
           console.log(err);
 
         }
       };
 
+
+      
     return (
         <>
         <Modal title="Pievienot sludinājumu" visible={isAddPosterModalVisible} footer={null}  onCancel={() => setIsAddPosterModalVisible(false)}>
@@ -40,6 +52,7 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
               <div className="login-card">
          
                 <Form
+                  enctype="multipart/form-data"
                   name="normal_login"
                   className="login-form"
                   initialValues={{
@@ -47,17 +60,9 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
                   }}
                   onFinish={onFinish}
                 >
-                <Form.Item
-                name="upload"
-                label="Upload"
-                valuePropName="fileList"
-            
-        
-                  >
-                    <Upload name="file" listType="picture">
-                      <Button icon={<UploadOutlined />}>Click to upload</Button>
-                    </Upload>
-                  </Form.Item>
+                    <input type="file" onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      setAddPicture(e.target.files[0])}} />
                     <Form.Item
                     name="poster"
                     rules={[
@@ -91,10 +96,25 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           }
         }}
       />
+      <Form.Item
+                    name="phone_number"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Lūdzu ievadi telefona numuru!',
+                      },
+                    ]}
+                  >
+                            <Input
+                      // prefix={<LockOutlined className="site-form-item-icon" />}
+                      type="text"
+                      placeholder="Ievadi telefona numuru"
+                    />
+                  </Form.Item>
 
                   <Form.Item>
                     <Button loading={loading} block type="primary" htmlType="submit" className="login-form-button">
-                      Log in
+                      Pievienot sludinājumu
                     </Button>
                     
                     
