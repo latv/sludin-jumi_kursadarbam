@@ -48,29 +48,30 @@ exports.registerPoster = (req, res) => {
       poster: req.body.poster,
       price: req.body.price,
       image : req.file.path,
-      phone_number: req.body.phone_number
+      phone_number: req.body.phone_number,
+      userId:token.id
     });
     res.status(200).send("Registered poster");
 
   });
 };
-exports.searchWish = (req, res) => {
+// exports.searchWish = (req, res) => {
 
-  // console.log();
+//   // console.log();
  
-  let wishsearch = req.query.searchWish;
-  console.log(wishsearch);
+//   let wishsearch = req.query.searchWish;
+//   console.log(wishsearch);
 
-  Wish.findAll({ where: { wish: { [Op.substring]: wishsearch } } }
+//   Wish.findAll({ where: { wish: { [Op.substring]: wishsearch } } }
 
-  ).then(result => {
+//   ).then(result => {
 
-    res.status(200).send(result);
-  });
+//     res.status(200).send(result);
+//   });
 
-  // res.status(200).send("Registered wish");
+//   // res.status(200).send("Registered wish");
 
-};
+// };
 
 
 exports.adminBoard = (req, res) => {
@@ -89,11 +90,11 @@ exports.profile = (req, res) => {
   res.status(200).send({ username: jwt.decode(token, config.secret) });
 };
 
-exports.getWishes = (req, res) => {
-  const wishes = Wish.findAll().then(result => {
-    res.status(200).send(result.reverse());
+exports.getPoster = (req, res) => {
+  Poster.findAll().then(result => {
+    res.status(200).send(result);
 
   });
   // console.log(wishes);
   // res.status(200).send(wishes);
-}
+};

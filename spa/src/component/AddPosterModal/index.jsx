@@ -25,6 +25,7 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           data.append("image",addPicture);
           data.append("poster",values.poster)
           data.append("price",addPriceAmount);
+          data.append("phone_number",values.phone_number);
           axios.post(
             '/api/test/register-poster',
             data

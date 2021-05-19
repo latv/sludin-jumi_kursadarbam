@@ -41,16 +41,15 @@ module.exports = function(app) {
     upload.single('image'),
     controller.registerPoster
   );
+  // app.get(
+  //   "/api/test/search",
+
+  //   controller.searchWish
+  // );
+
   app.get(
-    "/api/test/search",
-
-    controller.searchWish
-  );
-
-  app.get(
-    "/api/test/get-wishes",
-
-    controller.getWishes
+    "/api/test/get-poster",
+    controller.getPoster
   );
   
 
