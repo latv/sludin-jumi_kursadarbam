@@ -8,7 +8,7 @@ import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 import LogInModal from '../LogInModal';
 import AddPosterModal from '../AddPosterModal';
-
+import ContentPoster from '../ContentPoster'
 
 const DefaultLayout = () =>{
 
@@ -51,7 +51,10 @@ return (
     </Header>
     <Content style={{ padding: '0 50px' }}>
       
-      <div className="site-layout-content">Content</div>
+      <div className="site-layout-content">
+        <ContentPoster/>
+        
+      </div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
   </Layout>
