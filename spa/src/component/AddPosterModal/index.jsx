@@ -3,19 +3,31 @@ import React, { useState } from 'react';
 import './styles.css';
 import FormatValidator from '../../utils/validator.js'
 import {UploadOutlined, LockOutlined } from '@ant-design/icons';
-// import APIClient from '../../utils/apiClient';
+import APIClient from '../../utils/apiClient';
 import jwt from '../../utils/jwt';
 
 
 import axios from 'axios';
 
 
-export default function AddPosterModal({isAddPosterModalVisible , setIsAddPosterModalVisible}) {
+export default function AddPosterModal({isAddPosterModalVisible , setIsAddPosterModalVisible,poster,setPoster,  isPosterLoading, isSetPosterLoading,update,setupdate}) {
     const [loading, setLoading] = useState(false);
     const [addPriceAmount, setAddPriceAmount] = useState("");
     const [inputError, setInputError] = useState(null);
     const [addPicture, setAddPicture]= useState();
+    const getPoster = async () => {
 
+      let response = await APIClient.request(
+        '/api/test/get-poster',
+        {},
+        'GET'
+      );
+  
+      console.log('poster data :',response);
+  
+      setPoster(response);
+      isSetPosterLoading(false);
+    }
 
     const onFinish = async (values) => {
         try {
@@ -34,6 +46,7 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           setLoading(false);
           setIsAddPosterModalVisible(false);
           message.info("Esi pievienojis sludinājumu");
+          setupdate(!update);
 
         } catch (err) {
           message.error("Neizdevās pievienot sludinājumu");

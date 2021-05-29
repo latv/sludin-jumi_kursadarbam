@@ -11,7 +11,9 @@ import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
 
 const DefaultLayout = () =>{
-
+  const [poster, setPoster] = useState([]);
+  const [isPosterLoading, isSetPosterLoading] = useState(true);
+  const [update,setupdate]= useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSignedIn,setIsSignedIn]= useState(jwt.isAuthorized());
   const [isAddPosterModalVisible,setIsAddPosterModalVisible] = useState(false);
@@ -52,14 +54,14 @@ return (
     <Content style={{ padding: '0 50px' }}>
       
       <div className="site-layout-content">
-        <ContentPoster/>
+        <ContentPoster poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate} />
         
       </div>
     </Content>
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
   </Layout>
   <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} />
-  <AddPosterModal isAddPosterModalVisible={isAddPosterModalVisible} setIsAddPosterModalVisible={setIsAddPosterModalVisible} />
+  <AddPosterModal poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isPosterLoading={isPosterLoading}  isAddPosterModalVisible={isAddPosterModalVisible} setIsAddPosterModalVisible={setIsAddPosterModalVisible} update={update} setupdate={setupdate} />
 </>
 )}
 

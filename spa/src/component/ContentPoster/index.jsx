@@ -7,10 +7,9 @@ import moment from 'moment';
 import './style.css';
 
 
-const Cards = () => {
+const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPosterModalVisible,setIsAddPosterModalVisible,update}) => {
     const { Meta } = Card;
-    const [poster, setPoster] = useState([]);
-    const [isPosterLoading, isSetPosterLoading] = useState(true);
+
     const getPoster = async () => {
 
         let response = await APIClient.request(
@@ -30,7 +29,7 @@ const Cards = () => {
 
 
         getPoster();
-      }, []);
+      }, [update]);
     
     
 
