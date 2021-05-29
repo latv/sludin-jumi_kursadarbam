@@ -1,7 +1,7 @@
 import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
 import React, { useState } from 'react';
 import './styles.css';
-import logo from './logo_transparent.png'
+import logo from './logo.png';
 import jwt from '../../utils/jwt';
 import { PlusOutlined, LogoutOutlined,  } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';

@@ -48,11 +48,11 @@ const Cards = () => {
   
   >
     <div className="header">
-      <img alt="example" class="card__image" src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} />
+      <img alt="example" className="card__image" src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} />
       </div>
-      <div className="body">
+      <div className="card__content">
     <h1>{poster.poster}</h1>
-    <p1> {'cena '+poster.price+" EUR"} </p1>
+    <p> {'cena '+poster.price+" EUR"} </p>
     </div>
   </div>
 
