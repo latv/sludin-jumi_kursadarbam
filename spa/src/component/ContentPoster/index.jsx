@@ -4,7 +4,7 @@ import APIClient from '../../utils/apiClient';
 
 // import Nuberfromarter from 'utils/numberFormatter';
 import moment from 'moment';
-// import './styles.scss';
+import './style.css';
 
 
 const Cards = () => {
@@ -41,13 +41,20 @@ const Cards = () => {
             <Spin spinning={isPosterLoading}>
                     {poster.map((poster) =>
    
-    <Card
-    hoverable
-    style={{ width: 240 }}
-    cover={<img alt="example" src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} />}
+    <div
+    className='card' 
+    
+    
+  
   >
-    <Meta title="Europe Street beat" description="www.instagram.com" />
-  </Card>
+    <div className="header">
+      <img alt="example" class="card__image" src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} />
+      </div>
+      <div className="body">
+    <h1>{poster.poster}</h1>
+    <p1> {'cena '+poster.price+" EUR"} </p1>
+    </div>
+  </div>
 
                     )}
             
