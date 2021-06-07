@@ -3,7 +3,7 @@ import {Spin,Card, Button} from 'antd';
 import APIClient from '../../utils/apiClient';
 
 import PosterViewModel from '../PosterViewModel';
-import moment from 'moment';
+
 import './style.css';
 
 
@@ -65,7 +65,7 @@ const [selectedPoster, setSelectedPoster] = useState({});
             
             </Spin>
 
-          <PosterViewModel poster={selectedPoster}  setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible}/>
+          {isModalVisible ?<PosterViewModel poster={selectedPoster}  setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible}/> : null}
         </div>
      
     )

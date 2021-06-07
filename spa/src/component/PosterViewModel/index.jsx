@@ -1,6 +1,6 @@
 import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
 import React, { useState } from 'react';
-import moment from 'moment';
+
 
 export default function PosterViewModel({poster,setIsModalVisible,isModalVisible}) {
    
@@ -16,7 +16,13 @@ export default function PosterViewModel({poster,setIsModalVisible,isModalVisible
             <Col xs={22} sm={16} md={12} lg={8}>
              <div className='poster'>
                   <img src={"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} alt="" />
-                  <p>{poster.category}</p>
+                  <p>{poster.poster}</p>
+                  <p>Kategorija: {poster.category}</p>
+                  <p>Cena: {poster.price}</p>
+                  <p>Talruna numurs: {poster.phone_number}</p>
+                  <p>Izveidots: {
+                  poster.createdAt}</p>
+
 
              </div>
             </Col>
