@@ -56,7 +56,9 @@ return (
       </Button>]}
     </Header>
     <Content style={{ padding: '0 50px' }}>
+      <hr />
     <SyncOutlined  onClick={() => setupdate(!update)} spin={isPosterLoading}/>
+      <hr />
       <div className="site-layout-content">
         <ContentPoster poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate} />
         

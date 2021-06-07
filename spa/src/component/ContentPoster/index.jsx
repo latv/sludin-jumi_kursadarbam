@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import {Spin,Card, Button} from 'antd';
 import APIClient from '../../utils/apiClient';
 
-// import Nuberfromarter from 'utils/numberFormatter';
+import PosterViewModel from '../PosterViewModel';
 import moment from 'moment';
 import './style.css';
 
 
 const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPosterModalVisible,setIsAddPosterModalVisible,update}) => {
     const { Meta } = Card;
-
+    const [isModalVisible, setIsModalVisible] = useState(false);
+const [selectedPoster, setSelectedPoster] = useState({});
     const getPoster = async () => {
       isSetPosterLoading(!isPosterLoading)
         let response = await APIClient.request(
@@ -39,6 +40,7 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
             
             <Spin spinning={isPosterLoading}>
                     {poster.map((poster) =>
+                    
    
     <div
     className='card' 
@@ -52,6 +54,10 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
       <div className="card__content">
     <h1>{poster.poster}</h1>
     <p> {'cena '+poster.price+" EUR"} </p>
+    <Button onClick={() => {console.log(poster);
+    setSelectedPoster(poster);
+    setIsModalVisible(true);
+    }}>Apskatīt</Button>
     </div>
   </div>
 
@@ -59,7 +65,7 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
             
             </Spin>
 
-          
+          <PosterViewModel poster={selectedPoster}  setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible}/>
         </div>
      
     )
