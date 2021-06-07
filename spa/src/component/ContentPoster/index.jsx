@@ -11,7 +11,7 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
     const { Meta } = Card;
 
     const getPoster = async () => {
-
+      isSetPosterLoading(!isPosterLoading)
         let response = await APIClient.request(
           '/api/test/get-poster',
           {},

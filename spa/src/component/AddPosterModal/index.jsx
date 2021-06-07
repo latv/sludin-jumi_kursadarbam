@@ -66,7 +66,8 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           setLoading(false);
           setIsAddPosterModalVisible(false);
           message.info("Esi pievienojis sludinājumu");
-          setupdate(!update);
+
+          
 
         } catch (err) {
           message.error("Neizdevās pievienot sludinājumu");
@@ -74,6 +75,8 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           console.log(err);
 
         }
+        
+        setupdate(!update);
       };
 
 

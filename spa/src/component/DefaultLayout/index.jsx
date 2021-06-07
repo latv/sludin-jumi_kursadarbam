@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import logo from './logo.png';
 import jwt from '../../utils/jwt';
-import { PlusOutlined, LogoutOutlined,  } from '@ant-design/icons';
+import { PlusOutlined, LogoutOutlined,SyncOutlined } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 import LogInModal from '../LogInModal';
@@ -56,7 +56,7 @@ return (
       </Button>]}
     </Header>
     <Content style={{ padding: '0 50px' }}>
-      
+    <SyncOutlined  onClick={() => setupdate(!update)} spin={isPosterLoading}/>
       <div className="site-layout-content">
         <ContentPoster poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate} />
         
