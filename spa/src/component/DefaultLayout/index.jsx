@@ -7,6 +7,7 @@ import { PlusOutlined, LogoutOutlined,  } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 import LogInModal from '../LogInModal';
+import SignUpModal from '../SignUpModal';
 import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
 
@@ -15,6 +16,7 @@ const DefaultLayout = () =>{
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update,setupdate]= useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [isSignedIn,setIsSignedIn]= useState(jwt.isAuthorized());
   const [isAddPosterModalVisible,setIsAddPosterModalVisible] = useState(false);
   const logOut = async () => {
@@ -47,9 +49,11 @@ return (
 <Layout className="layout">
     <Header>
       <img src={logo}  height='100%' alt=""/>
-      {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    <Button type="primary" onClick={showModal}>
+      {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    [<Button type="primary" onClick={showModal}>
         Ielogoties
-      </Button>}
+      </Button>,<Button type="primary" onClick={ () => setIsSignUpModalVisible(true) }>
+        Piereģistrēties
+      </Button>]}
     </Header>
     <Content style={{ padding: '0 50px' }}>
       
@@ -61,6 +65,7 @@ return (
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
   </Layout>
   <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} />
+  <SignUpModal isModalVisible={isSignUpModalVisible}  setIsModalVisible={setIsSignUpModalVisible}  />
   <AddPosterModal poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isPosterLoading={isPosterLoading}  isAddPosterModalVisible={isAddPosterModalVisible} setIsAddPosterModalVisible={setIsAddPosterModalVisible} update={update} setupdate={setupdate} />
 </>
 )}

@@ -49,7 +49,8 @@ exports.registerPoster = (req, res) => {
       price: req.body.price,
       image : req.file.path,
       phone_number: req.body.phone_number,
-      userId:token.id
+      userId:token.id,
+      category:req.body.category
     });
     res.status(200).send("Registered poster");
 

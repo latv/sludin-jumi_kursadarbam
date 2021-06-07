@@ -1,4 +1,4 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input,Upload } from 'antd';
+import { Layout,Modal,Button,message,Row,Col,Form,Input,AutoComplete } from 'antd';
 import React, { useState } from 'react';
 import './styles.css';
 import FormatValidator from '../../utils/validator.js'
@@ -15,6 +15,25 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
     const [addPriceAmount, setAddPriceAmount] = useState("");
     const [inputError, setInputError] = useState(null);
     const [addPicture, setAddPicture]= useState();
+    const [value, setValue] = useState('');
+    const [options, setOptions] = useState([]);
+    const mockVal = (str, repeat = 1) => ({
+      value: str.repeat(repeat),
+    });
+  
+    const onSearch = (searchText) => {
+      setOptions(
+        !searchText ? [] : [],
+      );
+    };
+  
+    const onSelect = (data) => {
+      console.log('onSelect', data);
+    };
+  
+    const onChange = (data) => {
+      setValue(data);
+    };
     const getPoster = async () => {
 
       let response = await APIClient.request(
@@ -38,6 +57,7 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
           data.append("poster",values.poster)
           data.append("price",addPriceAmount);
           data.append("phone_number",values.phone_number);
+          data.append('category',values.category)
           axios.post(
             '/api/test/register-poster',
             data
@@ -92,7 +112,21 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
                       placeholder="Ievadi saturu"
                     />
                   </Form.Item>
-                 
+                  <Form.Item name="category">
+                    
+
+                    <AutoComplete
+        options={options}
+        style={{
+          width: 200,
+        }}
+        onSelect={onSelect}
+        onSearch={onSearch}
+        placeholder="Ievadi kategoriju"
+      />
+
+                  </Form.Item>
+                  
      
                
                   <Input
