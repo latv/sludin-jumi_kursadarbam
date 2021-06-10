@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "db4free.net",
-  USER: "root_admin123",
-  PASSWORD: "J@nis282",
-  DB: "sludinajumi_1",
+  HOST: "remotemysql.com",
+  USER: "jNYwi8SpvJ",
+  PASSWORD: "hdWFY2rLZ3",
+  DB: "jNYwi8SpvJ",
   dialect: "mysql",
   pool: {
     max: 5,
