@@ -1,8 +1,11 @@
-module.exports = {
-    HOST: "localhost",
-    USER: "root",
-    PASSWORD: "",
-    DB: "testdb",
+
+  
+
+  module.exports = {
+    HOST: "remotemysql.com",
+    USER: "jNYwi8SpvJ",
+    PASSWORD: "hdWFY2rLZ3",
+    DB: "jNYwi8SpvJ",
     dialect: "mysql",
     pool: {
       max: 5,
