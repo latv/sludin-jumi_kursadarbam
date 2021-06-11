@@ -92,10 +92,25 @@ exports.profile = (req, res) => {
 };
 
 exports.getPoster = (req, res) => {
+
+
   Poster.findAll().then(result => {
     res.status(200).send(result);
 
   });
+
+  // console.log(wishes);
+  // res.status(200).send(wishes);
+};
+exports.getPosterByID = (req, res) => {
+
+  
+    Poster.findOne({where :  {id : req.params.id}}).then(result => {
+      res.status(200).send(result);
+  
+    });
+  
+
   // console.log(wishes);
   // res.status(200).send(wishes);
 };

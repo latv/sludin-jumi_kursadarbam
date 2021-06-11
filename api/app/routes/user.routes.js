@@ -51,6 +51,11 @@ module.exports = function(app) {
     "/api/test/get-poster",
     controller.getPoster
   );
+
+  app.get(
+    "/api/test/get-poster/:id",
+    controller.getPosterByID
+  );
   
 
   app.get(

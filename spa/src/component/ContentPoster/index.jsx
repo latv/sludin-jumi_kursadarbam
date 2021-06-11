@@ -10,7 +10,7 @@ import './style.css';
 const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPosterModalVisible,setIsAddPosterModalVisible,update}) => {
     const { Meta } = Card;
     const [isModalVisible, setIsModalVisible] = useState(false);
-const [selectedPoster, setSelectedPoster] = useState({});
+
     const getPoster = async () => {
       isSetPosterLoading(!isPosterLoading)
         let response = await APIClient.request(
@@ -54,10 +54,7 @@ const [selectedPoster, setSelectedPoster] = useState({});
       <div className="card__content">
     <h1>{poster.poster}</h1>
     <p> {'cena '+poster.price+" EUR"} </p>
-    <Button onClick={() => {console.log(poster);
-    setSelectedPoster(poster);
-    setIsModalVisible(true);
-    }}>Apskatīt</Button>
+    <a href={"/"+poster.id}>Apskatīt</a>
     </div>
   </div>
 
@@ -65,7 +62,7 @@ const [selectedPoster, setSelectedPoster] = useState({});
             
             </Spin>
 
-          {isModalVisible ?<PosterViewModel poster={selectedPoster}  setIsModalVisible={setIsModalVisible} isModalVisible={isModalVisible}/> : null}
+          
         </div>
      
     )

@@ -10,6 +10,13 @@ import LogInModal from '../LogInModal';
 import SignUpModal from '../SignUpModal';
 import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
+import PosterViewModel from '../PosterViewModel'
+import {
+  BrowserRouter as Router,
+  Route,
+  BrowserRouter,
+  Switch
+} from 'react-router-dom';
 
 const DefaultLayout = () =>{
   const [poster, setPoster] = useState([]);
@@ -56,13 +63,24 @@ return (
       </Button>]}
     </Header>
     <Content style={{ padding: '0 50px' }}>
+      <BrowserRouter>
+      <Switch>
+    <Route exact path="/">
       <hr />
     <SyncOutlined  onClick={() => setupdate(!update)} spin={isPosterLoading}/>
       <hr />
       <div className="site-layout-content">
+
         <ContentPoster poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate} />
         
       </div>
+      </Route>
+      <Route path='/' component={PosterViewModel}>
+
+
+      </Route>
+      </Switch>
+      </BrowserRouter>
     </Content>
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
   </Layout>
