@@ -3,7 +3,7 @@ import {Spin,Card, Button} from 'antd';
 import APIClient from '../../utils/apiClient';
 
 import PosterViewModel from '../PosterViewModel';
-
+import { NavLink } from 'react-router-dom';
 import './style.css';
 
 
@@ -54,7 +54,7 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
       <div className="card__content">
     <h1>{poster.poster}</h1>
     <p> {'cena '+poster.price+" EUR"} </p>
-    <a href={"/"+poster.id}>Apskatīt</a>
+    <NavLink to={"/"+poster.id}>Apskatīt</NavLink>
     </div>
   </div>
 

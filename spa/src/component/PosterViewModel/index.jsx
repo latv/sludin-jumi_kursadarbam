@@ -2,6 +2,8 @@ import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
 import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import APIClient from '../../utils/apiClient';
+import { NavLink } from 'react-router-dom';
+import { LeftCircleOutlined } from '@ant-design/icons';
 export default function PosterViewModel() {
 
 
@@ -18,9 +20,10 @@ useEffect(() => {
 
  const getPosterData = async () => {
    try{
-  const path = window.location.pathname; 
+  const path = window.location.pathname.toString();
+  console.log('path '+ path)
   let response = await APIClient.request(
-  'http://127.0.0.1:8080/api/test/get-poster'+path,
+  'api/test/get-poster'+path,
   {},
   'GET'
 );
@@ -36,9 +39,14 @@ setIsLoading(false);
     return (
         <>
         <div>
+        <NavLink to="/">
+          <LeftCircleOutlined className='backButton'/>
+          </NavLink>
               <Row align="middle" justify="center" className="h-100" >
             <Col xs={22} sm={16} md={12} lg={8}>
+           
              <div className='poster'>
+         
                   {/* <img className='img_poster' src={"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} alt="" /> */}
                   <p>{poster.poster}</p>
                   <p>Kategorija: {poster.category}</p>

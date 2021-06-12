@@ -11,6 +11,7 @@ import SignUpModal from '../SignUpModal';
 import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
 import PosterViewModel from '../PosterViewModel'
+import { NavLink } from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Route,
@@ -54,8 +55,10 @@ const { Header, Content, Footer } = Layout;
 return (
 <>
 <Layout className="layout">
+<BrowserRouter>
     <Header>
-      <img src={logo}  height='100%' alt=""/>
+      
+      <NavLink to="/"><img src={logo}  height='100%' alt=""/></NavLink>
       {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    [<Button type="primary" onClick={showModal}>
         Ielogoties
       </Button>,<Button type="primary" onClick={ () => setIsSignUpModalVisible(true) }>
@@ -63,7 +66,7 @@ return (
       </Button>]}
     </Header>
     <Content style={{ padding: '0 50px' }}>
-      <BrowserRouter>
+      
       <Switch>
     <Route exact path="/">
       <hr />
@@ -80,9 +83,10 @@ return (
 
       </Route>
       </Switch>
-      </BrowserRouter>
+      
     </Content>
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
+    </BrowserRouter>
   </Layout>
   <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} />
   <SignUpModal isModalVisible={isSignUpModalVisible}  setIsModalVisible={setIsSignUpModalVisible}  />
