@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Spin,Card, Button} from 'antd';
+import {Spin,Card, Button,Row} from 'antd';
 import APIClient from '../../utils/apiClient';
 
 import PosterViewModel from '../PosterViewModel';
@@ -37,31 +37,29 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
     return (
 
         <div className="cards">
-            
+            <Row wrap={true}>
             <Spin spinning={isPosterLoading}>
                     {poster.map((poster) =>
                     
-   
-    <div
-    className='card' 
+                    <NavLink to={"/"+poster.id}>
+    <Card className='card'
     
-    
+    hoverable
+    cover={<img src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]}  className="card__image"/>}
   
   >
-    <div className="header">
-      <img alt="example" className="card__image" src= {"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} />
-      </div>
-      <div className="card__content">
-    <h1>{poster.poster}</h1>
-    <p> {'cena '+poster.price+" EUR"} </p>
-    <NavLink to={"/"+poster.id}>Apskatīt</NavLink>
-    </div>
-  </div>
+
+    
+   <Meta title={poster.poster} description= {'cena '+poster.price+" EUR"}    />
+  
+ 
+  </Card>
+  </NavLink>
 
                     )}
             
             </Spin>
-
+            </Row>
           
         </div>
      
