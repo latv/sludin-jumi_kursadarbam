@@ -1,11 +1,13 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
+import { Layout,Modal,Button,message,Row,Col,Form,Input,Card } from 'antd';
 import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import APIClient from '../../utils/apiClient';
 import { NavLink } from 'react-router-dom';
 import { LeftCircleOutlined } from '@ant-design/icons';
 export default function PosterViewModel() {
-
+  const xsWidth = 22;
+  const mdWidth = 18;
+  const lgWidth = 16;
 
   const [poster, setPoster] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,15 +41,17 @@ setIsLoading(false);
     return (
         <>
         <div>
-        <NavLink to="/">
-          <LeftCircleOutlined className='backButton'/>
-          </NavLink>
-              <Row align="middle" justify="center" className="h-100" >
+        
+              <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
             <Col xs={22} sm={16} md={12} lg={8}>
-           
-             <div className='poster'>
+            <div>
+            <NavLink to="/">
+              <LeftCircleOutlined className='backButton'/>
+            </NavLink>
+            </div>
+             <Card loading={isLoading}  className='poster'>
          
-                  {/* <img className='img_poster' src={"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} alt="" /> */}
+                  {isLoading ? null : <img className='img_poster' src={"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} alt="" />}
                   <p>{poster.poster}</p>
                   <p>Kategorija: {poster.category}</p>
                   <p>Cena: {poster.price}</p>
@@ -56,7 +60,7 @@ setIsLoading(false);
                   poster.createdAt}</p>
 
 
-             </div>
+             </Card >
             </Col>
           </Row>
         </div>
