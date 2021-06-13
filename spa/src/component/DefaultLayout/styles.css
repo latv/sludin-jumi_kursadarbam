@@ -37,3 +37,20 @@
     color: blue;
     padding: 6px;
 }
+.profile{
+  float: right;
+}
+.avatar{
+  
+  width: 1.6em;
+  border-radius: 1.5em;
+}
+.auth{
+  /* margin: 0; */
+  /* position: absolute; */
+  margin-left: 0.5em;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  float: right;
+}

@@ -1,7 +1,8 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input } from 'antd';
+import { Layout,Modal,Button,Menu,Dropdown } from 'antd';
 import React, { useState } from 'react';
 import './styles.css';
 import logo from './logo.png';
+import avatar from './avatar.png';
 import jwt from '../../utils/jwt';
 import { PlusOutlined, LogoutOutlined,SyncOutlined } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
@@ -48,7 +49,6 @@ const DefaultLayout = () =>{
   };
 
 
-  
 
  
 const { Header, Content, Footer } = Layout; 
@@ -59,9 +59,11 @@ return (
     <Header>
       
       <NavLink to="/"><img src={logo}  height='100%' alt=""/></NavLink>
-      {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    [<Button type="primary" onClick={showModal}>
+
+
+      {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    [<Button type="default" className='auth' onClick={showModal}>
         Ielogoties
-      </Button>,<Button type="primary" onClick={ () => setIsSignUpModalVisible(true) }>
+      </Button>,<Button type="primary" className='auth' onClick={ () => setIsSignUpModalVisible(true) }>
         Piereģistrēties
       </Button>]}
     </Header>
