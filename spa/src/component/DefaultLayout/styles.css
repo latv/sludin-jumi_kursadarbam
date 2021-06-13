@@ -54,3 +54,17 @@
   transform: translateY(-50%);
   float: right;
 }
+.left{
+  margin-top: 20px;
+  margin-left: 0.6em;
+  top: 50%;
+  float: right;
+}
+.left-profile{
+  padding: 3px;
+background-color: whitesmoke;
+  margin-top: 20px;
+  margin-left: 0.6em;
+  top: 50%;
+  float: right;
+}

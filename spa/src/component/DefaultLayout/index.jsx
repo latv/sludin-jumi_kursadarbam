@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './styles.css';
 import logo from './logo.png';
 import jwt from '../../utils/jwt';
-import { PlusOutlined, LogoutOutlined,SyncOutlined } from '@ant-design/icons';
+import { PlusOutlined, LogoutOutlined,SyncOutlined ,UserOutlined} from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 import LogInModal from '../LogInModal';
@@ -60,7 +60,7 @@ return (
       <NavLink to="/"><img src={logo}  height='100%' alt=""/></NavLink>
 
 
-      {isSignedIn ? [<LogoutOutlined onClick={logOut} />, <PlusOutlined onClick={() => setIsAddPosterModalVisible(true)}/>] :    [<Button type="default" className='auth' onClick={showModal}>
+      {isSignedIn ? [ <UserOutlined className='left-profile' />,<PlusOutlined className='left' onClick={() => setIsAddPosterModalVisible(true)}/>,<  LogoutOutlined className='left' onClick={logOut} />] :    [<Button type="default" className='auth' onClick={showModal}>
         Ielogoties
       </Button>,<Button type="primary" className='auth' onClick={ () => setIsSignUpModalVisible(true) }>
         Piereģistrēties
