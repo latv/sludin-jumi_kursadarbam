@@ -11,6 +11,7 @@ verifyToken = (req, res, next) => {
       message: "No token provided!"
     });
   }
+  console.log(config.secret);
 
   jwt.verify(token, config.secret, (err, decoded) => {
     if (err) {

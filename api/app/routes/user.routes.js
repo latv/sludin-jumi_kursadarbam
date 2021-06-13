@@ -60,7 +60,7 @@ module.exports = function(app) {
 
   app.get(
     "/api/test/profile",
-    [authJwt.verifyToken],
+    
     controller.profile
   );
 

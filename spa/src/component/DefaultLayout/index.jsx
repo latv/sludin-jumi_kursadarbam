@@ -48,7 +48,22 @@ const DefaultLayout = () =>{
   };
 
 
-
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        
+      </Menu.Item>
+      <Menu.Item  >
+        
+      </Menu.Item>
+      <Menu.Item disabled>
+        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
+          3rd menu item
+        </a>
+      </Menu.Item>
+      <Menu.Item danger>a danger item</Menu.Item>
+    </Menu>
+  );
  
 const { Header, Content, Footer } = Layout; 
 return (
@@ -60,7 +75,7 @@ return (
       <NavLink to="/"><img src={logo}  height='100%' alt=""/></NavLink>
 
 
-      {isSignedIn ? [ <UserOutlined className='left-profile' />,<PlusOutlined className='left' onClick={() => setIsAddPosterModalVisible(true)}/>,<  LogoutOutlined className='left' onClick={logOut} />] :    [<Button type="default" className='auth' onClick={showModal}>
+      {isSignedIn ? [ <Dropdown overlay={menu} trigger={['click']} ><UserOutlined className='left-profile' /></Dropdown>,<PlusOutlined className='left' onClick={() => setIsAddPosterModalVisible(true)}/>,<  LogoutOutlined className='left' onClick={logOut} />] :    [<Button type="default" className='auth' onClick={showModal}>
         Ielogoties
       </Button>,<Button type="primary" className='auth' onClick={ () => setIsSignUpModalVisible(true) }>
         Piereģistrēties

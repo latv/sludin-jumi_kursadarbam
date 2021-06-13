@@ -88,8 +88,16 @@ exports.moderatorBoard = (req, res) => {
 
 
 exports.profile = (req, res) => {
-  res.status(200).send({ username: jwt.decode(token, config.secret) });
-};
+  
+  
+
+    User.findOne({ where: { id: jwt.decode(req.body["x-access-token"], config.secret).id } }).then(result => {
+    // let tokenUserName = result.username;
+    res.status(200).send({ username: result.username} )
+    
+    
+    });}
+
 
 exports.getPoster = (req, res) => {
 
