@@ -2,7 +2,6 @@ import { Layout,Modal,Button,Menu,Dropdown } from 'antd';
 import React, { useState } from 'react';
 import './styles.css';
 import logo from './logo.png';
-import avatar from './avatar.png';
 import jwt from '../../utils/jwt';
 import { PlusOutlined, LogoutOutlined,SyncOutlined } from '@ant-design/icons';
 import APIClient from '../../utils/apiClient';
