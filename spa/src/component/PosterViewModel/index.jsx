@@ -57,7 +57,8 @@ setIsLoading(false);
                   <p>Cena: {poster.price}</p>
                   <p>Talruna numurs: {poster.phone_number}</p>
                   <p>Izveidots: {
-                  poster.createdAt}</p>
+
+                  isLoading ? null : poster.createdAt.split("T")[0] + " " + poster.createdAt.split("T")[1].split(".")[0]} </p>
 
 
              </Card >

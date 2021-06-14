@@ -7,5 +7,10 @@
     height: 45px;
 }
 .poster{
-    padding: 100px;
+    /* padding: 100px; */
+    align-self: center;
 }
+@media (max-width:350px) {.img_poster {
+   
+    width: 100%;
+} } 
