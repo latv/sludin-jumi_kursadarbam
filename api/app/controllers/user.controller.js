@@ -7,12 +7,14 @@ const Poster = db.poster;
 const Op = Sequelize.Op;
 
 
-exports.allAccess = (req, res) => {
+exports.getUsername = (req, res) => {
   // console.log("tokens, ",req.body.x-access-token)
   // console.log(jwt.decode(req.body.x-access-token, config.secret))
   try {
-    let token = req.headers["x-access-token"];
+    let token = req.headers["x-access-token"]; // use for browser
+    console.log("token ,", token);
     token = jwt.decode(token, config.secret);
+    console.log("token ,", token);
     User.findOne({ where: { id: token.id } }).then(result => {
       let tokenUserName = result.username;
       console.log(result.username)

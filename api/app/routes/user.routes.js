@@ -58,10 +58,10 @@ module.exports = function(app) {
   );
   
 
-  app.get(
-    "/api/test/profile",
-    
-    controller.profile
+  app.post(
+    "/api/test/get-username",
+    [authJwt.verifyToken],
+    controller.getUsername
   );
 
   app.get(

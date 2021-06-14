@@ -1,5 +1,5 @@
 import { Layout,Modal,Button,Menu,Dropdown } from 'antd';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './styles.css';
 import logo from './logo.png';
 import jwt from '../../utils/jwt';
@@ -20,6 +20,7 @@ import {
 } from 'react-router-dom';
 
 const DefaultLayout = () =>{
+  const [username, setUsername] = useState([])
   const [poster, setPoster] = useState([]);
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update,setupdate]= useState(true);
@@ -43,6 +44,28 @@ const DefaultLayout = () =>{
     Cookies.remove('jwt_token');
     setIsSignedIn(false);
   }
+
+  const getUsername = async () => {
+    try {
+      console.log({"x-access-token":jwt.getHeader().toString()})
+      let response = await APIClient.request(
+        '/api/test/get-username',
+        {"x-access-token":jwt.getHeader().toString()},
+        'POST'
+      );
+  
+      console.log('username: ',response);
+      setUsername(response);
+    } catch (err) {
+      console.log(err)
+    }
+  
+   
+  }
+useEffect( () =>
+  {getUsername();}
+, [])
+
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -50,18 +73,16 @@ const DefaultLayout = () =>{
 
   const menu = (
     <Menu>
-      <Menu.Item>
-        
+      <Menu.Item disabled style={{color:"black"}}>
+      Lietotājvārds: {username.username}
       </Menu.Item>
       <Menu.Item  >
-        
+        Vēsture
       </Menu.Item>
-      <Menu.Item disabled>
-        <a target="_blank" rel="noopener noreferrer" href="https://www.luohanacademy.com">
-          3rd menu item
-        </a>
+      <Menu.Item >
+        profils
       </Menu.Item>
-      <Menu.Item danger>a danger item</Menu.Item>
+      <Menu.Item >Mani sludinājumi</Menu.Item>
     </Menu>
   );
  
