@@ -7,9 +7,8 @@ const Poster = db.poster;
 const Op = Sequelize.Op;
 
 
-exports.getUsername = (req, res) => {
-  // console.log("tokens, ",req.body.x-access-token)
-  // console.log(jwt.decode(req.body.x-access-token, config.secret))
+exports.getUsername = (req, res) => { // get user name
+
   try {
     let token = req.headers["x-access-token"]; // use for browser
     console.log("token ,", token);
@@ -37,14 +36,14 @@ exports.getUsername = (req, res) => {
 
 };
 
-exports.registerPoster = (req, res) => {
+exports.registerPoster = (req, res) => { // register poster route
   console.log(req.file);
   let token = req.body["x-access-token"];
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
   User.findOne({ where: { id: token.id } }).then(result => {
-    // let tokenUserName = result.username;
+    
     Poster.create({
       user_id: token.id,
       poster: req.body.poster,
@@ -58,23 +57,7 @@ exports.registerPoster = (req, res) => {
 
   });
 };
-// exports.searchWish = (req, res) => {
 
-//   // console.log();
- 
-//   let wishsearch = req.query.searchWish;
-//   console.log(wishsearch);
-
-//   Wish.findAll({ where: { wish: { [Op.substring]: wishsearch } } }
-
-//   ).then(result => {
-
-//     res.status(200).send(result);
-//   });
-
-//   // res.status(200).send("Registered wish");
-
-// };
 
 
 exports.adminBoard = (req, res) => {
@@ -101,7 +84,7 @@ exports.profile = (req, res) => {
     });}
 
 
-exports.getPoster = (req, res) => {
+exports.getPoster = (req, res) => { // get all poster
 
 
   Poster.findAll().then(result => {
@@ -112,7 +95,7 @@ exports.getPoster = (req, res) => {
   // console.log(wishes);
   // res.status(200).send(wishes);
 };
-exports.getPosterByID = (req, res) => {
+exports.getPosterByID = (req, res) => { // where you can get data from poster id in exact poster given by id
 
   
     Poster.findOne({where :  {id : req.params.id}}).then(result => {

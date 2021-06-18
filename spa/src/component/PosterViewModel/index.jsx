@@ -51,7 +51,7 @@ setIsLoading(false);
             </div>
              <Card loading={isLoading}  className='poster'>
          
-                  {isLoading ? null : <img className='img_poster' src={"http://127.0.0.1:8080/uploads/"+poster.image.split("\\")[1]} alt="" />}
+                  {isLoading ? null : <img className='img_poster' src={"http://localhost:8080/uploads/"+poster.image.split("\\")[1]} alt="" />}
                   <p>{poster.poster}</p>
                   <p>Kategorija: {poster.category}</p>
                   <p>Cena: {poster.price}</p>

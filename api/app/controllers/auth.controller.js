@@ -7,7 +7,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 
-exports.signup = (req, res) => {
+exports.signup = (req, res) => { // user registration route
   try{
   // Save User to Database
   User.create({
@@ -27,7 +27,7 @@ exports.signup = (req, res) => {
   res.status(errorCode).send({ message: ex.message });
 };
 };
-exports.signin = async (req, res) => {
+exports.signin = async (req, res) => { // login route,where you can send token
   try {
     const user = await authenticateRequestAsync(req);
     res.status(200).send({
@@ -47,7 +47,7 @@ exports.signin = async (req, res) => {
   };
 };
 
-async function authenticateRequestAsync(req) {
+async function authenticateRequestAsync(req) { know 
   var user = await getUserByNameAsync(req.body.username);
   if(!user)
     throw {
@@ -79,11 +79,11 @@ function authenticateUser(user, password) {
 
 function createToken(user) {
   return jwt.sign({ id: user.id }, config.secret, {
-    expiresIn: 86400 // 24 hours
+    expiresIn: 86400 // 24 hours, here you can modify how long you want to be token expiration in s
   });
 };
 
-async function getRolesAsync(user) {
+async function getRolesAsync(user) { // here you know what is signed in admin or user 
   var roles = await user.getRoles();
   return roles.map(role => "ROLE_" + role.name.toUpperCase())
 }
