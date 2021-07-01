@@ -54,7 +54,7 @@ setIsLoading(false);
                   {isLoading ? null : <img className='img_poster' src={"http://localhost:8080/uploads/"+poster.image.split("\\")[1]} alt="" />}
                   <p>{poster.poster}</p>
                   <p>Kategorija: {poster.category}</p>
-                  <p>Cena: {poster.price}</p>
+                  <p>Cena: {poster.price} &euro;</p>
                   <p>Talruna numurs: {poster.phone_number}</p>
                   <p>Izveidots: {
 
