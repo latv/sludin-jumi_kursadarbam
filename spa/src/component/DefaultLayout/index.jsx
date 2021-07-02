@@ -116,7 +116,7 @@ return (
       </div>
       </Route>
       <Route path='/'  >
-          <PosterViewModel userCredential={userCredential} />
+          <PosterViewModel userCredential={userCredential} isSignedIn={isSignedIn} />
 
       </Route>
       </Switch>

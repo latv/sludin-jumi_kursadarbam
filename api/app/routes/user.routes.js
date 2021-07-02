@@ -64,6 +64,12 @@ module.exports = function(app) {
     controller.getUserCredential
   );
 
+  app.post(
+    "/api/test/register-comment",
+     [],
+    controller.registerComment
+  );
+
   app.get(
     "/api/test/mod",
     [authJwt.verifyToken],

@@ -27,13 +27,14 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 
 db.poster = require("../models/poster.model")(sequelize, Sequelize);
+db.comments = require("../models/coments.model")(sequelize, Sequelize);
 
 
 
 
 
 db.user.hasOne(db.poster);
-
+db.user.hasOne(db.comments);
 
 
 module.exports = db;

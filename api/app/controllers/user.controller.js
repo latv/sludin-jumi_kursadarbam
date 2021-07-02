@@ -4,6 +4,7 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Poster = db.poster;
+const Comments = db.comments;
 const Op = Sequelize.Op;
 
 
@@ -35,6 +36,26 @@ exports.getUserCredential = (req, res) => { // get user name
   }
 
 };
+
+
+exports.registerComment = (req, res) => { // register comment route
+  let token = req.body["x-access-token"];
+  console.log("token ,", token);
+  token = jwt.decode(token, config.secret);
+  console.log("token ,", token);
+
+    
+    Comments.create({
+      user_id: token.id,
+      comment: req.body.comment,
+      poster_id:req.body.poster_id
+    });
+    res.status(200).send("Registered coment");
+
+
+};
+
+
 
 exports.registerPoster = (req, res) => { // register poster route
   console.log(req.file);
