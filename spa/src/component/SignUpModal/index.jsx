@@ -16,7 +16,7 @@ export default function LogInModal({isModalVisible,setIsModalVisible}) {
           setLoading(true);
           let response = await APIClient.request(
             '/api/auth/signup',
-            {username: values.username, password: values.password,email: values.email, phone_number: values.phone_number},
+            {name: values.name,surname: values.surname, password: values.password,email: values.email, phone_number: values.phone_number},
             'POST'
           );
           
@@ -47,15 +47,26 @@ export default function LogInModal({isModalVisible,setIsModalVisible}) {
                   onFinish={onFinish}
                 >
                   <Form.Item
-                    name="username"
+                    name="name"
                     rules={[
                       {
                         required: true,
-                        message: 'Lūdzu ievadi lietotājvārdu!',
+                        message: 'Lūdzu ievadi savu vārdu!',
                       },
                     ]}
                   >
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Lietotājvārds" />
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="vārds" />
+                  </Form.Item>
+                  <Form.Item
+                    name="surname"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Lūdzu ievadi savu uzvārdu!',
+                      },
+                    ]}
+                  >
+                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="uzvārds" />
                   </Form.Item>
                   <Form.Item
                     name="password"

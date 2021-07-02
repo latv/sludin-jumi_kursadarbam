@@ -74,7 +74,7 @@ useEffect( () =>
   const menu = (
     <Menu>
       <Menu.Item disabled style={{color:"black"}}>
-      Lietotājvārds: {username.username}
+      Lietotājs: {username.username}
       </Menu.Item>
       <Menu.Item  >
         Vēsture

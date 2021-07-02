@@ -16,7 +16,7 @@ export default function LogInModal({isModalVisible,setIsModalVisible,setIsSigned
           setLoading(true);
           let response = await APIClient.request(
             '/api/auth/signin',
-            {username: values.username, password: values.password},
+            {email: values.email, password: values.password},
             'POST'
           );
           jwt.saveToken(response.accessToken, response.expiresIn);
@@ -48,11 +48,11 @@ export default function LogInModal({isModalVisible,setIsModalVisible,setIsSigned
                   onFinish={onFinish}
                 >
                   <Form.Item
-                    name="username"
+                    name="email"
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your Username!',
+                        message: 'Lūdzu ievadi e-pastu!',
                       },
                     ]}
                   >
@@ -63,7 +63,7 @@ export default function LogInModal({isModalVisible,setIsModalVisible,setIsSigned
                     rules={[
                       {
                         required: true,
-                        message: 'Please input your Password!',
+                        message: 'Lūdzu ievadi paroli!',
                       },
                     ]}
                   >

@@ -15,7 +15,7 @@ exports.getUsername = (req, res) => { // get user name
     token = jwt.decode(token, config.secret);
     console.log("token ,", token);
     User.findOne({ where: { id: token.id } }).then(result => {
-      let tokenUserName = result.username;
+      let tokenUserName = result.name +" "+ result.surname;
       console.log(result.username)
       // token= JSON.parse(token);
 
@@ -78,7 +78,7 @@ exports.profile = (req, res) => {
 
     User.findOne({ where: { id: jwt.decode(req.body["x-access-token"], config.secret).id } }).then(result => {
     // let tokenUserName = result.username;
-    res.status(200).send({ username: result.username} )
+    res.status(200).send({ username: result.name + " " + result.surname} )
     
     
     });}

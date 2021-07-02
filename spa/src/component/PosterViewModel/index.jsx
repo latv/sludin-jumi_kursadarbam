@@ -1,4 +1,4 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input,Card } from 'antd';
+import { Layout,Modal,Button,message,Row,Col,Form,Input,Card,Comment } from 'antd';
 import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import APIClient from '../../utils/apiClient';
@@ -62,6 +62,13 @@ setIsLoading(false);
 
 
              </Card >
+             <>
+        {/* {comments.length > 0 && <CommentList comments={comments} />} */}
+        <Comment
+        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+        alt=""
+        />
+      </>
             </Col>
           </Row>
         </div>

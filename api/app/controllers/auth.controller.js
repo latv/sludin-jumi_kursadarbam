@@ -11,7 +11,8 @@ exports.signup = (req, res) => { // user registration route
   try{
   // Save User to Database
   User.create({
-    username: req.body.username,
+    name: req.body.name,
+    surname: req.body.surname,
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
     phone_number: req.body.phone_number
@@ -32,7 +33,6 @@ exports.signin = async (req, res) => { // login route,where you can send token
     const user = await authenticateRequestAsync(req);
     res.status(200).send({
       id: user.id,
-      username: user.username,
       email: user.email,
       accessToken: createToken(user)
     });
@@ -47,8 +47,8 @@ exports.signin = async (req, res) => { // login route,where you can send token
   };
 };
 
-async function authenticateRequestAsync(req) { know 
-  var user = await getUserByNameAsync(req.body.username);
+async function authenticateRequestAsync(req) { 
+  var user = await getUserByNameAsync(req.body.email);
   if(!user)
     throw {
       type: 'NotFoundException',
@@ -62,10 +62,10 @@ async function authenticateRequestAsync(req) { know
   return user;
 }
 
-async function getUserByNameAsync(name) {
+async function getUserByNameAsync(email) {
   return await User.findOne({
     where: {
-      username: name
+      email: email
     }
   });
 }
