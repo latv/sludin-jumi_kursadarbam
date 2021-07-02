@@ -7,7 +7,7 @@ const Poster = db.poster;
 const Op = Sequelize.Op;
 
 
-exports.getUsername = (req, res) => { // get user name
+exports.getUserCredential = (req, res) => { // get user name
 
   try {
     let token = req.headers["x-access-token"]; // use for browser
@@ -15,7 +15,7 @@ exports.getUsername = (req, res) => { // get user name
     token = jwt.decode(token, config.secret);
     console.log("token ,", token);
     User.findOne({ where: { id: token.id } }).then(result => {
-      let tokenUserName = result.name +" "+ result.surname;
+      let tokenUserName = result.name + " " + result.surname;
       console.log(result.username)
       // token= JSON.parse(token);
 
@@ -23,7 +23,7 @@ exports.getUsername = (req, res) => { // get user name
       console.log("Token , ", token.id + '*');
 
       // token2  = JSON.stringify( token['id'] );
-      res.status(200).send({ username: tokenUserName }
+      res.status(200).send({ username: tokenUserName, token : token.id }
         // username: jwt.decode(req.body.x-access-token, config.secret)
       );
     });

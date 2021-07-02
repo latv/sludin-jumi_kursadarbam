@@ -20,7 +20,7 @@ import {
 } from 'react-router-dom';
 
 const DefaultLayout = () =>{
-  const [username, setUsername] = useState([])
+  const [userCredential, setUserCredential] = useState([])
   const [poster, setPoster] = useState([]);
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update,setupdate]= useState(true);
@@ -49,13 +49,13 @@ const DefaultLayout = () =>{
     try {
       console.log({"x-access-token":jwt.getHeader().toString()})
       let response = await APIClient.request(
-        '/api/test/get-username',
+        '/api/test/get-user-credential',
         {"x-access-token":jwt.getHeader().toString()},
         'POST'
       );
   
       console.log('username: ',response);
-      setUsername(response);
+      setUserCredential(response);
     } catch (err) {
       console.log(err)
     }
@@ -74,7 +74,7 @@ useEffect( () =>
   const menu = (
     <Menu>
       <Menu.Item disabled style={{color:"black"}}>
-      Lietotājs: {username.username}
+      Lietotājs: {userCredential.username}
       </Menu.Item>
       <Menu.Item  >
         Vēsture
@@ -115,8 +115,8 @@ return (
         
       </div>
       </Route>
-      <Route path='/' component={PosterViewModel}>
-
+      <Route path='/'  >
+          <PosterViewModel userCredential={userCredential} />
 
       </Route>
       </Switch>

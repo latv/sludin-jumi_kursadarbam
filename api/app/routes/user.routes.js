@@ -59,9 +59,9 @@ module.exports = function(app) {
   
 
   app.post(
-    "/api/test/get-username",
+    "/api/test/get-user-credential",
     [authJwt.verifyToken],
-    controller.getUsername
+    controller.getUserCredential
   );
 
   app.get(

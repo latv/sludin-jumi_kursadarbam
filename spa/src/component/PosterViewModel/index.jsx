@@ -1,16 +1,29 @@
-import { Layout,Modal,Button,message,Row,Col,Form,Input,Card,Comment } from 'antd';
+import { Layout,Modal,Button,message,Row,Col,Form,Input,Card,Comment ,Editor, Avatar} from 'antd';
 import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import APIClient from '../../utils/apiClient';
 import { NavLink } from 'react-router-dom';
 import { LeftCircleOutlined } from '@ant-design/icons';
-export default function PosterViewModel() {
+const { TextArea } = Input;
+export default function PosterViewModel({userCredential}) {
   const xsWidth = 22;
   const mdWidth = 18;
   const lgWidth = 16;
 
   const [poster, setPoster] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const Editor = ({  }) => (
+    <>
+      <Form.Item>
+        <TextArea rows={4}  />
+      </Form.Item>
+      <Form.Item>
+        <Button htmlType="submit"  type="primary">
+          Add Comment
+        </Button>
+      </Form.Item>
+    </>
+  );
    
 useEffect(() => {
 
@@ -65,8 +78,16 @@ setIsLoading(false);
              <>
         {/* {comments.length > 0 && <CommentList comments={comments} />} */}
         <Comment
-        src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-        alt=""
+        avatar={
+          <Avatar
+           src="https://jatkhali.ir/images/profile.jpg"
+           alt= {isLoading ? null :  userCredential.username}
+          />}
+        content={
+          <Editor
+           
+          />
+        }
         />
       </>
             </Col>
