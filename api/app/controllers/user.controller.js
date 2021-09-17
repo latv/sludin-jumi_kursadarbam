@@ -4,7 +4,7 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
 const Poster = db.poster;
-const Comments = db.comments;
+const Viewer = db.viewer;
 const Op = Sequelize.Op;
 
 
@@ -39,16 +39,16 @@ exports.getUserCredential = (req, res) => { // get user name
 
 
 exports.registerComment = (req, res) => { // register comment route
-  let token = req.body["x-access-token"];
+  let token = req.headers["x-access-token"]; // use for browser
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
-
+  console.log( "body ", req.body);
     
     Comments.create({
       user_id: token.id,
-      comment: req.body.comment,
-      poster_id:req.body.poster_id
+      post: req.body["comment_post"],
+      poster_id: req.body["poster_id"]
     });
     res.status(200).send("Registered coment");
 
@@ -59,6 +59,7 @@ exports.registerComment = (req, res) => { // register comment route
 
 exports.registerPoster = (req, res) => { // register poster route
   console.log(req.file);
+  
   let token = req.body["x-access-token"];
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
@@ -112,19 +113,55 @@ exports.getPoster = (req, res) => { // get all poster
     res.status(200).send(result);
 
   });
+  
+  // console.log(wishes);
+  // res.status(200).send(wishes);
+};
+
+
+exports.getMyPoster = (req, res) => { // get all poster
+
+  let token = req.headers["x-access-token"]; // use for browser
+  console.log("token ,", token);
+  token = jwt.decode(token, config.secret);
+  console.log("token ,", token);
+  Poster.findAll({ where: { user_id: token.id } }).then(result => {
+    res.status(200).send(result);
+
+  });
 
   // console.log(wishes);
   // res.status(200).send(wishes);
 };
-exports.getPosterByID = (req, res) => { // where you can get data from poster id in exact poster given by id
 
-  
-    Poster.findOne({where :  {id : req.params.id}}).then(result => {
+
+exports.getPosterByID = (req, res) => { // where you can get data from poster id in exact poster given by id
+  try{
+
+   
+    const ID_POSTER = req.params.id;
+    Poster.findOne({where :  {id : ID_POSTER}}).then(result => {
       res.status(200).send(result);
   
     });
+    let token = req.headers["x-access-token"]; // use for browser
+    
+    if (!token){
+      Viewer.create({	viewer_id: null ,post_id : ID_POSTER});
+    } else{
+      Viewer.create({	viewer_id: req.userId ,post_id : ID_POSTER});
+    }
+   
+
+  // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
+
+  
   
 
+  }
+  catch (err) {
+    console.log(err);
+  }
   // console.log(wishes);
   // res.status(200).send(wishes);
 };

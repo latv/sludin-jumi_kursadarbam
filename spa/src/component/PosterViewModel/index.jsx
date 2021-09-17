@@ -7,18 +7,7 @@ import jwt from '../../utils/jwt';
 import { LeftCircleOutlined } from '@ant-design/icons';
 // import { registerComment } from '../../../../api/app/controllers/user.controller';
 const { TextArea } = Input;
-const Editor = ({setComment,registerComment}) => (
-  <>
-    <Form.Item>
-      <TextArea rows={4} onChange={(e) => setComment(e.target.value)} />
-    </Form.Item>
-    <Form.Item>
-      <Button  onClick={registerComment} type="primary">
-        Pievienot komentāru
-      </Button>
-    </Form.Item>
-  </>
-);
+
 export default function PosterViewModel({userCredential,isSignedIn}) {
   const xsWidth = 22;
   const mdWidth = 18;
@@ -35,9 +24,8 @@ export default function PosterViewModel({userCredential,isSignedIn}) {
    let response = await APIClient.request(
    '/api/test/register-comment',
    {
-     "x-access-token": jwt.getHeader().toString(),
     poster_id: path,
-    comment: comment},
+    comment_post: comment},
    'POST'
   );
   message.info(response);
@@ -105,19 +93,7 @@ setIsLoading(false);
              <>
         {/* {comments.length > 0 && <CommentList comments={comments} />} */}
 
-        {isSignedIn ?       <Comment
-        avatar={
-          <Avatar
-           src="https://jatkhali.ir/images/profile.jpg"
-           alt= {isLoading ? null :  userCredential.username}
-          />}
-        content={
-          <Editor
-           setComment={setComment}
-           registerComment={registerComment}
-          />
-        }
-        /> : <p>Ielogojies,lai atstātu komentāru</p>}
+
  
       </>
             </Col>

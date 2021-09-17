@@ -51,9 +51,14 @@ module.exports = function(app) {
     "/api/test/get-poster",
     controller.getPoster
   );
+  app.get(
+    "/api/test/get-my-poster",
+    controller.getMyPoster
+  );
 
   app.get(
     "/api/test/get-poster/:id",
+    [authJwt.verifyUser],
     controller.getPosterByID
   );
   
@@ -66,7 +71,7 @@ module.exports = function(app) {
 
   app.post(
     "/api/test/register-comment",
-     [],
+     
     controller.registerComment
   );
 

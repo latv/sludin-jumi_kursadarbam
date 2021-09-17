@@ -11,6 +11,7 @@ import SignUpModal from '../SignUpModal';
 import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
 import PosterViewModel from '../PosterViewModel'
+import MyPosters from "../MyPosters"
 import { NavLink } from 'react-router-dom';
 import {
   BrowserRouter as Router,
@@ -82,7 +83,7 @@ useEffect( () =>
       <Menu.Item >
         profils
       </Menu.Item>
-      <Menu.Item >Mani sludinājumi</Menu.Item>
+      <Menu.Item ><NavLink to="/myPosters">Mani sludinājumi</NavLink></Menu.Item>
     </Menu>
   );
  
@@ -105,6 +106,10 @@ return (
     <Content style={{ padding: '0 50px' }}>
       
       <Switch>
+      <Route exact path="/myPosters">
+          <MyPosters poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate}/>
+
+      </Route>
     <Route exact path="/">
       <hr />
     <SyncOutlined  onClick={() => setupdate(!update)} spin={isPosterLoading}/>
@@ -119,6 +124,8 @@ return (
           <PosterViewModel userCredential={userCredential} isSignedIn={isSignedIn} />
 
       </Route>
+
+
       </Switch>
       
     </Content>
