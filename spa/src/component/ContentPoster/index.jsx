@@ -45,7 +45,7 @@ const Cards = ({poster,setPoster,  isSetPosterLoading,isPosterLoading,  isAddPos
     <Card className='card'
     
     hoverable
-    cover={<img src= {"http://localhost:8080/uploads/"+poster.image.split("\\")[1]}  className="card__image"/>}
+    cover={<img src= {poster.image === undefined ? "http://localhost:8080/uploads/no-image.jpg" :"http://localhost:8080/uploads/"+poster.image.split("\\")[1]}  className="card__image"/>}
   
   >
 

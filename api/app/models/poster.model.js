@@ -8,10 +8,7 @@ module.exports = (sequelize, Sequelize) => {
 
 
         },
-        user_id: {
-            type: Sequelize.STRING,
-        
-        },
+
         poster: {
             type: Sequelize.STRING
         },
@@ -32,6 +29,10 @@ module.exports = (sequelize, Sequelize) => {
         },
         category:{
             type: Sequelize.STRING,
+        }
+        ,
+        viewed:{
+            type: Sequelize.INTEGER,
         }
     });
 
