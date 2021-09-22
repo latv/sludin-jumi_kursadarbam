@@ -1,6 +1,8 @@
 var jwt = require("jsonwebtoken");
 const Sequelize = require("sequelize");
+const { QueryTypes } = require('sequelize');
 const config = require("../config/auth.config");
+const { viewer, poster } = require("../models");
 const db = require("../models");
 const User = db.user;
 const Poster = db.poster;
@@ -120,6 +122,21 @@ exports.getMyPoster = (req, res) => {
   // res.status(200).send(wishes);
 };
 
+
+exports.getMyHistory = (req, res) => {
+  // get all poster
+  let token = req.headers["x-access-token"]; // use for browser
+  console.log("token ,", token);
+  token = jwt.decode(token, config.secret);
+  console.log("token ,", token);
+  db.sequelize.query('SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser', {
+    replacements: {idUser: req.userId},
+    type: db.sequelize.QueryTypes.SELECT
+
+  }).then( (historyData) => res.status(200).send(historyData));
+  
+};
+
 exports.getPosterByID = (req, res) => {
   // where you can get data from poster id in exact poster given by id
   try {
@@ -128,28 +145,26 @@ exports.getPosterByID = (req, res) => {
       res.status(200).send(result);
     });
     let token = req.headers["x-access-token"]; // use for browser
-
+    console.log("id_poster", ID_POSTER);
     if (!token) {
-      Viewer.create({ viewer_id: null, post_id: ID_POSTER });
+      Viewer.create({ posterId: ID_POSTER , userId: null });
     } else {
-      Viewer.create({ viewer_id: req.userId, post_id: ID_POSTER });
+      Viewer.create({ posterId: ID_POSTER , userId: req.userId});
     }
 
     // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
 
     const countView =  (id) => Viewer.count({
       where: {
-        post_id: id,
+        userId: id,
       },
     });
 
-    countView(ID_POSTER).then((e) => {
+    countView(req.userId).then((e) => {
       Poster.update({ viewed: e },
       { where: { id: ID_POSTER }}).then((e) => console.log("sucess"));
     }) ;
   } catch (err) {
     console.log(err);
   }
-  // console.log(wishes);
-  // res.status(200).send(wishes);
 };

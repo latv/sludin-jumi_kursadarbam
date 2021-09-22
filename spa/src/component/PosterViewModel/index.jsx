@@ -87,7 +87,7 @@ setIsLoading(false);
                   <p>Izveidots: {
 
                   isLoading ? null : poster.createdAt.split("T")[0] + " " + poster.createdAt.split("T")[1].split(".")[0]} </p>
-
+                <p>Skatīts: {poster.viewed}</p>  
 
              </Card >
              <>

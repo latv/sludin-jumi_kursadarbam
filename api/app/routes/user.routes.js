@@ -57,6 +57,13 @@ module.exports = function(app) {
   );
 
   app.get(
+    "/api/test/get-my-history",
+    [authJwt.verifyUser],
+    controller.getMyHistory
+  );
+
+
+  app.get(
     "/api/test/get-poster/:id",
     [authJwt.verifyUser],
     controller.getPosterByID

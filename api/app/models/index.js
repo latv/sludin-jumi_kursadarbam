@@ -34,6 +34,9 @@ db.viewer = require("../models/viewer.model")(sequelize, Sequelize);
 
 
 db.user.hasOne(db.poster);
+db.poster.hasMany(db.viewer);
+// db.viewer.hasMany(db.poster);
+db.user.hasMany(db.viewer);
 
 
 

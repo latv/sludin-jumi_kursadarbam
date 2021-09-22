@@ -12,6 +12,7 @@ import AddPosterModal from '../AddPosterModal';
 import ContentPoster from '../ContentPoster'
 import PosterViewModel from '../PosterViewModel'
 import MyPosters from "../MyPosters"
+import History from "../HistoryModels"
 import { NavLink } from 'react-router-dom';
 import {
   BrowserRouter as Router,
@@ -78,7 +79,7 @@ useEffect( () =>
       Lietotājs: {userCredential.username}
       </Menu.Item>
       <Menu.Item  >
-        Vēsture
+      <NavLink to="/myHistory">Vēsture</NavLink>
       </Menu.Item>
       <Menu.Item >
         profils
@@ -110,6 +111,11 @@ return (
           <MyPosters poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate}/>
 
       </Route>
+      <Route exact path="/myHistory">
+          <History   isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate}/>
+
+      </Route>
+
     <Route exact path="/">
       <hr />
     <SyncOutlined  onClick={() => setupdate(!update)} spin={isPosterLoading}/>
