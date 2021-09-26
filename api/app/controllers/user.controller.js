@@ -114,7 +114,7 @@ exports.getMyPoster = (req, res) => {
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
-  Poster.findAll({ where: { user_id: token.id } }).then((result) => {
+  Poster.findAll({ where: { userId: token.id } }).then((result) => {
     res.status(200).send(result);
   });
 
@@ -133,7 +133,17 @@ exports.getMyHistory = (req, res) => {
     replacements: {idUser: req.userId},
     type: db.sequelize.QueryTypes.SELECT
 
-  }).then( (historyData) => res.status(200).send(historyData));
+  }).then( (historyData) => {
+    // let data=[];
+    // let i=0;
+    // historyData.forEach(element => {
+
+    //   if(element!=undefined){
+    //   data.push(element.value());
+    //   i++}
+    // });
+
+    res.status(200).send(JSON.stringify(historyData))});
   
 };
 
