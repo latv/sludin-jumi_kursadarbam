@@ -43,7 +43,7 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
   return (
     <>
       {/* <Table columns={columns} dataSource={posterData.map( (e) => e)} /> */}
-
+      <Spin spinning={!isSetPosterLoading}>
       <table>
         <tr>
           <th>nosaukums</th>
@@ -61,7 +61,7 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
                 <td>Francisco Chang</td>
                 <td>Mexico</td>
               </tr> */}
-
+        
         {posterData.map((e) => (
           <tr>
             <td>{e.poster}</td>
@@ -86,7 +86,9 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
             </td>
           </tr>
         ))}
+     
       </table>
+      </Spin>
     </>
   );
 };
