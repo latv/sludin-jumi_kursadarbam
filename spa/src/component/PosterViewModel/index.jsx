@@ -2,7 +2,7 @@ import { Layout,Modal,Button,message,Row,Col,Form,Input,Card,Comment , Avatar} f
 import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import APIClient from '../../utils/apiClient';
-import { NavLink } from 'react-router-dom';
+import { NavLink,useHistory } from 'react-router-dom';
 import jwt from '../../utils/jwt';
 import { LeftCircleOutlined } from '@ant-design/icons';
 // import { registerComment } from '../../../../api/app/controllers/user.controller';
@@ -16,7 +16,11 @@ export default function PosterViewModel({userCredential,isSignedIn}) {
   const [poster, setPoster] = useState([]);
   const [comment, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const history = useHistory()
 
+  const goBack = () => {
+    history.goBack()
+  }
   const registerComment = async () => {
     try{
    const path = window.location.pathname.toString()[1];
@@ -73,9 +77,9 @@ setIsLoading(false);
               <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
             <Col xs={22} sm={16} md={12} lg={8}>
             <div>
-            <NavLink to="/">
-              <LeftCircleOutlined className='backButton'/>
-            </NavLink>
+            
+              <LeftCircleOutlined onClick={goBack} className='backButton'/>
+            
             </div>
              <Card loading={isLoading}  className='poster'>
          

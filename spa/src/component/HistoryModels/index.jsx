@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Spin, Tag } from "antd";
+import { Spin, Tag, Button } from "antd";
 import APIClient from "../../utils/apiClient";
 
 import PosterViewModel from "../PosterViewModel";
@@ -46,7 +46,6 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
 
       <table>
         <tr>
-
           <th>nosaukums</th>
           <th>cena</th>
           <th>attēls</th>
@@ -65,7 +64,6 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
 
         {posterData.map((e) => (
           <tr>
-
             <td>{e.poster}</td>
             <td>{e.price}</td>
             <td>
@@ -80,7 +78,11 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
               )}
             </td>
             <td>
-              
+              {
+                <NavLink to={"/" + e.id}>
+                  <Button>Skatīt</Button>
+                </NavLink>
+              }
             </td>
           </tr>
         ))}
