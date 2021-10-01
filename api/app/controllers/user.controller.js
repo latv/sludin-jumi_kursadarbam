@@ -129,7 +129,7 @@ exports.getMyHistory = (req, res) => {
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
-  db.sequelize.query('SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser', {
+  db.sequelize.query('SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC', {
     replacements: {idUser: req.userId},
     type: db.sequelize.QueryTypes.SELECT
 
