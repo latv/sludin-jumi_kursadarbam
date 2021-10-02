@@ -13,7 +13,7 @@ import ContentPoster from '../ContentPoster'
 import PosterViewModel from '../PosterViewModel'
 import MyPosters from "../MyPosters"
 import History from "../HistoryModels"
-import { NavLink } from 'react-router-dom';
+import { NavLink ,Redirect} from 'react-router-dom';
 import {
   BrowserRouter as Router,
   Route,
@@ -108,10 +108,12 @@ return (
       
       <Switch>
       <Route exact path="/myPosters">
+          {isSignedIn? null : <Redirect to="/" /> }
           <MyPosters poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate}/>
 
       </Route>
       <Route exact path="/myHistory">
+      {isSignedIn? null : <Redirect to="/" /> }
           <History   isPosterLoading={isPosterLoading} isSetPosterLoading={isSetPosterLoading} update={update} setupdate={setupdate}/>
 
       </Route>
