@@ -30,6 +30,7 @@ const DefaultLayout = () =>{
   const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [isSignedIn,setIsSignedIn]= useState(jwt.isAuthorized());
   const [isAddPosterModalVisible,setIsAddPosterModalVisible] = useState(false);
+  const [isEditPosterModalVisible , setIsEditPosterModalVisible] = useState(false)
   const logOut = async () => {
     try {
       let response = await APIClient.request(
@@ -129,7 +130,7 @@ return (
       </div>
       </Route>
       <Route path='/'  >
-          <PosterViewModel userCredential={userCredential} isSignedIn={isSignedIn} />
+          <PosterViewModel userCredential={userCredential} isSignedIn={isSignedIn} update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} userCredential={userCredential}/>
 
       </Route>
 

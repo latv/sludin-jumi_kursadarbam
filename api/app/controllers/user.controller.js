@@ -76,6 +76,30 @@ exports.registerPoster = (req, res) => {
   
 };
 
+exports.editPoster = (req, res) => {
+  // register poster route
+  console.log(req.file);
+
+  let token = req.body["x-access-token"];
+  console.log("token ,", token);
+  token = jwt.decode(token, config.secret);
+  console.log("token ,", token);
+  User.findOne({ where: { id: token.id } }).then((result) => {
+    Poster.update({
+      user_id: token.id,
+      poster: req.body.poster,
+      price: req.body.price,
+      image: req.file.path,
+      phone_number: req.body.phone_number,
+      userId: token.id,
+      category: req.body.category,
+      
+    },{where:{id: req.posterId}});
+    res.status(200).send("Registered poster");
+  });
+  
+};
+
 exports.adminBoard = (req, res) => {
   res.status(200).send("Admin Content.");
 };

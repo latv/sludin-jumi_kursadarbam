@@ -41,6 +41,11 @@ module.exports = function(app) {
     upload.single('image'),
     controller.registerPoster
   );
+  app.post(
+    "/api/test/edit-poster",
+    upload.single('image'),
+    controller.editPoster
+  );
   // app.get(
   //   "/api/test/search",
 
@@ -76,11 +81,7 @@ module.exports = function(app) {
     controller.getUserCredential
   );
 
-  app.post(
-    "/api/test/register-comment",
-     
-    controller.registerComment
-  );
+
 
   app.get(
     "/api/test/mod",

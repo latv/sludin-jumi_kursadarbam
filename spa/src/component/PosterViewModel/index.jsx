@@ -5,10 +5,10 @@ import APIClient from '../../utils/apiClient';
 import { NavLink,useHistory } from 'react-router-dom';
 import jwt from '../../utils/jwt';
 import { LeftCircleOutlined } from '@ant-design/icons';
-// import { registerComment } from '../../../../api/app/controllers/user.controller';
+import EditPosterModal from "../EditPosterModal";
 const { TextArea } = Input;
 
-export default function PosterViewModel({userCredential,isSignedIn}) {
+export default function PosterViewModel({userCredential,isSignedIn, update,setupdate,isEditPosterModalVisible , setIsEditPosterModalVisible}) {
   const xsWidth = 22;
   const mdWidth = 18;
   const lgWidth = 16;
@@ -20,25 +20,6 @@ export default function PosterViewModel({userCredential,isSignedIn}) {
 
   const goBack = () => {
     history.goBack()
-  }
-  const registerComment = async () => {
-    try{
-   const path = window.location.pathname.toString()[1];
-   console.log('path '+ path)
-   let response = await APIClient.request(
-   '/api/test/register-comment',
-   {
-    poster_id: path,
-    comment_post: comment},
-   'POST'
-  );
-  message.info(response);
-  
-  setIsLoading(false);
-   }catch (err) {
-     console.log(err)
-   }
-  
   }
 
    
@@ -73,8 +54,8 @@ setIsLoading(false);
     return (
         <>
         <div>
-        
-              <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
+          <EditPosterModal update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} poster={poster}/>
+          <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
             <Col xs={22} sm={16} md={12} lg={8}>
             <div>
             
@@ -92,7 +73,18 @@ setIsLoading(false);
 
                   isLoading ? null : poster.createdAt.split("T")[0] + " " + poster.createdAt.split("T")[1].split(".")[0]} </p>
                 <p>Skatīts: {poster.viewed}</p>  
+                    { isSignedIn && userCredential.token===poster.userId ?
+                      
+                      <div><Button onClick={() => setIsEditPosterModalVisible(true)}
+                    
+                    >Rediģēt</Button>
 
+                    <Button
+                    
+                    >Dzēst</Button>
+                    </div>
+                    
+                    : null}
              </Card >
              <>
         {/* {comments.length > 0 && <CommentList comments={comments} />} */}
