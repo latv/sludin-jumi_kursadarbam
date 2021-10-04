@@ -1,5 +1,5 @@
 import { Layout,Modal,Button,message,Row,Col,Form,Input,AutoComplete } from 'antd';
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import './styles.css';
 import FormatValidator from '../../utils/validator.js'
 import {UploadOutlined, LockOutlined } from '@ant-design/icons';
@@ -14,18 +14,23 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
 
   
     const [loading, setLoading] = useState(false);
-    const [addPriceAmount, setAddPriceAmount] = useState("");
+    const [addPriceAmount, setAddPriceAmount] = useState(poster.price);
     const [inputError, setInputError] = useState(null);
     const [addPicture, setAddPicture]= useState();
     const [value, setValue] = useState('');
     const [options, setOptions] = useState([]);
-    const mockVal = (str, repeat = 1) => ({
-      value: str.repeat(repeat),
+
+    const [getCategories,setCategories]= useState([]);
+
+
+
+    const mockVal = (str) => ({
+      value:str,
     });
   
     const onSearch = (searchText) => {
       setOptions(
-        !searchText ? [] : [],
+        !searchText ? [] : getCategories.map( el =>   mockVal(el.value)),
       );
     };
   
@@ -33,6 +38,30 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
       console.log('onSelect', data);
     };
   
+    const onChange = (data) => {
+      setValue(data);
+    };
+    const getCategoriesData = async () => {
+
+      let response = await APIClient.request(
+        '/api/test/get-all-categories',
+        {},
+        'GET'
+      );
+  
+      
+  
+      setCategories(response);
+      console.log('poster data :',getCategories.map( el => el.value));
+    }
+
+useEffect(() => {
+  
+ 
+    getCategoriesData()
+  
+}, [])
+
 
 
     const onFinish = async (values) => {
@@ -73,12 +102,12 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
         <Modal title="Rediģēt sludinājumu" visible={isEditPosterModalVisible} footer={null}  onCancel={() => setIsEditPosterModalVisible(false)}>
               <Row align="middle" justify="center" className="h-100" >
             <Col xs={22} sm={16} md={12} lg={8}>
-              <div className="login-card">
+              <div className="edit-card">
          
                 <Form
                   enctype="multipart/form-data"
-                  name="normal_login"
-                  className="login-form"
+                  name="normal_edit"
+                  className="edit-form"
                   initialValues={{
                     remember: true,
                   }}
@@ -91,7 +120,7 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
                       setAddPicture(e.target.files[0])}} />
                     <Form.Item
                     name="posterData"
-                   
+                    initialValue={poster.poster}
                     rules={[
                       {
                         required: true,
@@ -102,15 +131,17 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
                     <Input
                       // prefix={<LockOutlined className="site-form-item-icon" />}
                       type="text"
-                      value={ poster.poster}
+                      
                       placeholder="Ievadi saturu"
                     />
                   </Form.Item>
-                  <Form.Item name="category">
+                  <Form.Item name="category" initialValue={poster.category}>
                     
 
                     <AutoComplete
+                     
         options={options}
+        
         style={{
           width: 200,
         }}
@@ -126,7 +157,8 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
                   <Input
         error={inputError}
         placeholder="0.00"
-        value={addPriceAmount}
+        value={poster.price}
+        
         onChange={(el) => {
           const amount = el.target.value;
 
@@ -139,6 +171,7 @@ export default function AddPosterModal({ setupdate, update  ,isEditPosterModalVi
         }}
       />
       <Form.Item
+      initialValue={poster.phone_number}
                     name="phone_number"
                     rules={[
                       {

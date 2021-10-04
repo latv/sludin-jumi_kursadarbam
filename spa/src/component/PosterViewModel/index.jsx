@@ -42,8 +42,9 @@ useEffect(() => {
   {},
   'GET'
 );
-console.log("poster: "+poster )
+
 setPoster(response);
+console.log("poster: "+poster )
 setIsLoading(false);
   }catch (err) {
     console.log(err)

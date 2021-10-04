@@ -1,5 +1,5 @@
 import { Layout,Modal,Button,message,Row,Col,Form,Input,AutoComplete } from 'antd';
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './styles.css';
 import FormatValidator from '../../utils/validator.js'
 import {UploadOutlined, LockOutlined } from '@ant-design/icons';
@@ -17,13 +17,17 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
     const [addPicture, setAddPicture]= useState();
     const [value, setValue] = useState('');
     const [options, setOptions] = useState([]);
-    const mockVal = (str, repeat = 1) => ({
-      value: str.repeat(repeat),
+    const [getCategories,setCategories]= useState([]);
+
+
+
+    const mockVal = (str) => ({
+      value:str,
     });
   
     const onSearch = (searchText) => {
       setOptions(
-        !searchText ? [] : [],
+        !searchText ? [] : getCategories.map( el =>   mockVal(el.value)),
       );
     };
   
@@ -34,19 +38,27 @@ export default function AddPosterModal({isAddPosterModalVisible , setIsAddPoster
     const onChange = (data) => {
       setValue(data);
     };
-    const getPoster = async () => {
+    const getCategoriesData = async () => {
 
       let response = await APIClient.request(
-        '/api/test/get-poster',
+        '/api/test/get-all-categories',
         {},
         'GET'
       );
   
-      console.log('poster data :',response);
+      
   
-      setPoster(response);
-      isSetPosterLoading(false);
+      setCategories(response);
+      console.log('poster data :',getCategories.map( el => el.value));
     }
+
+useEffect(() => {
+  
+ 
+    getCategoriesData()
+  
+}, [])
+
 
     const onFinish = async (values) => {
         try {

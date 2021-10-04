@@ -131,6 +131,27 @@ exports.getPoster = (req, res) => {
 
 };
 
+function renameKey ( obj, oldKey, newKey ) {
+  obj[newKey] = obj[oldKey];
+  delete obj[oldKey];
+}
+
+
+exports.getAllCategories = (req, res) => {
+
+  db.sequelize.query('Select Distinct category from posters', {
+    
+    type: db.sequelize.QueryTypes.SELECT
+
+  }).then( (result) => {
+    
+result.forEach( obj => renameKey( obj, 'category', 'value' ) );
+
+    res.status(200).send(result)});
+
+
+};
+
 exports.getMyPoster = (req, res) => {
   // get all poster
 
