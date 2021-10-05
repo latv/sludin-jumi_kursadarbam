@@ -28,7 +28,7 @@ export default function AddPosterModal({
   isLoading,
 }) {
   const [loading, setLoading] = useState(false);
-  const [addPriceAmount, setAddPriceAmount] = useState(poster.price);
+  const [addPriceAmount, setAddPriceAmount] = useState("");
   const [inputError, setInputError] = useState(null);
   const [addPicture, setAddPicture] = useState();
   const [value, setValue] = useState("");
@@ -60,13 +60,17 @@ export default function AddPosterModal({
     );
 
     setCategories(response);
+    setAddPriceAmount(poster.price);
     console.log(
       "poster data :",
       getCategories.map((el) => el.value)
     );
   };
 
+
+
   useEffect(() => {
+      
     getCategoriesData();
   }, []);
 
@@ -98,7 +102,6 @@ export default function AddPosterModal({
   };
 
   const { TabPane } = Tabs;
-
   return (
     <>
       <Modal
@@ -121,41 +124,38 @@ export default function AddPosterModal({
               >
                 <Tabs
                   defaultActiveKey="1"
-                  tabPosition={(el) => setTabs(el.target.value)}
-                  // style={{ height: 200 }}
+                  onChange={(el) => {
+                    setTabs(el);
+                  }}
                   centered
                 >
-                  
-                  <TabPane tab="Esošais attēls" key='1'>
-                    
-                      {isLoading ? null : (
-                        <img
-                          className="img_poster"
-                          src={
-                            "http://localhost:8080/uploads/" +
-                            poster.image.split("\\")[1]
-                          }
-                          alt=""
-                          centered
-                        />
-                      )}
-                    
+                  <TabPane tab="Esošais attēls" key="1">
+                    {isLoading ? null : (
+                      <img
+                        className="img_poster"
+                        src={
+                          "http://localhost:8080/uploads/" +
+                          poster.image.split("\\")[1]
+                        }
+                        alt=""
+                        centered
+                      />
+                    )}
                   </TabPane>
 
-                  <TabPane tab="Jaunais attēls" key='2'>
-                    
-                      <input
-                        type="file"
-                        onChange={(e) => {
-                          console.log(e.target.files[0]);
-                          setAddPicture(e.target.files[0]);
-                        }}
-                      />
-
+                  <TabPane tab="Jaunais attēls" key="2">
+                    <input
+                      type="file"
+                      onChange={(e) => {
+                        console.log(e.target.files[0]);
+                        setAddPicture(e.target.files[0]);
+                      }}
+                    />
                   </TabPane>
                 </Tabs>
                 <Form.Item
                   name="posterData"
+
                   initialValue={poster.poster}
                   rules={[
                     {
@@ -180,12 +180,13 @@ export default function AddPosterModal({
                     onSearch={onSearch}
                     placeholder="Ievadi kategoriju"
                   />
-                </Form.Item>
-
+                </Form.Item >
+                 
                 <Input
+                
                   error={inputError}
-                  placeholder="0.00"
-                  // value={poster.price}
+                  placeholder={addPriceAmount}
+                  value={addPriceAmount}
                   onChange={(el) => {
                     const amount = el.target.value;
 
@@ -199,6 +200,7 @@ export default function AddPosterModal({
                     }
                   }}
                 />
+                {/* </Form.Item> */}
                 <Form.Item
                   initialValue={poster.phone_number}
                   name="phone_number"

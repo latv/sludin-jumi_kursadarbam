@@ -56,6 +56,10 @@ module.exports = function(app) {
     "/api/test/get-poster",
     controller.getPoster
   );
+  app.post(
+    "/api/test/delete-poster/:id",
+    controller.deleteByID
+  );
 
   app.get(
     "/api/test/get-all-categories",

@@ -75,6 +75,8 @@ exports.registerPoster = (req, res) => {
   });
 };
 
+
+
 exports.editPoster = (req, res) => {
   // register poster route
   // console.log(req.file);
@@ -83,6 +85,10 @@ exports.editPoster = (req, res) => {
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
+
+
+
+
   if (req.file === undefined) {
  
       Poster.update(
@@ -103,7 +109,7 @@ exports.editPoster = (req, res) => {
       Poster.update(
         {
           user_id: token.id,
-          poster: req.body.poster,
+          poster: req.body.posterData,
           price: req.body.price,
 
           image: req.file.path,
@@ -120,6 +126,17 @@ exports.editPoster = (req, res) => {
 
 exports.adminBoard = (req, res) => {
   res.status(200).send("Admin Content.");
+};
+
+exports.deleteByID = (req, res) => {
+  try{
+  const ID_POSTER = req.params.id;
+  Poster.destroy({where: { id : ID_POSTER}});
+  res.status(200).send({message : "Succesful deleted poster"});
+  }catch(err){
+
+    res.status(400).message(err);
+  }
 };
 
 exports.moderatorBoard = (req, res) => {

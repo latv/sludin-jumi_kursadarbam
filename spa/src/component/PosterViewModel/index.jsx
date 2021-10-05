@@ -31,7 +31,18 @@ useEffect(() => {
 }, []);
 
 
-
+const deleteById = async () => {
+  
+ const path = window.location.pathname.toString();
+ console.log('path '+ path)
+ let response = await APIClient.request(
+ '/api/test/delete-poster'+path,
+ {},
+ 'POST'
+);
+message.info(response.message);
+goBack();
+}
 
  const getPosterData = async () => {
    try{
@@ -80,7 +91,7 @@ setIsLoading(false);
                     
                     >Rediģēt</Button>
 
-                    <Button
+                    <Button onClick={deleteById}
                     
                     >Dzēst</Button>
                     </div>
