@@ -1,6 +1,6 @@
 var jwt = require("jsonwebtoken");
 const Sequelize = require("sequelize");
-const { QueryTypes } = require('sequelize');
+const { QueryTypes } = require("sequelize");
 const config = require("../config/auth.config");
 const { viewer, poster } = require("../models");
 const db = require("../models");
@@ -69,35 +69,53 @@ exports.registerPoster = (req, res) => {
       phone_number: req.body.phone_number,
       userId: token.id,
       category: req.body.category,
-      viewed : 0
+      viewed: 0,
     });
     res.status(200).send("Registered poster");
   });
-  
 };
 
 exports.editPoster = (req, res) => {
   // register poster route
-  console.log(req.file);
+  // console.log(req.file);
 
   let token = req.body["x-access-token"];
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
-  User.findOne({ where: { id: token.id } }).then((result) => {
-    Poster.update({
-      user_id: token.id,
-      poster: req.body.poster,
-      price: req.body.price,
-      image: req.file.path,
-      phone_number: req.body.phone_number,
-      userId: token.id,
-      category: req.body.category,
-      
-    },{where:{id: req.posterId}});
-    res.status(200).send("Registered poster");
-  });
-  
+  if (req.file === undefined) {
+ 
+      Poster.update(
+        {
+          user_id: token.id,
+          poster: req.body.poster,
+          price: req.body.price,
+          phone_number: req.body.phone_number,
+          userId: token.id,
+          category: req.body.category,
+        },
+        { where: { "id": req.body.postId } }
+      );
+      res.status(200).send("Edited poster");
+    
+  } else {
+    
+      Poster.update(
+        {
+          user_id: token.id,
+          poster: req.body.poster,
+          price: req.body.price,
+
+          image: req.file.path,
+          phone_number: req.body.phone_number,
+          userId: token.id,
+          category: req.body.category,
+        },
+        { where: { id: req.body.postId } }
+      );
+      res.status(200).send("Edited poster");
+   
+  }
 };
 
 exports.adminBoard = (req, res) => {
@@ -118,38 +136,26 @@ exports.profile = (req, res) => {
 };
 
 exports.getPoster = (req, res) => {
-
-
   Poster.findAll().then((result) => {
-
-
-
     res.status(200).send(result);
-
   });
-
-
 };
 
-function renameKey ( obj, oldKey, newKey ) {
+function renameKey(obj, oldKey, newKey) {
   obj[newKey] = obj[oldKey];
   delete obj[oldKey];
 }
 
-
 exports.getAllCategories = (req, res) => {
+  db.sequelize
+    .query("Select Distinct category from posters", {
+      type: db.sequelize.QueryTypes.SELECT,
+    })
+    .then((result) => {
+      result.forEach((obj) => renameKey(obj, "category", "value"));
 
-  db.sequelize.query('Select Distinct category from posters', {
-    
-    type: db.sequelize.QueryTypes.SELECT
-
-  }).then( (result) => {
-    
-result.forEach( obj => renameKey( obj, 'category', 'value' ) );
-
-    res.status(200).send(result)});
-
-
+      res.status(200).send(result);
+    });
 };
 
 exports.getMyPoster = (req, res) => {
@@ -167,29 +173,32 @@ exports.getMyPoster = (req, res) => {
   // res.status(200).send(wishes);
 };
 
-
 exports.getMyHistory = (req, res) => {
   // get all poster
   let token = req.headers["x-access-token"]; // use for browser
   console.log("token ,", token);
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
-  db.sequelize.query('SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC', {
-    replacements: {idUser: req.userId},
-    type: db.sequelize.QueryTypes.SELECT
+  db.sequelize
+    .query(
+      "SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC",
+      {
+        replacements: { idUser: req.userId },
+        type: db.sequelize.QueryTypes.SELECT,
+      }
+    )
+    .then((historyData) => {
+      // let data=[];
+      // let i=0;
+      // historyData.forEach(element => {
 
-  }).then( (historyData) => {
-    // let data=[];
-    // let i=0;
-    // historyData.forEach(element => {
+      //   if(element!=undefined){
+      //   data.push(element.value());
+      //   i++}
+      // });
 
-    //   if(element!=undefined){
-    //   data.push(element.value());
-    //   i++}
-    // });
-
-    res.status(200).send(JSON.stringify(historyData))});
-  
+      res.status(200).send(JSON.stringify(historyData));
+    });
 };
 
 exports.getPosterByID = (req, res) => {
@@ -202,23 +211,25 @@ exports.getPosterByID = (req, res) => {
     let token = req.headers["x-access-token"]; // use for browser
     console.log("id_poster", ID_POSTER);
     if (!token) {
-      Viewer.create({ posterId: ID_POSTER , userId: null });
+      Viewer.create({ posterId: ID_POSTER, userId: null });
     } else {
-      Viewer.create({ posterId: ID_POSTER , userId: req.userId});
+      Viewer.create({ posterId: ID_POSTER, userId: req.userId });
     }
 
     // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
 
-    const countView =  (id) => Viewer.count({
-      where: {
-        userId: id,
-      },
-    });
+    const countView = (id) =>
+      Viewer.count({
+        where: {
+          userId: id,
+        },
+      });
 
     countView(req.userId).then((e) => {
-      Poster.update({ viewed: e },
-      { where: { id: ID_POSTER }}).then((e) => console.log("sucess"));
-    }) ;
+      Poster.update({ viewed: e }, { where: { id: ID_POSTER } }).then((e) =>
+        console.log("sucess")
+      );
+    });
   } catch (err) {
     console.log(err);
   }

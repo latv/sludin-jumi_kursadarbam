@@ -55,7 +55,7 @@ setIsLoading(false);
     return (
         <>
         <div>
-          <EditPosterModal update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} poster={poster}/>
+          <EditPosterModal update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} poster={poster} isLoading={isLoading}/>
           <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
             <Col xs={22} sm={16} md={12} lg={8}>
             <div>
