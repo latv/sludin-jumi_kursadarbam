@@ -198,23 +198,14 @@ exports.getMyHistory = (req, res) => {
   console.log("token ,", token);
   db.sequelize
     .query(
-      "SELECT * FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC",
+      "SELECT  Distinct t2.id, t2.poster, t2.price, t2.image FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC",
       {
         replacements: { idUser: req.userId },
         type: db.sequelize.QueryTypes.SELECT,
       }
     )
     .then((historyData) => {
-      // let data=[];
-      // let i=0;
-      // historyData.forEach(element => {
-
-      //   if(element!=undefined){
-      //   data.push(element.value());
-      //   i++}
-      // });
-
-      res.status(200).send(JSON.stringify(historyData));
+      res.status(200).send(JSON.stringify(historyData.filter(el => el.id)));
     });
 };
 
