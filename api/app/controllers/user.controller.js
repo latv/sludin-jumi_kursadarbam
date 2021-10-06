@@ -214,30 +214,41 @@ exports.getPosterByID = (req, res) => {
   try {
     const ID_POSTER = req.params.id;
     Poster.findOne({ where: { id: ID_POSTER } }).then((result) => {
+      if(result===null){
+        res.status(404).send({message: "Not found"})
+      }else{
       res.status(200).send(result);
+
+      let token = req.headers["x-access-token"]; // use for browser
+      console.log("id_poster", ID_POSTER);
+      if (!token) {
+        Viewer.create({ posterId: ID_POSTER, userId: null });
+      } else {
+        Viewer.create({ posterId: ID_POSTER, userId: req.userId });
+      }
+  
+      // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
+  
+      const countView = (id) =>
+        Viewer.count({
+          where: {
+            userId: id,
+          },
+        });
+  
+      countView(req.userId).then((e) => {
+        Poster.update({ viewed: e }, { where: { id: ID_POSTER } }).then((e) =>
+          console.log("sucess")
+        );
+      });}
+
+
+    }  ). catch((err) => {
+      res.status(404).send({message: "Not found"})
+     
     });
-    let token = req.headers["x-access-token"]; // use for browser
-    console.log("id_poster", ID_POSTER);
-    if (!token) {
-      Viewer.create({ posterId: ID_POSTER, userId: null });
-    } else {
-      Viewer.create({ posterId: ID_POSTER, userId: req.userId });
-    }
 
-    // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
 
-    const countView = (id) =>
-      Viewer.count({
-        where: {
-          userId: id,
-        },
-      });
-
-    countView(req.userId).then((e) => {
-      Poster.update({ viewed: e }, { where: { id: ID_POSTER } }).then((e) =>
-        console.log("sucess")
-      );
-    });
   } catch (err) {
     console.log(err);
   }

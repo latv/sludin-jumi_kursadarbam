@@ -130,8 +130,12 @@ return (
       </div>
       </Route>
       <Route path='/'  >
+ 
           <PosterViewModel userCredential={userCredential} isSignedIn={isSignedIn} update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} userCredential={userCredential}/>
 
+      </Route>
+      <Route exact path="*" >
+        <h1>Nav atrasta lapa</h1>
       </Route>
 
 

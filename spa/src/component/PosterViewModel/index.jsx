@@ -16,6 +16,7 @@ export default function PosterViewModel({userCredential,isSignedIn, update,setup
   const [poster, setPoster] = useState([]);
   const [comment, setComment] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [is_Found, setIs_Found] = useState(true)
   const history = useHistory()
 
   const goBack = () => {
@@ -55,17 +56,23 @@ goBack();
 );
 
 setPoster(response);
-console.log("poster: "+poster )
+console.log("poster: "+poster.status );
+
 setIsLoading(false);
+// poster.status===404 ? setIsLoading(true): setIsLoading(false);
+
+
+
   }catch (err) {
-    console.log(err)
+    console.log(err);
+    // setIsLoading(false);
+    setPoster({status:404});
   }
 
 }
 
     return (
-        <>
-        <div>
+        <>{poster.status!=404 ? <div>
           <EditPosterModal update={update} setupdate={setupdate} isEditPosterModalVisible={isEditPosterModalVisible}  setIsEditPosterModalVisible={setIsEditPosterModalVisible} poster={poster} isLoading={isLoading}/>
           <Row align="middle" justify="center" xs={xsWidth} md={mdWidth} lg={lgWidth} >
             <Col xs={22} sm={16} md={12} lg={8}>
@@ -106,7 +113,8 @@ setIsLoading(false);
       </>
             </Col>
           </Row>
-        </div>
+        </div> : <h1>Sludinājums netika atrasts</h1>}
+        
         </>
     )
 }
