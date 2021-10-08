@@ -92,7 +92,7 @@ setIsLoading(false);
 
                   isLoading ? null : poster.createdAt.split("T")[0] + " " + poster.createdAt.split("T")[1].split(".")[0]} </p>
                 <p>Skatīts: {poster.viewed}</p>  
-                    { isSignedIn && userCredential.token===poster.userId ?
+                    { isSignedIn && userCredential.id===poster.userId ?
                       
                       <div><Button onClick={() => setIsEditPosterModalVisible(true)}
                     

@@ -145,7 +145,7 @@ return (
     <Footer style={{ textAlign: 'center' }}>©2021 izveidoja Jānis Feldmanis</Footer>
     </BrowserRouter>
   </Layout>
-  <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} />
+  <LogInModal isModalVisible={isModalVisible}  setIsModalVisible={setIsModalVisible} setIsSignedIn={setIsSignedIn} setUserCredential={setUserCredential}/>
   <SignUpModal isModalVisible={isSignUpModalVisible}  setIsModalVisible={setIsSignUpModalVisible}  />
   <AddPosterModal poster={poster} setPoster={setPoster}  isPosterLoading={isPosterLoading} isPosterLoading={isPosterLoading}  isAddPosterModalVisible={isAddPosterModalVisible} setIsAddPosterModalVisible={setIsAddPosterModalVisible} update={update} setupdate={setupdate} />
 </>

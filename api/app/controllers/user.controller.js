@@ -27,7 +27,7 @@ exports.getUserCredential = (req, res) => {
 
       // token2  = JSON.stringify( token['id'] );
       res.status(200).send(
-        { username: tokenUserName, token: token.id }
+        { username: tokenUserName, id: token.id }
         // username: jwt.decode(req.body.x-access-token, config.secret)
       );
     });

@@ -6,7 +6,7 @@ import { SearchOutlined, HeartOutlined, UserOutlined, LogoutOutlined, LockOutlin
 import APIClient from '../../utils/apiClient';
 import Cookies from 'js-cookie';
 
-export default function LogInModal({isModalVisible,setIsModalVisible,setIsSignedIn}) {
+export default function LogInModal({isModalVisible,setIsModalVisible,setIsSignedIn,setUserCredential}) {
     const [loading, setLoading] = useState(false);
 
 
@@ -24,6 +24,7 @@ export default function LogInModal({isModalVisible,setIsModalVisible,setIsSigned
           setIsModalVisible(false);
           message.info("Tu esi ielogojies");
           setIsSignedIn(true);
+          setUserCredential(response);
           // history.replace('/');
         } catch (err) {
           message.error("Lietotājvārds vai parole ir nepareiza!");

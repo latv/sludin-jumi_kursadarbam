@@ -33,6 +33,7 @@ exports.signin = async (req, res) => { // login route,where you can send token
     const user = await authenticateRequestAsync(req);
     res.status(200).send({
       id: user.id,
+      username: user.name + " " + user.surname,
       email: user.email,
       accessToken: createToken(user)
     });
