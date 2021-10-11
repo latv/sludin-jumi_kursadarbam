@@ -8,7 +8,7 @@ import {
   LogoutOutlined,
   SyncOutlined,
   UserOutlined,
-  SearchOutlined
+  SearchOutlined,
 } from "@ant-design/icons";
 import APIClient from "../../utils/apiClient";
 import Cookies from "js-cookie";
@@ -126,8 +126,6 @@ const DefaultLayout = () => {
               <img src={logo} height="100%" alt="" />
             </NavLink>
 
-
-
             {isSignedIn
               ? [
                   <Dropdown overlay={menu} trigger={["click"]}>
@@ -176,20 +174,18 @@ const DefaultLayout = () => {
               </Route>
 
               <Route exact path="/">
+                <Spin spinning={isCategoriesLoading}>
+                  <Dropdown overlay={categoriesMenu} trigger={["click"]}>
+                    <p className="left-profile" >Kategorija</p>
+                  </Dropdown>
+                </Spin>
                 <hr />
                 <div>
-                <SyncOutlined
-                  onClick={() => setupdate(!update)}
-                  spin={isPosterLoading}
-                />
-
-<Spin spinning={isCategoriesLoading}>
-              <Dropdown overlay={categoriesMenu} trigger={["click"]}>
-                
-              <SearchOutlined className="left-profile" />
-              </Dropdown>
-            </Spin>
-            </div>
+                  <SyncOutlined
+                    onClick={() => setupdate(!update)}
+                    spin={isPosterLoading}
+                  />
+                </div>
                 <hr />
                 <div className="site-layout-content">
                   <ContentPoster
@@ -204,7 +200,7 @@ const DefaultLayout = () => {
               </Route>
 
               <Route path="/category/">
-              <Category
+                <Category
                   poster={poster}
                   setPoster={setPoster}
                   isPosterLoading={isPosterLoading}
