@@ -83,6 +83,13 @@ module.exports = function(app) {
     [authJwt.verifyUser],
     controller.getPosterByID
   );
+
+
+  app.get(
+    "/api/test/category/:category",
+   
+    controller.categoryByID
+  );
   
 
   app.post(

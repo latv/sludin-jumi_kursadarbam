@@ -75,8 +75,6 @@ exports.registerPoster = (req, res) => {
   });
 };
 
-
-
 exports.editPoster = (req, res) => {
   // register poster route
   // console.log(req.file);
@@ -86,41 +84,34 @@ exports.editPoster = (req, res) => {
   token = jwt.decode(token, config.secret);
   console.log("token ,", token);
 
-
-
-
   if (req.file === undefined) {
- 
-      Poster.update(
-        {
-          user_id: token.id,
-          poster: req.body.poster,
-          price: req.body.price,
-          phone_number: req.body.phone_number,
-          userId: token.id,
-          category: req.body.category,
-        },
-        { where: { "id": req.body.postId } }
-      );
-      res.status(200).send("Edited poster");
-    
+    Poster.update(
+      {
+        user_id: token.id,
+        poster: req.body.poster,
+        price: req.body.price,
+        phone_number: req.body.phone_number,
+        userId: token.id,
+        category: req.body.category,
+      },
+      { where: { id: req.body.postId } }
+    );
+    res.status(200).send("Edited poster");
   } else {
-    
-      Poster.update(
-        {
-          user_id: token.id,
-          poster: req.body.posterData,
-          price: req.body.price,
+    Poster.update(
+      {
+        user_id: token.id,
+        poster: req.body.posterData,
+        price: req.body.price,
 
-          image: req.file.path,
-          phone_number: req.body.phone_number,
-          userId: token.id,
-          category: req.body.category,
-        },
-        { where: { id: req.body.postId } }
-      );
-      res.status(200).send("Edited poster");
-   
+        image: req.file.path,
+        phone_number: req.body.phone_number,
+        userId: token.id,
+        category: req.body.category,
+      },
+      { where: { id: req.body.postId } }
+    );
+    res.status(200).send("Edited poster");
   }
 };
 
@@ -129,14 +120,24 @@ exports.adminBoard = (req, res) => {
 };
 
 exports.deleteByID = (req, res) => {
-  try{
-  const ID_POSTER = req.params.id;
-  Poster.destroy({where: { id : ID_POSTER}});
-  res.status(200).send({message : "Succesful deleted poster"});
-  }catch(err){
-
+  try {
+    const ID_POSTER = req.params.id;
+    Poster.destroy({ where: { id: ID_POSTER } });
+    res.status(200).send({ message: "Succesful deleted poster" });
+  } catch (err) {
     res.status(400).message(err);
   }
+};
+
+exports.categoryByID = (req, res) => {
+  const ID_CATEGORY = req.params.category;
+  Poster.findAll({ where: { category: ID_CATEGORY } }).then((result) => {
+    if (result != null) {
+      res.status(200).send(result);
+    } else {
+      res.status(401).send({ message: "Category is not found" });
+    }
+  });
 };
 
 exports.moderatorBoard = (req, res) => {
@@ -205,7 +206,7 @@ exports.getMyHistory = (req, res) => {
       }
     )
     .then((historyData) => {
-      res.status(200).send(JSON.stringify(historyData.filter(el => el.id)));
+      res.status(200).send(JSON.stringify(historyData.filter((el) => el.id)));
     });
 };
 
@@ -213,42 +214,40 @@ exports.getPosterByID = (req, res) => {
   // where you can get data from poster id in exact poster given by id
   try {
     const ID_POSTER = req.params.id;
-    Poster.findOne({ where: { id: ID_POSTER } }).then((result) => {
-      if(result===null){
-        res.status(404).send({message: "Not found"})
-      }else{
-      res.status(200).send(result);
+    Poster.findOne({ where: { id: ID_POSTER } })
+      .then((result) => {
+        if (result === null) {
+          res.status(404).send({ message: "Not found" });
+        } else {
+          res.status(200).send(result);
 
-      let token = req.headers["x-access-token"]; // use for browser
-      console.log("id_poster", ID_POSTER);
-      if (!token) {
-        Viewer.create({ posterId: ID_POSTER, userId: null });
-      } else {
-        Viewer.create({ posterId: ID_POSTER, userId: req.userId });
-      }
-  
-      // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
-  
-      const countView = (id) =>
-        Viewer.count({
-          where: {
-            userId: id,
-          },
-        });
-  
-      countView(req.userId).then((e) => {
-        Poster.update({ viewed: e }, { where: { id: ID_POSTER } }).then((e) =>
-          console.log("sucess")
-        );
-      });}
+          let token = req.headers["x-access-token"]; // use for browser
+          console.log("id_poster", ID_POSTER);
+          if (!token) {
+            Viewer.create({ posterId: ID_POSTER, userId: null });
+          } else {
+            Viewer.create({ posterId: ID_POSTER, userId: req.userId });
+          }
 
+          // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
 
-    }  ). catch((err) => {
-      res.status(404).send({message: "Not found"})
-     
-    });
+          const countView = (id) =>
+            Viewer.count({
+              where: {
+                userId: id,
+              },
+            });
 
-
+          countView(req.userId).then((e) => {
+            Poster.update({ viewed: e }, { where: { id: ID_POSTER } }).then(
+              (e) => console.log("sucess")
+            );
+          });
+        }
+      })
+      .catch((err) => {
+        res.status(404).send({ message: "Not found" });
+      });
   } catch (err) {
     console.log(err);
   }
