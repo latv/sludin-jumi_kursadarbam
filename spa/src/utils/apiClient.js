@@ -1,6 +1,7 @@
 import axios from 'axios';
 import jwt from './jwt';
 import {message} from 'antd';
+import Cookies from 'js-cookie';
 const request = async (url, data, method,isAuthorized=true) => {
   
   const requestConfig = {
@@ -41,6 +42,11 @@ const request = async (url, data, method,isAuthorized=true) => {
         message.error('you token is expired');
         jwt.deleteToken();
 
+      }finally{
+        Cookies.remove('jwt_token');
+        jwt.saveToken(response.data.accessToken,response.data.expiresIn)
+        let response = await request(url, data, method,false);
+        return response.data;
       }
 
     }

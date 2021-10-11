@@ -5,6 +5,7 @@ const Role = db.role;
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+const { user } = require("../models");
 
 
 exports.signup = (req, res) => { // user registration route
@@ -28,6 +29,32 @@ exports.signup = (req, res) => { // user registration route
   res.status(errorCode).send({ message: ex.message });
 };
 };
+
+
+
+exports.refreshToken = async (req, res) => { // login route,where you can send token
+  try {
+    let token = req.headers["x-access-token"]; // use for browser
+    console.log("token ,", token);
+    token = jwt.decode(token, config.secret);
+    console.log("token ,", token);
+    let user = {id:token.id};
+    res.status(200).send({
+   
+      accessToken: createToken(user)
+    });
+  }
+  catch(ex) {
+    var errorCode = 500;
+    if(ex.type === 'NotAuthorizedException') 
+      errorCode = 401;
+    if(ex.type === 'NotFoundException') 
+      errorCode = 404;
+    res.status(errorCode).send({ message: ex.message });
+  };
+};
+
+
 exports.signin = async (req, res) => { // login route,where you can send token
   try {
     const user = await authenticateRequestAsync(req);
@@ -47,6 +74,9 @@ exports.signin = async (req, res) => { // login route,where you can send token
     res.status(errorCode).send({ message: ex.message });
   };
 };
+
+
+
 
 async function authenticateRequestAsync(req) { 
   var user = await getUserByNameAsync(req.body.email);
@@ -71,6 +101,8 @@ async function getUserByNameAsync(email) {
   });
 }
 
+
+
 function authenticateUser(user, password) {
   return bcrypt.compareSync(
     password,
@@ -80,7 +112,7 @@ function authenticateUser(user, password) {
 
 function createToken(user) {
   return jwt.sign({ id: user.id }, config.secret, {
-    expiresIn: 86400 // 24 hours, here you can modify how long you want to be token expiration in s
+    expiresIn:86400  // 24 hours, here you can modify how long you want to be token expiration in s
   });
 };
 

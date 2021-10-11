@@ -32,18 +32,7 @@ const DefaultLayout = () =>{
   const [isAddPosterModalVisible,setIsAddPosterModalVisible] = useState(false);
   const [isEditPosterModalVisible , setIsEditPosterModalVisible] = useState(false)
   const logOut = async () => {
-    try {
-      let response = await APIClient.request(
-        '/api/auth/logout',
-        {},
-        'POST'
-      );
-  
-      console.log(response);
-    } catch (err) {
-      console.log(err)
-    }
-  
+
     Cookies.remove('jwt_token');
     setIsSignedIn(false);
   }
