@@ -93,7 +93,7 @@ const DefaultLayout = () => {
   };
 
   const menu = (
-    <Menu>
+    <Menu >
       <Menu.Item disabled style={{ color: "black" }}>
         Lietotājs: {userCredential.username}
       </Menu.Item>
@@ -207,6 +207,8 @@ const DefaultLayout = () => {
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
                   setupdate={setupdate}
+                  categoriesMenu={categoriesMenu}
+                  isCategoriesLoading={isCategoriesLoading}
                 />
               </Route>
 
