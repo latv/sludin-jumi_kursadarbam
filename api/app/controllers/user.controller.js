@@ -199,7 +199,7 @@ exports.getMyHistory = (req, res) => {
   console.log("token ,", token);
   db.sequelize
     .query(
-      "SELECT  Distinct t2.id, t2.poster, t2.price, t2.image FROM viewers t1 LEFT JOIN posters t2 ON t2.id = t1.posterId WHERE t1.userId=:idUser ORDER BY t1.createdAt DESC",
+      "SELECT t2.id, t2.poster, t2.price, t2.image ,MAX(t1.createdAt) FROM viewers t1 LEFT JOIN posters t2 ON t2.id =t1.posterId WHERE t1.userId=:idUser GROUP BY t1.createdAt DESC;",
       {
         replacements: { idUser: req.userId },
         type: db.sequelize.QueryTypes.SELECT,
