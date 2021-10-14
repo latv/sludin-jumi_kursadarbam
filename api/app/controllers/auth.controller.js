@@ -1,12 +1,8 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
-const Role = db.role;
-
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-const { user } = require("../models");
-
 
 exports.signup = (req, res) => { // user registration route
   try{
@@ -35,9 +31,7 @@ exports.signup = (req, res) => { // user registration route
 exports.refreshToken = async (req, res) => { // login route,where you can send token
   try {
     let token = req.headers["x-access-token"]; // use for browser
-    console.log("token ,", token);
     token = jwt.decode(token, config.secret);
-    console.log("token ,", token);
     let user = {id:token.id};
     res.status(200).send({
    
@@ -75,6 +69,22 @@ exports.signin = async (req, res) => { // login route,where you can send token
   };
 };
 
+exports.logOut = async (req, res) => { // login route,where you can send token
+  try {
+    req.userId.deleteToken(req.userId,(err,user)=>{
+      if(err) return res.status(400).send(err);
+      res.sendStatus(200);
+  })
+  }
+  catch(ex) {
+    var errorCode = 500;
+    if(ex.type === 'NotAuthorizedException') 
+      errorCode = 401;
+    if(ex.type === 'NotFoundException') 
+      errorCode = 404;
+    res.status(errorCode).send({ message: ex.message });
+  };
+};
 
 
 
@@ -115,8 +125,3 @@ function createToken(user) {
     expiresIn:86400  // 24 hours, here you can modify how long you want to be token expiration in s
   });
 };
-
-async function getRolesAsync(user) { // here you know what is signed in admin or user 
-  var roles = await user.getRoles();
-  return roles.map(role => "ROLE_" + role.name.toUpperCase())
-}

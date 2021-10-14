@@ -1,65 +1,30 @@
 var jwt = require("jsonwebtoken");
 const Sequelize = require("sequelize");
-const { QueryTypes } = require("sequelize");
 const config = require("../config/auth.config");
-const { viewer, poster } = require("../models");
 const db = require("../models");
 const User = db.user;
 const Poster = db.poster;
 const Viewer = db.viewer;
-const Op = Sequelize.Op;
-
 exports.getUserCredential = (req, res) => {
-  // get user name
-
+  // get user name and userID
   try {
     let token = req.headers["x-access-token"]; // use for browser
-    console.log("token ,", token);
     token = jwt.decode(token, config.secret);
-    console.log("token ,", token);
     User.findOne({ where: { id: token.id } }).then((result) => {
       let tokenUserName = result.name + " " + result.surname;
-      console.log(result.username);
-      // token= JSON.parse(token);
-
-      console.log(tokenUserName);
-      console.log("Token , ", token.id + "*");
-
-      // token2  = JSON.stringify( token['id'] );
-      res.status(200).send(
-        { username: tokenUserName, id: token.id }
-        // username: jwt.decode(req.body.x-access-token, config.secret)
-      );
+      res.status(200).send({ username: tokenUserName, id: token.id });
     });
   } catch (err) {
     console.log(err);
   }
 };
 
-exports.registerComment = (req, res) => {
-  // register comment route
-  let token = req.headers["x-access-token"]; // use for browser
-  console.log("token ,", token);
-  token = jwt.decode(token, config.secret);
-  console.log("token ,", token);
-  console.log("body ", req.body);
-
-  Comments.create({
-    user_id: token.id,
-    post: req.body["comment_post"],
-    poster_id: req.body["poster_id"],
-  });
-  res.status(200).send("Registered coment");
-};
-
 exports.registerPoster = (req, res) => {
-  // register poster route
+  // register poster route with pictures
   console.log(req.file);
 
   let token = req.body["x-access-token"];
-  console.log("token ,", token);
   token = jwt.decode(token, config.secret);
-  console.log("token ,", token);
   User.findOne({ where: { id: token.id } }).then((result) => {
     Poster.create({
       user_id: token.id,
@@ -77,13 +42,8 @@ exports.registerPoster = (req, res) => {
 
 exports.editPoster = (req, res) => {
   // register poster route
-  // console.log(req.file);
-
   let token = req.body["x-access-token"];
-  console.log("token ,", token);
   token = jwt.decode(token, config.secret);
-  console.log("token ,", token);
-
   if (req.file === undefined) {
     Poster.update(
       {
@@ -115,11 +75,8 @@ exports.editPoster = (req, res) => {
   }
 };
 
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
-};
-
 exports.deleteByID = (req, res) => {
+  // delete poster by ID
   try {
     const ID_POSTER = req.params.id;
     Poster.destroy({ where: { id: ID_POSTER } });
@@ -129,7 +86,8 @@ exports.deleteByID = (req, res) => {
   }
 };
 
-exports.categoryByID = (req, res) => {
+exports.getPostersByCategory = (req, res) => {
+  // get posters by category name
   const ID_CATEGORY = req.params.category;
   Poster.findAll({ where: { category: ID_CATEGORY } }).then((result) => {
     if (result != null) {
@@ -140,63 +98,55 @@ exports.categoryByID = (req, res) => {
   });
 };
 
-exports.moderatorBoard = (req, res) => {
-  res.status(200).send("Moderator Content.");
-};
-
 exports.profile = (req, res) => {
+  // get profile
   User.findOne({
     where: { id: jwt.decode(req.body["x-access-token"], config.secret).id },
   }).then((result) => {
-    // let tokenUserName = result.username;
     res.status(200).send({ username: result.name + " " + result.surname });
   });
 };
 
 exports.getPoster = (req, res) => {
+  // get all posters
   Poster.findAll().then((result) => {
     res.status(200).send(result);
   });
 };
 
 function renameKey(obj, oldKey, newKey) {
+  // rename keys to adjust to frontends needs
   obj[newKey] = obj[oldKey];
   delete obj[oldKey];
 }
 
 exports.getAllCategories = (req, res) => {
+  // get all categories name to display to category autoselect field
   db.sequelize
     .query("Select Distinct category from posters", {
       type: db.sequelize.QueryTypes.SELECT,
     })
     .then((result) => {
-      result.forEach((obj) => renameKey(obj, "category", "value"));
+      result.forEach((obj) => renameKey(obj, "category", "value")); // rename keys to adjust to frontends needs
 
       res.status(200).send(result);
     });
 };
 
 exports.getMyPoster = (req, res) => {
-  // get all poster
+  // get all my poster, which was published by his profile
 
   let token = req.headers["x-access-token"]; // use for browser
-  console.log("token ,", token);
   token = jwt.decode(token, config.secret);
-  console.log("token ,", token);
   Poster.findAll({ where: { userId: token.id } }).then((result) => {
     res.status(200).send(result);
   });
-
-  // console.log(wishes);
-  // res.status(200).send(wishes);
 };
 
 exports.getMyHistory = (req, res) => {
-  // get all poster
+  // get all poster,which I am viewed
   let token = req.headers["x-access-token"]; // use for browser
-  console.log("token ,", token);
   token = jwt.decode(token, config.secret);
-  console.log("token ,", token);
   db.sequelize
     .query(
       "SELECT t2.id, t2.poster, t2.price, t2.image ,MAX(t1.createdAt) FROM viewers t1 LEFT JOIN posters t2 ON t2.id =t1.posterId WHERE t1.userId=:idUser GROUP BY t1.createdAt DESC;",
@@ -222,14 +172,12 @@ exports.getPosterByID = (req, res) => {
           res.status(200).send(result);
 
           let token = req.headers["x-access-token"]; // use for browser
-          console.log("id_poster", ID_POSTER);
+
           if (!token) {
             Viewer.create({ posterId: ID_POSTER, userId: null });
           } else {
             Viewer.create({ posterId: ID_POSTER, userId: req.userId });
           }
-
-          // Viewer.create({	viewer_id: token.id ,post_id : ID_POSTER});
 
           const countView = (id) =>
             Viewer.count({
