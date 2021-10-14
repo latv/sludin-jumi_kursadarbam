@@ -51,12 +51,15 @@ exports.refreshToken = async (req, res) => { // login route,where you can send t
 
 exports.signin = async (req, res) => { // login route,where you can send token
   try {
+    
     const user = await authenticateRequestAsync(req);
+    let  {accessToken,expiresIn}= createToken(user);
     res.status(200).send({
       id: user.id,
       username: user.name + " " + user.surname,
       email: user.email,
-      accessToken: createToken(user)
+      accessToken: accessToken,
+      expiresIn : expiresIn
     });
   }
   catch(ex) {
@@ -121,7 +124,7 @@ function authenticateUser(user, password) {
 }
 
 function createToken(user) {
-  return jwt.sign({ id: user.id }, config.secret, {
-    expiresIn:86400  // 24 hours, here you can modify how long you want to be token expiration in s
-  });
+  let expiresIn=86400  // 24 hours, here you can modify how long you want to be token expiration in s
+  let accessToken= jwt.sign({ id: user.id }, config.secret, { expiresIn:expiresIn });
+  return { accessToken ,expiresIn};
 };

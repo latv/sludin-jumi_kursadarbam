@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Tag, Button, Table } from "antd";
 import APIClient from "../../utils/apiClient";
-
-import PosterViewModel from "../PosterViewModel";
 import { NavLink } from "react-router-dom";
 import "./styles.css";
 

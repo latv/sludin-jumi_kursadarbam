@@ -2,8 +2,8 @@ import Cookies from 'js-cookie';
 
 
 const saveToken = (token, expires) => {
-    const expirationDate = new Date(new Date().getTime() + expires * 1000);
-    Cookies.set('jwt_token', token, { expires: expires });
+ 
+    Cookies.set('jwt_token', token, { expires: 1});
 
 }
 const isAuthorized = () => {

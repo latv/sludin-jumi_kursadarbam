@@ -1,5 +1,4 @@
 import {
-  Layout,
   Modal,
   Button,
   message,
@@ -12,7 +11,7 @@ import {
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import FormatValidator from "../../utils/validator.js";
-import { UploadOutlined, LockOutlined } from "@ant-design/icons";
+
 import APIClient from "../../utils/apiClient";
 import jwt from "../../utils/jwt";
 
@@ -21,10 +20,6 @@ import axios from "axios";
 export default function AddPosterModal({
   isAddPosterModalVisible,
   setIsAddPosterModalVisible,
-  poster,
-  setPoster,
-  isPosterLoading,
-  isSetPosterLoading,
   update,
   setupdate,
 }) {

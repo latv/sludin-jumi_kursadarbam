@@ -28,10 +28,7 @@ const request = async (url, data, method,isAuthorized=true) => {
 
   try {
     const response = await axios.request(requestConfig);
-    // if (isAuthorized==true && response.data.response.status === 401){
 
-
-    // }
     return response.data;
   } catch (e) {
     console.log('error: ',e.response.status);

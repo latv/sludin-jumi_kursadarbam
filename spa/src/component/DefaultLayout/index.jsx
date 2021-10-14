@@ -8,7 +8,6 @@ import {
   LogoutOutlined,
   SyncOutlined,
   UserOutlined,
-  SearchOutlined,
 } from "@ant-design/icons";
 import APIClient from "../../utils/apiClient";
 import Cookies from "js-cookie";
