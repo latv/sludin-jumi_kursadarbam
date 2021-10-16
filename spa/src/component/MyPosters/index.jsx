@@ -15,6 +15,7 @@ const Cards = ({
   const { Meta } = Card;
 
   const getPoster = async () => {
+    try{
     isSetPosterLoading(!isPosterLoading);
     let response = await APIClient.request(
       "/api/test/get-my-poster",
@@ -25,7 +26,11 @@ const Cards = ({
     console.log("poster data :", response);
 
     setPoster(response);
-    isSetPosterLoading(false);
+    isSetPosterLoading(false);}
+    catch {
+      isSetPosterLoading(false);
+      setPoster({ status: 404 });
+    }
   };
 
   useEffect(() => {
@@ -36,7 +41,7 @@ const Cards = ({
     <div className="cards">
       <Row wrap={true}>
         <Spin spinning={isPosterLoading}>
-          {poster.map((poster) => (
+          {poster.status == 404? <p>Nav ievototi sludinājumi</p>: poster.map((poster) => (
             <NavLink to={"/" + poster.id}>
               <Card
                 className="card"
