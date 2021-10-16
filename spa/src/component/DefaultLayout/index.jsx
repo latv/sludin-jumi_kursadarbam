@@ -31,7 +31,7 @@ import {
 
 const DefaultLayout = () => {
   const [userCredential, setUserCredential] = useState([]);
-  const [poster, setPoster] = useState([]);
+
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update, setupdate] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -92,7 +92,7 @@ const DefaultLayout = () => {
   };
 
   const menu = (
-    <Menu >
+    <Menu>
       <Menu.Item disabled style={{ color: "black" }}>
         Lietotājs: {userCredential.username}
       </Menu.Item>
@@ -154,8 +154,7 @@ const DefaultLayout = () => {
               <Route exact path="/myPosters">
                 {isSignedIn ? null : <Redirect to="/" />}
                 <MyPosters
-                  poster={poster}
-                  setPoster={setPoster}
+                 
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
@@ -175,7 +174,7 @@ const DefaultLayout = () => {
               <Route exact path="/">
                 <Spin spinning={isCategoriesLoading}>
                   <Dropdown overlay={categoriesMenu} trigger={["click"]}>
-                    <p className="left-profile" >Kategorija</p>
+                    <p className="left-profile">Kategorija</p>
                   </Dropdown>
                 </Spin>
                 <hr />
@@ -188,8 +187,6 @@ const DefaultLayout = () => {
                 <hr />
                 <div className="site-layout-content">
                   <ContentPoster
-                    poster={poster}
-                    setPoster={setPoster}
                     isPosterLoading={isPosterLoading}
                     isSetPosterLoading={isSetPosterLoading}
                     update={update}
@@ -200,8 +197,6 @@ const DefaultLayout = () => {
 
               <Route path="/category/">
                 <Category
-                  poster={poster}
-                  setPoster={setPoster}
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
@@ -243,8 +238,7 @@ const DefaultLayout = () => {
         setIsModalVisible={setIsSignUpModalVisible}
       />
       <AddPosterModal
-        poster={poster}
-        setPoster={setPoster}
+
         isPosterLoading={isPosterLoading}
         isPosterLoading={isPosterLoading}
         isAddPosterModalVisible={isAddPosterModalVisible}

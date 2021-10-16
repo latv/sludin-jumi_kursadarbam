@@ -138,11 +138,11 @@ exports.getMyPoster = (req, res) => {
 
   let token = req.headers["x-access-token"]; // use for browser
   token = jwt.decode(token, config.secret);
-  Poster.findAll({ where: { userId: token.id } }).then((result) => {
-    if (!!result) {
+  Poster.findAll({ where: { userId: token.id },validate:{isNull: true} }).then((result) => {
+    if (result == null || result.length === 0) {
       res.status(404).send({ message: "My posters is not found" });
     } else {
-      console.log(result)
+      console.log(result);
       res.status(200).send(result);
     }
   });

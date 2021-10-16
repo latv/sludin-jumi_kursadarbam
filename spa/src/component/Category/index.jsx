@@ -5,8 +5,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import "./styles.css";
 
 const Cards = ({
-  poster,
-  setPoster,
+
   isSetPosterLoading,
   isPosterLoading,
   update,
@@ -14,7 +13,7 @@ const Cards = ({
   isCategoriesLoading,
 }) => {
   const { Meta } = Card;
-
+  const [poster, setPoster] = useState([]);
   const getPoster = async () => {
     isSetPosterLoading(!isPosterLoading);
     const path = window.location.pathname.toString();

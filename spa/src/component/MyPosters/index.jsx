@@ -6,14 +6,13 @@ import { NavLink } from "react-router-dom";
 import "./styles.css";
 
 const Cards = ({
-  poster,
-  setPoster,
+
   isSetPosterLoading,
   isPosterLoading,
   update,
 }) => {
   const { Meta } = Card;
-
+  const [poster, setPoster] = useState([]);
   const getPoster = async () => {
     try{
     isSetPosterLoading(!isPosterLoading);

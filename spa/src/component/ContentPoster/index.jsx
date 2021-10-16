@@ -5,16 +5,14 @@ import { NavLink } from "react-router-dom";
 import "./style.css";
 
 const Cards = ({
-  poster,
-  setPoster,
   isSetPosterLoading,
   isPosterLoading,
   update,
 }) => {
   const { Meta } = Card;
-
+  const [poster, setPoster] = useState([]);
   const getPoster = async () => {
-    isSetPosterLoading(!isPosterLoading);
+    isSetPosterLoading(true);
     let response = await APIClient.request("/api/test/get-poster", {}, "GET");
 
     console.log("poster data :", response);
