@@ -60,6 +60,7 @@ export default function PosterViewModel({
 
   const getPosterData = async () => {
     try {
+      setIsLoading(true);
       const path = window.location.pathname.toString();
       console.log("path " + path);
       let response = await APIClient.request(
@@ -84,6 +85,7 @@ export default function PosterViewModel({
       {poster.status != 404 ? (
         <div>
           <EditPosterModal
+          getPosterData={getPosterData}
             update={update}
             setupdate={setupdate}
             isEditPosterModalVisible={isEditPosterModalVisible}

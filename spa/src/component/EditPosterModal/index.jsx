@@ -24,6 +24,7 @@ export default function AddPosterModal({
   setIsEditPosterModalVisible,
   poster,
   isLoading,
+  getPosterData
 }) {
   const [loading, setLoading] = useState(false);
   const [addPriceAmount, setAddPriceAmount] = useState("");
@@ -51,6 +52,7 @@ export default function AddPosterModal({
     setValue(data);
   };
   const getCategoriesData = async () => {
+    setAddPriceAmount(poster.price);
     let response = await APIClient.request(
       "/api/test/get-all-categories",
       {},
@@ -58,7 +60,7 @@ export default function AddPosterModal({
     );
 
     setCategories(response);
-    setAddPriceAmount(poster.price);
+
     console.log(
       "poster data :",
       getCategories.map((el) => el.value)
@@ -68,7 +70,7 @@ export default function AddPosterModal({
 
 
   useEffect(() => {
-      
+    
     getCategoriesData();
   }, []);
 
@@ -80,7 +82,7 @@ export default function AddPosterModal({
       if (tabs == 2) {
         data.append("image", addPicture);
       }
-      data.append("posterData", values.poster);
+      data.append("poster", values.posterData);
       data.append("price", addPriceAmount);
       data.append("phone_number", values.phone_number);
       data.append("category", values.category);
@@ -89,7 +91,8 @@ export default function AddPosterModal({
 
       setLoading(false);
       setIsEditPosterModalVisible(false);
-      message.info("Esi pievienojis sludinājumu");
+      message.info("Esi veiksmīgi rediģējis sludinājumu");
+      getPosterData();
     } catch (err) {
       message.error("Neizdevās pievienot sludinājumu");
       setLoading(false);
@@ -144,6 +147,7 @@ export default function AddPosterModal({
                   <TabPane tab="Jaunais attēls" key="2">
                     <input
                       type="file"
+                      required={true}
                       onChange={(e) => {
                         console.log(e.target.files[0]);
                         setAddPicture(e.target.files[0]);
@@ -181,7 +185,7 @@ export default function AddPosterModal({
                 </Form.Item >
                  
                 <Input
-                
+                  defaultValue={poster.price}
                   error={inputError}
                   placeholder={addPriceAmount}
                   value={addPriceAmount}

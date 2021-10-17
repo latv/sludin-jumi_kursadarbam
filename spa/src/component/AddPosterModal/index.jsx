@@ -109,6 +109,7 @@ export default function AddPosterModal({
                 onFinish={onFinish}
               >
                 <input
+                required={true}
                   type="file"
                   onChange={(e) => {
                     console.log(e.target.files[0]);
