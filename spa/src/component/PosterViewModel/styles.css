@@ -20,3 +20,6 @@
    
     width: 180px;
 } } 
+.anticon.anticon-delete{
+    color: red;
+}

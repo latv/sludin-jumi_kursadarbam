@@ -10,13 +10,14 @@ import {
   Card,
   Comment,
   Avatar,
+  Popconfirm,
 } from "antd";
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import APIClient from "../../utils/apiClient";
 import { useHistory } from "react-router-dom";
 
-import { LeftCircleOutlined } from "@ant-design/icons";
+import { LeftCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import EditPosterModal from "../EditPosterModal";
 
 export default function PosterViewModel({
@@ -53,7 +54,7 @@ export default function PosterViewModel({
       {},
       "POST"
     );
-    message.info(response.message);
+    message.info("Izdzēst sekmīgi šis sludinājums");
     goBack();
   };
 
@@ -71,10 +72,9 @@ export default function PosterViewModel({
       console.log("poster: " + poster.status);
 
       setIsLoading(false);
-     
     } catch (err) {
       console.log(err);
-    
+
       setPoster({ status: 404 });
     }
   };
@@ -132,7 +132,15 @@ export default function PosterViewModel({
                       Rediģēt
                     </Button>
 
-                    <Button onClick={deleteById}>Dzēst</Button>
+                    <Popconfirm
+                      title="Vai patiešām vēliess izdzēst šo sludinājumu?"
+                      okText="Jā"
+                      cancelText="Nē"
+                      onConfirm={deleteById}
+                      
+                    >
+                     <Button><DeleteOutlined /> Dzēst</Button>
+                    </Popconfirm>
                   </div>
                 ) : null}
               </Card>
