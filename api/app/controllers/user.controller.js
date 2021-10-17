@@ -188,7 +188,9 @@ exports.getPosterByID = (req, res) => {
             Viewer.count({
               where: {
                 userId: id,
+                posterId : ID_POSTER
               },
+
             });
 
           countView(req.userId).then((e) => {
