@@ -5,7 +5,6 @@ import { NavLink, useHistory } from "react-router-dom";
 import "./styles.css";
 
 const Cards = ({
-
   isSetPosterLoading,
   isPosterLoading,
   update,
