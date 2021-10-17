@@ -147,7 +147,7 @@ export default function AddPosterModal({
                   <TabPane tab="Jaunais attēls" key="2">
                     <input
                       type="file"
-                      required={true}
+                      required={tabs==2 ? true : false}
                       onChange={(e) => {
                         console.log(e.target.files[0]);
                         setAddPicture(e.target.files[0]);
