@@ -1,6 +1,6 @@
-.img_poster {
+.img_poster_view_model {
    
-    width: 200px;
+    width: 250px;
 }
 
 .backButton svg{
@@ -16,7 +16,7 @@
     /* padding: 100px; */
     align-self: center;
 }
-@media (max-width:350px) {.img_poster {
+@media (max-width:420px) {.img_poster_view_model {
    
-    width: 100%;
+    width: 180px;
 } } 

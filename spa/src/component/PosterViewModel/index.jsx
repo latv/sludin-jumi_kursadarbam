@@ -105,7 +105,7 @@ export default function PosterViewModel({
               <Card loading={isLoading} className="poster">
                 {isLoading ? null : (
                   <img
-                    className="img_poster"
+                    className="img_poster_view_model"
                     src={
                       "http://localhost:8080/uploads/" +
                       poster.image.split("\\")[1]
