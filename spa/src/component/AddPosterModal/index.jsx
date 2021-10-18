@@ -58,6 +58,7 @@ export default function AddPosterModal({
       "poster data :",
       getCategories.map((el) => el.value)
     );
+    setupdate(!update);
   };
 
   useEffect(() => {
@@ -75,7 +76,6 @@ export default function AddPosterModal({
       data.append("phone_number", values.phone_number);
       data.append("category", values.category);
       let respone = await axios.post("/api/test/register-poster", data);
-
       setLoading(false);
       setIsAddPosterModalVisible(false);
       message.info("Esi pievienojis sludinājumu");
@@ -85,6 +85,7 @@ export default function AddPosterModal({
       console.log(err);
     } finally {
       setupdate(!update);
+    
     }
   };
 
@@ -109,7 +110,7 @@ export default function AddPosterModal({
                 onFinish={onFinish}
               >
                 <input
-                required={true}
+                  required={true}
                   type="file"
                   onChange={(e) => {
                     console.log(e.target.files[0]);

@@ -81,7 +81,7 @@ const DefaultLayout = () => {
 
   useEffect(() => {
     getCategoriesData();
-  }, []);
+  }, [update]);
 
   useEffect(() => {
     getUsername();
@@ -238,7 +238,7 @@ const DefaultLayout = () => {
         setIsModalVisible={setIsSignUpModalVisible}
       />
       <AddPosterModal
-
+ 
         isPosterLoading={isPosterLoading}
         isPosterLoading={isPosterLoading}
         isAddPosterModalVisible={isAddPosterModalVisible}
