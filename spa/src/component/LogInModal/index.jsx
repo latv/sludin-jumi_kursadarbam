@@ -63,7 +63,7 @@ export default function LogInModal({
                 >
                   <Input
                     prefix={<UserOutlined className="site-form-item-icon" />}
-                    placeholder="Username"
+                    placeholder="E-pasts"
                   />
                 </Form.Item>
                 <Form.Item
@@ -78,7 +78,7 @@ export default function LogInModal({
                   <Input
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
-                    placeholder="Password"
+                    placeholder="Parole"
                   />
                 </Form.Item>
                 <Form.Item>
