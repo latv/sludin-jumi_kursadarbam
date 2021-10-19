@@ -228,7 +228,7 @@ export default function AddPosterModal({
                     htmlType="submit"
                     className="login-form-button"
                   >
-                    Pievienot sludinājumu
+                    Rediģēt sludinājumu
                   </Button>
                 </Form.Item>
               </Form>
