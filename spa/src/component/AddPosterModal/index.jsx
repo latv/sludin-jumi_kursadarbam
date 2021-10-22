@@ -84,7 +84,7 @@ export default function AddPosterModal({
       setLoading(false);
       console.log(err);
     } finally {
-      setupdate(!update);
+      setupdate(!update); // refresh data
     
     }
   };

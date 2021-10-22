@@ -24,7 +24,7 @@ export default function LogInModal({ isModalVisible, setIsModalVisible }) {
 
       setLoading(false);
       setIsModalVisible(false);
-      message.info("Tu esi Piereģistrēts");
+      message.info("Tu esi piereģistrēts");
     } catch (err) {
       message.error("Lietotājvārds vai parole ir nepareiza!");
       console.log(err);
@@ -132,7 +132,7 @@ export default function LogInModal({ isModalVisible, setIsModalVisible }) {
                     htmlType="submit"
                     className="login-form-button"
                   >
-                    Log in
+                    Piereģistrēties
                   </Button>
                   {/* <NavLink to='/signup'>sign up</NavLink> */}
                 </Form.Item>
