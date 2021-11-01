@@ -1,11 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+require("dotenv").config();
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:8080"
+  origin: "http://localhost:8080",
 };
 
 app.use(cors(corsOptions));
@@ -29,18 +29,17 @@ db.sequelize.sync();
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to my application." });
 });
 
 // routes
-require('./app/routes/auth.routes')(app);
-require('./app/routes/user.routes')(app);
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
 
-app.use("/uploads", express.static("./uploads"))
+app.use("/uploads", express.static("./uploads"));
 
 // set port, listen for requests
-const PORT = process.env.PORT || 8080; //port -8080
+const PORT = process.env.PORT || 8080; //port for backend is 8080
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
