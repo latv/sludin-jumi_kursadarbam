@@ -2,6 +2,7 @@ var jwt = require("jsonwebtoken");
 const Sequelize = require("sequelize");
 const config = require("../config/auth.config");
 const db = require("../models");
+const sharp = require("sharp");
 const User = db.user;
 const Poster = db.poster;
 const Viewer = db.viewer;
@@ -25,6 +26,38 @@ exports.registerPoster = (req, res) => {
 
   let token = req.body["x-access-token"];
   token = jwt.decode(token, config.secret);
+
+  if (req.file.path.includes(".jpg")) {
+    sharp(req.file.path)
+      .jpeg({ quality: 15 })
+      .toFile(
+        req.file.path.split("\\")[0] +
+          "\\thumbnails\\" +
+          req.file.path.split("\\")[1],
+        (err, resizeImage) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(resizeImage);
+          }
+        }
+      );
+  } else if (req.file.path.includes(".png")) {
+    sharp(req.file.path)
+      .png({ quality: 15 })
+      .toFile(
+        req.file.path.split("\\")[0] +
+          "\\thumbnails\\" +
+          req.file.path.split("\\")[1],
+        (err, resizeImage) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(resizeImage);
+          }
+        }
+      );
+  }
   User.findOne({ where: { id: token.id } }).then((result) => {
     Poster.create({
       user_id: token.id,
@@ -138,7 +171,10 @@ exports.getMyPoster = (req, res) => {
 
   let token = req.headers["x-access-token"]; // use for browser
   token = jwt.decode(token, config.secret);
-  Poster.findAll({ where: { userId: token.id },validate:{isNull: true} }).then((result) => {
+  Poster.findAll({
+    where: { userId: token.id },
+    validate: { isNull: true },
+  }).then((result) => {
     if (result == null || result.length === 0) {
       res.status(404).send({ message: "My posters is not found" });
     } else {
@@ -188,9 +224,8 @@ exports.getPosterByID = (req, res) => {
             Viewer.count({
               where: {
                 userId: id,
-                posterId : ID_POSTER
+                posterId: ID_POSTER,
               },
-
             });
 
           countView(req.userId).then((e) => {

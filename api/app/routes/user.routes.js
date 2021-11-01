@@ -2,12 +2,15 @@ const { authJwt } = require("../middleware");
 const controller = require("../controllers/user.controller");
 const multer = require("multer");
 
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "./uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, "-") + file.originalname);
+    let fileDateName = new Date().toISOString().replace(/:/g, "-")+file.originalname;
+    cb(null,  fileDateName );
+
   },
 });
 

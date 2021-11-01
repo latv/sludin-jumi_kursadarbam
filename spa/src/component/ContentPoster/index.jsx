@@ -39,7 +39,7 @@ const Cards = ({
                     src={
                       poster.image === undefined
                         ? "http://localhost:8080/uploads/no-image.jpg"
-                        : "http://localhost:8080/uploads/" +
+                        : "http://localhost:8080/uploads/thumbnails/" +
                           poster.image.split("\\")[1]
                     }
                     className="card__image"

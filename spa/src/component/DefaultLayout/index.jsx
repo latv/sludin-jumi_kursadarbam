@@ -222,7 +222,7 @@ const DefaultLayout = () => {
               </Route>
             </Switch>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
+          <Footer className="footer">
             ©2021 izveidoja Jānis Feldmanis
           </Footer>
         </BrowserRouter>
