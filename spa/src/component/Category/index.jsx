@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Card, Button, Row, Dropdown } from "antd";
 import APIClient from "../../utils/apiClient";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.css";
 
 const Cards = ({
@@ -23,13 +23,14 @@ const Cards = ({
     setPoster(response);
     isSetPosterLoading(false);
   };
-  const history = useHistory();
+  // const history = useNavigate();
 
-  useEffect(() => {
-    return history.listen((location) => {
-      getPoster();
-    });
-  }, [history]);
+  // useEffect(() => {
+  //   // return history.listen((location) => {
+  //   //   getPoster();
+  //   // });
+  //   console.log("back");
+  // }, [history]);
 
   useEffect(() => {
     getPoster();

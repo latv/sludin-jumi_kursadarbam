@@ -30,7 +30,7 @@ const Cards = ({
       <Row wrap={true}>
         <Spin spinning={isPosterLoading}>
           {poster.map((poster) => (
-            <NavLink to={"/" + poster.id}>
+            <NavLink to={"/poster/" + poster.id}>
               <Card
                 className="card"
                 hoverable
@@ -51,7 +51,7 @@ const Cards = ({
                   description={"cena " + poster.price + " EUR"}
                 />
               </Card>
-            </NavLink>
+             </NavLink>
           ))}
         </Spin>
       </Row>

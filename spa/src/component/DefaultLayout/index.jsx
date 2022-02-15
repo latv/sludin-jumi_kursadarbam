@@ -21,12 +21,12 @@ import History from "../HistoryModels";
 
 import Category from "../Category";
 
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink, Navigate } from "react-router-dom";
 import {
   BrowserRouter as Router,
   Route,
   BrowserRouter,
-  Switch,
+  Routes,
 } from "react-router-dom";
 
 const DefaultLayout = () => {
@@ -119,14 +119,16 @@ const DefaultLayout = () => {
   return (
     <>
       <Layout className="layout">
-        <BrowserRouter>
-          <Header>
-            <NavLink to="/">
-              <img src={logo} height="100%" alt="" />
-            </NavLink>
 
-            {isSignedIn
-              ? [
+        <Content style={{ padding: "0 50px" }}>
+          <BrowserRouter>
+            <Header>
+              <NavLink to="/">
+                <img src={logo} height="100%" alt="" />
+              </NavLink>
+
+              {isSignedIn
+                ? [
                   <Dropdown overlay={menu} trigger={["click"]}>
                     <UserOutlined className="left-profile" />
                   </Dropdown>,
@@ -136,7 +138,7 @@ const DefaultLayout = () => {
                   />,
                   <LogoutOutlined className="left" onClick={logOut} />,
                 ]
-              : [
+                : [
                   <Button type="default" className="auth" onClick={showModal}>
                     Ielogoties
                   </Button>,
@@ -148,35 +150,45 @@ const DefaultLayout = () => {
                     Piereģistrēties
                   </Button>,
                 ]}
-          </Header>
-          <Content style={{ padding: "0 50px" }}>
-            <Switch>
-              <Route exact path="/myPosters">
-                {isSignedIn ? null : <Redirect to="/" />}
+            </Header>
+            <Routes>
+            <Route path="/poster/:id"
+                element={
+                  <PosterViewModel
+          
+                    userCredential={userCredential}
+                    isSignedIn={isSignedIn}
+                    update={update}
+                    setupdate={setupdate}
+                    isEditPosterModalVisible={isEditPosterModalVisible}
+                    setIsEditPosterModalVisible={setIsEditPosterModalVisible}
+                    userCredential={userCredential}
+                  />
+                } ></Route>
+              <Route exact path="/myPosters" element={isSignedIn ? null : <Navigate to="/" />,
                 <MyPosters
-                 
+
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
                   setupdate={setupdate}
-                />
-              </Route>
-              <Route exact path="/myHistory">
-                {isSignedIn ? null : <Redirect to="/" />}
+                />} />
+
+
+              <Route exact path="/myHistory" element={isSignedIn ? null : <Navigate to="/" />,
                 <History
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
                   setupdate={setupdate}
-                />
-              </Route>
+                />} />
+              
 
-              <Route exact path="/">
-                <Spin spinning={isCategoriesLoading}>
-                  <Dropdown overlay={categoriesMenu} trigger={["click"]}>
-                    <p className="left-profile">Kategorija</p>
-                  </Dropdown>
-                </Spin>
+              <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
+                <Dropdown overlay={categoriesMenu} trigger={["click"]}>
+                  <p className="left-profile">Kategorija</p>
+                </Dropdown>
+              </Spin>
                 <hr />
                 <div>
                   <SyncOutlined
@@ -192,40 +204,32 @@ const DefaultLayout = () => {
                     update={update}
                     setupdate={setupdate}
                   />
-                </div>
+                </div></div>} />
+              <Route path="/category/" element={<Category
+                isPosterLoading={isPosterLoading}
+                isSetPosterLoading={isSetPosterLoading}
+                update={update}
+                setupdate={setupdate}
+                categoriesMenu={categoriesMenu}
+                isCategoriesLoading={isCategoriesLoading}
+              />} />
+
+
+
+
+
+              <Route exact path="*" element={<h1>Nav atrasta lapa</h1>}>
+
               </Route>
 
-              <Route path="/category/">
-                <Category
-                  isPosterLoading={isPosterLoading}
-                  isSetPosterLoading={isSetPosterLoading}
-                  update={update}
-                  setupdate={setupdate}
-                  categoriesMenu={categoriesMenu}
-                  isCategoriesLoading={isCategoriesLoading}
-                />
-              </Route>
 
-              <Route path="/">
-                <PosterViewModel
-                  userCredential={userCredential}
-                  isSignedIn={isSignedIn}
-                  update={update}
-                  setupdate={setupdate}
-                  isEditPosterModalVisible={isEditPosterModalVisible}
-                  setIsEditPosterModalVisible={setIsEditPosterModalVisible}
-                  userCredential={userCredential}
-                />
-              </Route>
-              <Route exact path="*">
-                <h1>Nav atrasta lapa</h1>
-              </Route>
-            </Switch>
-          </Content>
-          <Footer className="footer">
-            ©2021 izveidoja Jānis Feldmanis
-          </Footer>
-        </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
+
+        </Content>
+        <Footer className="footer">
+          ©2021 izveidoja Jānis Feldmanis
+        </Footer>
       </Layout>
       <LogInModal
         isModalVisible={isModalVisible}
@@ -238,7 +242,7 @@ const DefaultLayout = () => {
         setIsModalVisible={setIsSignUpModalVisible}
       />
       <AddPosterModal
- 
+
         isPosterLoading={isPosterLoading}
         isPosterLoading={isPosterLoading}
         isAddPosterModalVisible={isAddPosterModalVisible}

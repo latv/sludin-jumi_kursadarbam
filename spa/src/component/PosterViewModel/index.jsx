@@ -1,4 +1,5 @@
 import {
+  // posterID,
   Layout,
   Modal,
   Button,
@@ -12,15 +13,17 @@ import {
   Avatar,
   Popconfirm,
 } from "antd";
+import { useParams } from 'react-router';
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import APIClient from "../../utils/apiClient";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { LeftCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import EditPosterModal from "../EditPosterModal";
 
 export default function PosterViewModel({
+  
   userCredential,
   isSignedIn,
   update,
@@ -31,15 +34,16 @@ export default function PosterViewModel({
   const xsWidth = 22;
   const mdWidth = 18;
   const lgWidth = 16;
-
+  // const { id } = useParams();
   const [poster, setPoster] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const goBack = () => {
     history.goBack();
+    console.log("back");
   };
 
   useEffect(() => {
@@ -49,6 +53,8 @@ export default function PosterViewModel({
   const deleteById = async () => {
     const path = window.location.pathname.toString();
     console.log("path " + path);
+    // let { ID } = useParams();
+  
     let response = await APIClient.request(
       "/api/test/delete-poster" + path,
       {},
@@ -60,11 +66,16 @@ export default function PosterViewModel({
 
   const getPosterData = async () => {
     try {
+      // console.log(
+      //   "id: ", id
+      // )
+
       setIsLoading(true);
       const path = window.location.pathname.toString();
-      console.log("path " + path);
+      console.log("path " + path.split("/")[2]);
+      // let { id } = useParams();
       let response = await APIClient.request(
-        "api/test/get-poster" + path,
+        "/api/test/get-poster/" + path.split("/")[2],
         {},
         "GET"
       );
