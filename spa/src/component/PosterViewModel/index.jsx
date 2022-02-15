@@ -23,7 +23,7 @@ import { LeftCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import EditPosterModal from "../EditPosterModal";
 
 export default function PosterViewModel({
-  
+
   userCredential,
   isSignedIn,
   update,
@@ -39,10 +39,10 @@ export default function PosterViewModel({
 
   const [isLoading, setIsLoading] = useState(true);
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const goBack = () => {
-    history.goBack();
+    navigate(-1)
     console.log("back");
   };
 
@@ -54,7 +54,7 @@ export default function PosterViewModel({
     const path = window.location.pathname.toString();
     console.log("path " + path);
     // let { ID } = useParams();
-  
+
     let response = await APIClient.request(
       "/api/test/delete-poster" + path,
       {},
@@ -66,14 +66,12 @@ export default function PosterViewModel({
 
   const getPosterData = async () => {
     try {
-      // console.log(
-      //   "id: ", id
-      // )
+
 
       setIsLoading(true);
       const path = window.location.pathname.toString();
       console.log("path " + path.split("/")[2]);
-      // let { id } = useParams();
+
       let response = await APIClient.request(
         "/api/test/get-poster/" + path.split("/")[2],
         {},
@@ -96,7 +94,7 @@ export default function PosterViewModel({
       {poster.status != 404 ? (
         <div>
           <EditPosterModal
-          getPosterData={getPosterData}
+            getPosterData={getPosterData}
             update={update}
             setupdate={setupdate}
             isEditPosterModalVisible={isEditPosterModalVisible}
@@ -135,8 +133,8 @@ export default function PosterViewModel({
                   {isLoading
                     ? null
                     : poster.createdAt.split("T")[0] +
-                      " " +
-                      poster.createdAt.split("T")[1].split(".")[0]}{" "}
+                    " " +
+                    poster.createdAt.split("T")[1].split(".")[0]}{" "}
                 </p>
                 <p>Skatīts: {poster.viewed}</p>
                 {isSignedIn && userCredential.id === poster.userId ? (
@@ -150,9 +148,9 @@ export default function PosterViewModel({
                       okText="Jā"
                       cancelText="Nē"
                       onConfirm={deleteById}
-                      
+
                     >
-                     <Button><DeleteOutlined /> Dzēst</Button>
+                      <Button><DeleteOutlined /> Dzēst</Button>
                     </Popconfirm>
                   </div>
                 ) : null}

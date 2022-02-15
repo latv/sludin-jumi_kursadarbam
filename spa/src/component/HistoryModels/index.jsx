@@ -54,7 +54,7 @@ const Cards = ({ isSetPosterLoading, isPosterLoading, update }) => {
       key: "id",
       render: (value) => {
         return (
-          <NavLink to={"/" + value}>
+          <NavLink to={"/poster/" + value}>
             <Button>Skatīt</Button>
           </NavLink>
         );

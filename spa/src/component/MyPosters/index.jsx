@@ -41,7 +41,7 @@ const Cards = ({
       <Row wrap={true}>
         <Spin spinning={isPosterLoading}>
           {poster.status == 404? <p>Nav ievototi sludinājumi</p>: poster.map((poster) => (
-            <NavLink to={"/" + poster.id}>
+            <NavLink to={"/poster/" + poster.id}>
               <Card
                 className="card"
                 hoverable
