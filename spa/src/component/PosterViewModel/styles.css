@@ -3,26 +3,34 @@
     margin-left: auto;
     margin-right: auto;
     width: 95%;
-
 }
 
-.backButton svg{
-   
-    
+.backButton svg {
     font-size: 2.5em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     margin-left: -1em;
     color: blue;
 }
-.poster{
+
+.poster {
     /* padding: 100px; */
     align-self: center;
 }
-@media (max-width:420px) {.img_poster_view_model {
-   
-    width: 180px;
-} } 
-.anticon.anticon-delete{
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* width: 50%; */
+}
+
+@media (max-width:420px) {
+    .img_poster_view_model {
+        width: 180px;
+    }
+}
+
+.anticon.anticon-delete {
     color: red;
 }
