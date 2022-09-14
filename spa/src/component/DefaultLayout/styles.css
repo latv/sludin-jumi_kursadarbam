@@ -1,87 +1,97 @@
 @import '~antd/dist/antd.css';
-
 .site-layout-content {
-  min-height: 280px;
-  padding: 24px;
- 
-  /* background: #fff; */
+    min-height: 280px;
+    padding: 24px;
+    /* background: #fff; */
 }
+
 .logo {
-  float: left;
-  width: 120px;
-  height: 31px;
-  margin: 16px 24px 16px 0;
-  background: rgba(255, 255, 255, 0.3);
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.3);
 }
+
 .ant-row-rtl .logo {
-  float: right;
-  margin: 16px 0 16px 24px;
+    float: right;
+    margin: 16px 0 16px 24px;
 }
-  [data-theme="dark"] .site-layout-content {
+
+[data-theme="dark"] .site-layout-content {
     background: #141414;
-  }
-
-
-.anticon-logout{
-
-  color: red;
-  font-size: large;
 }
-.anticon-plus{
 
-  color: wheat;
+.anticon-logout {
+    color: red;
+    font-size: large;
+}
+
+.anticon-plus {
+    color: wheat;
     font-size: larger;
 }
-.anticon-sync{
-  font-size: 28px;
+
+.anticon-sync {
+    font-size: 28px;
     color: blue;
     padding: 6px;
 }
-.profile{
-  float: right;
-}
-.avatar{
-  
-  width: 1.6em;
-  border-radius: 1.5em;
-}
-.auth{
-  /* margin: 0; */
-  /* position: absolute; */
-  margin-left: 0.5em;
-  top: 50%;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
-  float: right;
-}
-.left{
-  margin-top: 20px;
-  margin-left: 0.6em;
-  top: 50%;
-  float: right;
-}
-.left-profile{
-  padding: 3px;
-background-color: whitesmoke;
-  margin-top: 20px;
-  margin-left: 0.6em;
-  top: 50%;
-  float: right;
-}
-.categories{
-  display: flex; 
+
+.profile {
+    float: right;
 }
 
+.avatar {
+    width: 1.6em;
+    border-radius: 1.5em;
+}
+
+.auth {
+    /* margin: 0; */
+    /* position: absolute; */
+    margin-left: 0.5em;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    float: right;
+}
+
+.left {
+    margin-top: 20px;
+    margin-left: 0.6em;
+    top: 50%;
+    float: right;
+}
+
+.left-category-menu {
+    padding: 4px;
+    background-color: whitesmoke;
+    margin-top: 18px;
+    margin-left: 0.6em;
+    top: 50%;
+    float: right;
+    border: 1px solid #03c2fc;
+    border-radius: 10px;
+}
+
+.anticon.anticon-right {
+    color: #757575;
+}
+
+.categories {
+    display: flex;
+}
 
 .dropbtn {
-  background-color: #04AA6D;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
 }
-.footer{
-  
-  padding-top: 330px;
-  text-align: center;
+
+.footer {
+    padding-top: 330px;
+    text-align: center;
 }

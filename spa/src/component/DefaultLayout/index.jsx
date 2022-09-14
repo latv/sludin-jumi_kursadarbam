@@ -8,6 +8,7 @@ import {
   LogoutOutlined,
   SyncOutlined,
   UserOutlined,
+  RightOutlined,
 } from "@ant-design/icons";
 import APIClient from "../../utils/apiClient";
 import Cookies from "js-cookie";
@@ -34,6 +35,7 @@ const DefaultLayout = () => {
 
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update, setupdate] = useState(true);
+  const [isOpened, setIsOpened]= useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(jwt.isAuthorized());
@@ -120,7 +122,7 @@ const DefaultLayout = () => {
     <>
       <Layout className="layout">
 
-        <Content style={{ padding: "0 50px" }}>
+        <Content style={{ padding: "0 5px" }}>
           <BrowserRouter>
             <Header>
               <NavLink to="/">
@@ -185,8 +187,8 @@ const DefaultLayout = () => {
               
 
               <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
-                <Dropdown overlay={categoriesMenu} trigger={["click"]}>
-                  <p className="left-profile">Kategorija</p>
+                <Dropdown className="left-category-menu" overlay={categoriesMenu} onVisibleChange={ (isOpened) => setIsOpened(isOpened)} trigger={["click"]}  >
+                  <p ><RightOutlined rotate={isOpened ? 90 : 0}/>Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />
