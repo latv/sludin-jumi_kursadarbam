@@ -205,7 +205,7 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                   />
                 </div></div>} />
-              <Route path="/category/" element={<Category
+              <Route path="/category/:car" element={<Category
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
                 update={update}
