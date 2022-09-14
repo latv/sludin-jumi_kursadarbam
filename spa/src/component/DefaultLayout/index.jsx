@@ -35,7 +35,7 @@ const DefaultLayout = () => {
 
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update, setupdate] = useState(true);
-  const [isOpened, setIsOpened]= useState(false);
+  const [iconDegree, setIconDegree] = useState(0);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(jwt.isAuthorized());
@@ -154,10 +154,10 @@ const DefaultLayout = () => {
                 ]}
             </Header>
             <Routes>
-            <Route path="/poster/:id"
+              <Route path="/poster/:id"
                 element={
                   <PosterViewModel
-          
+
                     userCredential={userCredential}
                     isSignedIn={isSignedIn}
                     update={update}
@@ -184,11 +184,33 @@ const DefaultLayout = () => {
                   update={update}
                   setupdate={setupdate}
                 />} />
-              
+
 
               <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
-                <Dropdown className="left-category-menu" overlay={categoriesMenu} onVisibleChange={ (isOpened) => setIsOpened(isOpened)} trigger={["click"]}  >
-                  <p ><RightOutlined rotate={isOpened ? 90 : 0}/>Kategorijas</p>
+                <Dropdown className="left-category-menu" overlay={categoriesMenu}
+                  onVisibleChange={(isOpened) => {
+
+                    if (isOpened) {
+                      for (let index = 1; index <= 90; index += 2) {
+                        setTimeout(() => {
+                          setIconDegree(index);
+                          console.log("lenķis: ", index);
+                        }, 0.0001);
+
+                      }
+                    } else {
+                      for (let index = 90; index > 0; index -= 2) {
+                        setTimeout(() => {
+                          setIconDegree(index);
+                          console.log("lenķis: ", index);
+                        }, 0.0001);
+                      }
+                    }
+
+
+                  }} 
+                  trigger={["click"]}  >
+                  <p > <RightOutlined rotate={iconDegree}/> Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />
