@@ -35,7 +35,7 @@ const DefaultLayout = () => {
 
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update, setupdate] = useState(true);
-  const [iconDegree, setIconDegree] = useState(0);
+  const [isOpened, setIsOpened] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isSignUpModalVisible, setIsSignUpModalVisible] = useState(false);
   const [isSignedIn, setIsSignedIn] = useState(jwt.isAuthorized());
@@ -189,29 +189,31 @@ const DefaultLayout = () => {
 
               <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
-                  onVisibleChange={(isOpened) => {
+                  // onVisibleChange={(isOpened) => {
 
-                    if (isOpened) {
-                      for (let index = 1; index <= 90; index += 2) {
-                        setTimeout(() => {
-                          setIconDegree(index);
+                  //   if (isOpened) {
+                  //     for (let index = 1; index <= 90; index += 2) {
+                  //       setTimeout(() => {
+                  //         setIconDegree(index);
 
-                        }, 0.0001);
+                  //       }, 0.0001);
 
-                      }
-                    } else {
-                      for (let index = 90; index > 0; index -= 2) {
-                        setTimeout(() => {
-                          setIconDegree(index);
+                  //     }
+                  //   } else {
+                  //     for (let index = 90; index > 0; index -= 2) {
+                  //       setTimeout(() => {
+                  //         setIconDegree(index);
 
-                        }, 0.0001);
-                      }
-                    }
+                  //       }, 0.0001);
+                  //     }
+                  //   }
 
 
-                  }}
+                  // }}
+                  // tried animated
+                  onVisibleChange={ (el) => setIsOpened(el)}
                   trigger={["click"]}  >
-                  <p > <RightOutlined rotate={iconDegree} /> Kategorijas</p>
+                  <p > <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />

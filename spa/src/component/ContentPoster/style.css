@@ -1,45 +1,62 @@
 * {
     box-sizing: border-box;
- }
- .cards{
-     /* background-color: white; */
-     display: flex;
-     width: 100%;
-     align-items: center;
-     justify-content: center;
-     width: 100%;
+}
+
+.cards {
+    /* background-color: white; */
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
     padding-right: 15px;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
- }
- .card {
-   position: relative;
-    /* display: -ms-flexbox; */
+}
+
+.card {
+    /* position: relative;
     display: flex;
     -ms-flex-direction: column;
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    /* background-color: #fff; */
     background-clip: border-box;
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: .25rem;
-    /* color: white; */
     float: left;
-    /* width: calc(25% - 20px); */
-    /* padding: 10px; */
     border-radius: 10px;
     margin: 10px;
     margin-top: 100px;
     height: 200px;
-    width: 30em;
- }
- .card img{
-    width: 30em;
- }
- .card p {
+    width: 30em; */
+    width: 220px;
+    height: 200px;
+    border: black solid 1px;
+    /* display: block;
+    margin-left: auto;
+    margin-right: auto; */
+}
+
+.card img {
+    /* width: 30em; */
+    width: 100%;
+    height: 90px;
+    /* //Whatever you want for only image */
+    object-fit: cover;
+    /* // it is important for scale of image */
+}
+
+.card p {
     font-size: 18px;
- }
+}
 
-
+@media only screen and (max-width:420px) {
+    .card {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        align-self: center;
+    }
+}

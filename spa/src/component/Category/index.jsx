@@ -3,6 +3,10 @@ import { Spin, Card, Button, Row, Dropdown } from "antd";
 import APIClient from "../../utils/apiClient";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./styles.css";
+import {
+
+  RightOutlined,
+} from "@ant-design/icons";
 
 const Cards = ({
   isSetPosterLoading,
@@ -13,6 +17,7 @@ const Cards = ({
 }) => {
   const { Meta } = Card;
   const [poster, setPoster] = useState([]);
+  const [isOpened, setIsOpened] = useState(false);
   const getPoster = async () => {
     isSetPosterLoading(!isPosterLoading);
     const path = window.location.pathname.toString();
@@ -39,8 +44,8 @@ const Cards = ({
   return (
     <>
       <Spin spinning={isCategoriesLoading}>
-        <Dropdown overlay={categoriesMenu} trigger={["click"]}>
-          <p className="left-profile">Kategorija</p>
+        <Dropdown overlay={categoriesMenu} trigger={["click"]} className="left-category-menu" onVisibleChange={(el) => setIsOpened(el)}>
+          <p > <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
         </Dropdown>
       </Spin>
       <div className="cards">
