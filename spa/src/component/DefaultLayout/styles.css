@@ -50,11 +50,23 @@
 .auth {
     /* margin: 0; */
     /* position: absolute; */
+    border-radius: 10px;
     margin-left: 0.5em;
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     float: right;
+}
+
+@media (max-width:420px) {
+    .auth {
+        width: 30%;
+        font-size: 60%;
+        text-align: center;
+        margin-right: -20px;
+        margin-left: 3.3em;
+        font-weight: 500;
+    }
 }
 
 .left {

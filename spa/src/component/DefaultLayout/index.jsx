@@ -212,10 +212,16 @@ const DefaultLayout = () => {
 
                   // }}
                   // tried animated
-                  
+
                   onVisibleChange={(el) => setIsOpened(el)}
                   trigger={["click"]}  >
-                  <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }}> <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
+                  <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }
+                  }> <RightOutlined
+                      // rotate={isOpened ? 90 : 0}
+                      style={isOpened ? {  transform: "rotate(0deg)",transitionDuration : "0.3s"}:  {
+                        transform: "rotate(90deg)",transitionDuration : "0.3s"
+                      }}
+                    /> Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />
