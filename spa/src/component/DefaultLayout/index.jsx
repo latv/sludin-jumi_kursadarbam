@@ -232,11 +232,11 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                   />
                 </div></div>} />
-              <Route path="/category/:car" element={<Category
+              <Route path="/category/:category" element={<Category
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
                 update={update}
-                setupdate={setupdate}
+                
                 categoriesMenu={categoriesMenu}
                 isCategoriesLoading={isCategoriesLoading}
               />} />

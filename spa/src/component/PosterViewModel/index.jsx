@@ -144,7 +144,7 @@ export default function PosterViewModel({
                     </Button>
 
                     <Popconfirm
-                      title="Vai patiešām vēliess izdzēst šo sludinājumu?"
+                      title="Vai patiešām vēlies izdzēst šo sludinājumu?"
                       okText="Jā"
                       cancelText="Nē"
                       onConfirm={deleteById}
