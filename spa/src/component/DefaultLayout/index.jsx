@@ -131,7 +131,7 @@ const DefaultLayout = () => {
 
               {isSignedIn
                 ? [
-                  
+
                   <Dropdown overlay={menu} trigger={["click"]}>
                     <UserOutlined className="left-profile" />
                   </Dropdown>,
@@ -189,6 +189,7 @@ const DefaultLayout = () => {
 
               <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
+
                   // onVisibleChange={(isOpened) => {
 
                   //   if (isOpened) {
@@ -211,9 +212,10 @@ const DefaultLayout = () => {
 
                   // }}
                   // tried animated
-                  onVisibleChange={ (el) => setIsOpened(el)}
+                  
+                  onVisibleChange={(el) => setIsOpened(el)}
                   trigger={["click"]}  >
-                  <p > <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
+                  <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }}> <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />
@@ -236,7 +238,7 @@ const DefaultLayout = () => {
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
                 update={update}
-                
+
                 categoriesMenu={categoriesMenu}
                 isCategoriesLoading={isCategoriesLoading}
               />} />
