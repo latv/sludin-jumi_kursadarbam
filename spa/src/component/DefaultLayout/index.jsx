@@ -131,6 +131,7 @@ const DefaultLayout = () => {
 
               {isSignedIn
                 ? [
+                  
                   <Dropdown overlay={menu} trigger={["click"]}>
                     <UserOutlined className="left-profile" />
                   </Dropdown>,

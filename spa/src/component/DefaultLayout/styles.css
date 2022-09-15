@@ -64,6 +64,17 @@
     float: right;
 }
 
+.left-profile {
+    height: 19px;
+    width: 19px;
+    background-color: #ded8d7;
+    margin-top: 20px;
+    margin-left: 0.6em;
+    top: 50%;
+    float: right;
+    border-radius: 100%;
+}
+
 .left-category-menu {
     padding: 4px;
     background-color: whitesmoke;
