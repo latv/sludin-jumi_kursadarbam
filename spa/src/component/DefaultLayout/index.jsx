@@ -194,7 +194,7 @@ const DefaultLayout = () => {
                       for (let index = 1; index <= 90; index += 2) {
                         setTimeout(() => {
                           setIconDegree(index);
-                          console.log("lenķis: ", index);
+
                         }, 0.0001);
 
                       }
@@ -202,15 +202,15 @@ const DefaultLayout = () => {
                       for (let index = 90; index > 0; index -= 2) {
                         setTimeout(() => {
                           setIconDegree(index);
-                          console.log("lenķis: ", index);
+
                         }, 0.0001);
                       }
                     }
 
 
-                  }} 
+                  }}
                   trigger={["click"]}  >
-                  <p > <RightOutlined rotate={iconDegree}/> Kategorijas</p>
+                  <p > <RightOutlined rotate={iconDegree} /> Kategorijas</p>
                 </Dropdown>
               </Spin>
                 <hr />
