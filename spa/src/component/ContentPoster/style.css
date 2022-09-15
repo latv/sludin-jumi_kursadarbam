@@ -45,11 +45,16 @@
     height: 90px;
     /* //Whatever you want for only image */
     object-fit: cover;
+    border-radius: 10px 10px 0px 0px;
     /* // it is important for scale of image */
 }
 
 .card p {
     font-size: 18px;
+}
+
+.meta {
+    border-radius: none;
 }
 
 @media only screen and (max-width:420px) {

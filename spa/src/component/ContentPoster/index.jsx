@@ -32,6 +32,11 @@ const Cards = ({
           {poster.map((poster) => (
             <NavLink to={"/poster/" + poster.id}>
               <Card
+              style={{
+               
+                borderRadius: "10px",
+                
+              }}
                 className="card"
                 hoverable
                 cover={
