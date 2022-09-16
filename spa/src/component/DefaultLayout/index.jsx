@@ -111,7 +111,7 @@ const DefaultLayout = () => {
     <Menu>
       {getCategories.map((el) => (
         <Menu.Item>
-          <NavLink to={"/category/" + el.value}>{el.value}</NavLink>
+          <NavLink to={"/category/" + el.value} onClick={() => setIsOpened(false)} >{el.value}</NavLink>
         </Menu.Item>
       ))}
     </Menu>
@@ -155,7 +155,7 @@ const DefaultLayout = () => {
                 ]}
             </Header>
             <Routes>
-     
+
               <Route path="/poster/:id"
                 element={
                   <PosterViewModel
@@ -166,29 +166,29 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                     isEditPosterModalVisible={isEditPosterModalVisible}
                     setIsEditPosterModalVisible={setIsEditPosterModalVisible}
-                    
+
                   />
                 } ></Route>
-              <Route exact path="/myPosters" element={isSignedIn ? null :[ <Navigate to="/" />,
-                <MyPosters
+              <Route exact path="/myPosters" element={isSignedIn ? null : [<Navigate to="/" />,
+              <MyPosters
 
-                  isPosterLoading={isPosterLoading}
-                  isSetPosterLoading={isSetPosterLoading}
-                  update={update}
-                  setupdate={setupdate}
-                />]} />
-
-
-              <Route exact path="/myHistory" element={isSignedIn ? null :[ <Navigate to="/" />,
-                <History
-                  isPosterLoading={isPosterLoading}
-                  isSetPosterLoading={isSetPosterLoading}
-                  update={update}
-                  setupdate={setupdate}
-                />]} />
+                isPosterLoading={isPosterLoading}
+                isSetPosterLoading={isSetPosterLoading}
+                update={update}
+                setupdate={setupdate}
+              />]} />
 
 
-          
+              <Route exact path="/myHistory" element={isSignedIn ? null : [<Navigate to="/" />,
+              <History
+                isPosterLoading={isPosterLoading}
+                isSetPosterLoading={isSetPosterLoading}
+                update={update}
+                setupdate={setupdate}
+              />]} />
+
+
+
               <Route path="/category/:category" element={<Category
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
@@ -196,16 +196,15 @@ const DefaultLayout = () => {
 
                 categoriesMenu={categoriesMenu}
                 isCategoriesLoading={isCategoriesLoading}
-                NavLink={NavLink}
+
+                isOpened={isOpened}
+                setIsOpened={setIsOpened}
               />} />
 
 
 
-<Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
+              <Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
-
-
-
                   onVisibleChange={(el) => setIsOpened(el)}
                   trigger={["click"]}  >
                   <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }

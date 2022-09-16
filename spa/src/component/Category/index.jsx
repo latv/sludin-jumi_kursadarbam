@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Card, Menu, Row, Dropdown } from "antd";
 import APIClient from "../../utils/apiClient";
-import {  useNavigate, useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import "./styles.css";
 import {
 
@@ -14,11 +14,12 @@ const Cards = ({
   update,
   categoriesMenu,
   isCategoriesLoading,
-  NavLink
+  isOpened,
+  setIsOpened
 }) => {
   const { Meta } = Card;
   const [poster, setPoster] = useState([]);
-  const [isOpened, setIsOpened] = useState(false);
+
   const getPoster = async () => {
     isSetPosterLoading(!isPosterLoading);
     const path = window.location.pathname.toString();
@@ -49,8 +50,16 @@ const Cards = ({
   return (
     <>
       <Spin spinning={isCategoriesLoading}>
-        <Dropdown overlay={categoriesMenu} trigger={["click"]} className="left-category-menu" onVisibleChange={(el) => setIsOpened(el)}>
-          <p > <RightOutlined rotate={isOpened ? 90 : 0} /> Kategorijas</p>
+        <Dropdown className="left-category-menu" overlay={categoriesMenu}
+          onVisibleChange={(el) => setIsOpened(el)}
+          trigger={["click"]}  >
+          <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }
+          }> <RightOutlined
+              // rotate={isOpened ? 90 : 0}
+              style={isOpened ? { transform: "rotate(0deg)", transitionDuration: "0.3s" } : {
+                transform: "rotate(90deg)", transitionDuration: "0.3s"
+              }}
+            /> Kategorijas</p>
         </Dropdown>
       </Spin>
       <div className="cards">
