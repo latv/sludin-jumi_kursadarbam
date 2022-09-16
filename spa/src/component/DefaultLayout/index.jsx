@@ -166,26 +166,26 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                     isEditPosterModalVisible={isEditPosterModalVisible}
                     setIsEditPosterModalVisible={setIsEditPosterModalVisible}
-                    userCredential={userCredential}
+                    
                   />
                 } ></Route>
-              <Route exact path="/myPosters" element={isSignedIn ? null : <Navigate to="/" />,
+              <Route exact path="/myPosters" element={isSignedIn ? null :[ <Navigate to="/" />,
                 <MyPosters
 
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
                   setupdate={setupdate}
-                />} />
+                />]} />
 
 
-              <Route exact path="/myHistory" element={isSignedIn ? null : <Navigate to="/" />,
+              <Route exact path="/myHistory" element={isSignedIn ? null :[ <Navigate to="/" />,
                 <History
                   isPosterLoading={isPosterLoading}
                   isSetPosterLoading={isSetPosterLoading}
                   update={update}
                   setupdate={setupdate}
-                />} />
+                />]} />
 
 
           
@@ -260,7 +260,7 @@ const DefaultLayout = () => {
       <AddPosterModal
 
         isPosterLoading={isPosterLoading}
-        isPosterLoading={isPosterLoading}
+
         isAddPosterModalVisible={isAddPosterModalVisible}
         setIsAddPosterModalVisible={setIsAddPosterModalVisible}
         update={update}
