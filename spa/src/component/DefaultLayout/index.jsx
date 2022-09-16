@@ -155,6 +155,7 @@ const DefaultLayout = () => {
                 ]}
             </Header>
             <Routes>
+     
               <Route path="/poster/:id"
                 element={
                   <PosterViewModel
@@ -187,39 +188,31 @@ const DefaultLayout = () => {
                 />} />
 
 
-              <Route exact path="/" element={<div><Spin spinning={isCategoriesLoading}>
+          
+              <Route path="/category/:category" element={<Category
+                isPosterLoading={isPosterLoading}
+                isSetPosterLoading={isSetPosterLoading}
+                update={update}
+
+                categoriesMenu={categoriesMenu}
+                isCategoriesLoading={isCategoriesLoading}
+                NavLink={NavLink}
+              />} />
+
+
+
+<Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
 
-                  // onVisibleChange={(isOpened) => {
 
-                  //   if (isOpened) {
-                  //     for (let index = 1; index <= 90; index += 2) {
-                  //       setTimeout(() => {
-                  //         setIconDegree(index);
-
-                  //       }, 0.0001);
-
-                  //     }
-                  //   } else {
-                  //     for (let index = 90; index > 0; index -= 2) {
-                  //       setTimeout(() => {
-                  //         setIconDegree(index);
-
-                  //       }, 0.0001);
-                  //     }
-                  //   }
-
-
-                  // }}
-                  // tried animated
 
                   onVisibleChange={(el) => setIsOpened(el)}
                   trigger={["click"]}  >
                   <p style={isOpened ? { backgroundColor: "#dcdcdc" } : { backgroundColor: "whitesmoke" }
                   }> <RightOutlined
                       // rotate={isOpened ? 90 : 0}
-                      style={isOpened ? {  transform: "rotate(0deg)",transitionDuration : "0.3s"}:  {
-                        transform: "rotate(90deg)",transitionDuration : "0.3s"
+                      style={isOpened ? { transform: "rotate(0deg)", transitionDuration: "0.3s" } : {
+                        transform: "rotate(90deg)", transitionDuration: "0.3s"
                       }}
                     /> Kategorijas</p>
                 </Dropdown>
@@ -240,18 +233,6 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                   />
                 </div></div>} />
-              <Route path="/category/:category" element={<Category
-                isPosterLoading={isPosterLoading}
-                isSetPosterLoading={isSetPosterLoading}
-                update={update}
-
-                categoriesMenu={categoriesMenu}
-                isCategoriesLoading={isCategoriesLoading}
-              />} />
-
-
-
-
 
               <Route exact path="*" element={<h1>Nav atrasta lapa</h1>}>
 

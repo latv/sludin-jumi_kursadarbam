@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Spin, Card, Menu, Row, Dropdown } from "antd";
 import APIClient from "../../utils/apiClient";
-import { NavLink, useNavigate } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import "./styles.css";
 import {
 
@@ -14,6 +14,7 @@ const Cards = ({
   update,
   categoriesMenu,
   isCategoriesLoading,
+  NavLink
 }) => {
   const { Meta } = Card;
   const [poster, setPoster] = useState([]);
@@ -40,7 +41,11 @@ const Cards = ({
   useEffect(() => {
     getPoster();
   }, [update]);
+  const { category } = useParams();
 
+  useEffect(() => {
+    getPoster();
+  }, [category]);
   return (
     <>
       <Spin spinning={isCategoriesLoading}>
