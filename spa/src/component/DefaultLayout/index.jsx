@@ -169,23 +169,23 @@ const DefaultLayout = () => {
 
                   />
                 } ></Route>
-              <Route exact path="/myPosters" element={isSignedIn ? null : [<Navigate to="/" />,
-              <MyPosters
+              <Route exact to path="/myPosters" element={isSignedIn ? <MyPosters
 
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
                 update={update}
                 setupdate={setupdate}
-              />]} />
+              /> : <Navigate to="/" />
+              } />
 
 
-              <Route exact path="/myHistory" element={isSignedIn ? null : [<Navigate to="/" />,
-              <History
+              <Route exact path="/myHistory" element={isSignedIn ? <History
                 isPosterLoading={isPosterLoading}
                 isSetPosterLoading={isSetPosterLoading}
                 update={update}
                 setupdate={setupdate}
-              />]} />
+              /> : <Navigate to="/" />
+              } />
 
 
 
