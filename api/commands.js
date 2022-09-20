@@ -1,18 +1,18 @@
 const yargs = require("yargs");
 const axios = require("axios");
-const config = require("./config/auth.config");
+const config = require("./app/config/auth.config");
+require("dotenv").config();
+
 const options = yargs
     .usage("Usage: -make_admin <name>")
     .option("n", { alias: "username", describe: "Your username to make you admin", type: "string", demandOption: true })
     .argv;
 
 
+
 const db = require("./app/models");
-db.sequelize.sync();
+// db.sequelize.sync();
 const User = db.user;
-
-
-
 console.log(User.findAll().then((result) => {
-    res.status(200).send(result);
+    console.log(result)
 }));
