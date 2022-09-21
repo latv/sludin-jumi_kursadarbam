@@ -23,7 +23,7 @@ exports.getUserCredential = (req, res) => {
 };
 
 exports.isAdmin = (req, res) => {
-    let token = req.body["x-access-token"];
+    let token = req.headers["x-access-token"]; // use for browser
     token = jwt.decode(token, config.secret);
     adminUserID.findOne({ where: { userId: token.id } }).then((result) => {
         if (result === null) {
@@ -31,12 +31,7 @@ exports.isAdmin = (req, res) => {
         } else {
             res.status(200).send("authorized!");
         }
-
-    })
-
-
-
-
+    });
 }
 
 exports.registerPoster = (req, res) => {

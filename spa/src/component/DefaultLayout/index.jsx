@@ -202,7 +202,7 @@ const DefaultLayout = () => {
                 setIsOpened={setIsOpened}
               />} />
 
-              <Route path="/admin" element={<AdminPoster isSignedIn={isSignedIn}/>}></Route>
+              <Route path="/admin" element={<AdminPoster isSignedIn={isSignedIn} update={update}/>}></Route>
 
               <Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
