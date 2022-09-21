@@ -19,7 +19,7 @@ import ContentPoster from "../ContentPoster";
 import PosterViewModel from "../PosterViewModel";
 import MyPosters from "../MyPosters";
 import History from "../HistoryModels";
-
+import AdminPoster from "../AdminPoster";
 import Category from "../Category";
 
 import { NavLink, Navigate } from "react-router-dom";
@@ -29,6 +29,7 @@ import {
   BrowserRouter,
   Routes,
 } from "react-router-dom";
+
 
 const DefaultLayout = () => {
   const [userCredential, setUserCredential] = useState([]);
@@ -201,7 +202,7 @@ const DefaultLayout = () => {
                 setIsOpened={setIsOpened}
               />} />
 
-
+              <Route path="/admin" element={<AdminPoster isSignedIn={isSignedIn}/>}></Route>
 
               <Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}
