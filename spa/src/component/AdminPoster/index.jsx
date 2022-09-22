@@ -40,7 +40,9 @@ const AdminPoster = ({ isSignedIn, update }) => {
     return (
         <div>
             {
-                isPermmit ? <h1>Gan atlauja ,gan aut</h1> : [isSignedIn ? <h1>Nav atlauja , pieprasi atļauju adminam!</h1> : <h1 className="not-authtorized">Neesi autorizējies!</h1 >]
+                isPermmit ? <h1>
+                    
+                </h1> : [isSignedIn ? <h1>Nav atlauja, pieprasi atļauju adminam!</h1> : <h1 className="not-authtorized">Neesi autorizējies!</h1 >]
 
                
             }

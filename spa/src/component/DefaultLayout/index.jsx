@@ -112,7 +112,7 @@ const DefaultLayout = () => {
     <Menu>
       {getCategories.map((el) => (
         <Menu.Item>
-          <NavLink to={"/category/" + el.value} onClick={() => setIsOpened(false)} >{el.value}</NavLink>
+          <NavLink to={"/category/" + el.value} onClick={() => setIsOpened(false)} ><div className="category-name">{el.value}</div></NavLink>
         </Menu.Item>
       ))}
     </Menu>

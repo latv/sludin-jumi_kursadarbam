@@ -102,6 +102,10 @@
     background-color: #dcdcdc;
 }
 
+.category-name::first-letter {
+    text-transform: capitalize;
+}
+
 .anticon.anticon-right {
     color: #757575;
 }
