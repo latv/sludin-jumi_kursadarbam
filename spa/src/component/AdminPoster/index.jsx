@@ -76,15 +76,9 @@ const AdminPoster = ({ isSignedIn, update }) => {
     }, [update]);
 
     return (
-        <div>
-            {isSignedIn ? [ isPermmit ? <button loading={isLoading} onClick={askedForAdminPermssions} style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>
+        <div className="frame">
+            {isSignedIn ? [ isPermmit ? [<h1>Vai gribi admin atlauju?</h1>,<button className="admin-mode" loading={isLoading} onClick={askedForAdminPermssions} style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>]
             : <h1>Nav atlauja, pieprasi atļauju adminam!</h1>] : <h1 className="not-authtorized">Neesi autorizējies!</h1 >
-               
-                    
-
-                    
-
-
             }
         </div>
     )

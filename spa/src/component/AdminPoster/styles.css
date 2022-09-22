@@ -2,3 +2,27 @@
     color: red;
     size: 23px;
 }
+
+.frame {
+    border-radius: 30px;
+    padding-top: 25px;
+    padding-left: 45px;
+    background-color: white;
+    height: 60em;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.admin-mode {
+    /* margin-left: 10em; */
+    /* margin-top: 50px; */
+    width: 150px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: rgb(228, 228, 228);
+}
+
+.admin-mode:hover {
+    background-color: rgb(255, 242, 222);
+}
