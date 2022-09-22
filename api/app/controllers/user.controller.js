@@ -8,6 +8,7 @@ const User = db.user;
 const Poster = db.poster;
 const Viewer = db.viewer;
 const Admin = db.adminUserID;
+const adminMode = [];
 exports.getUserCredential = (req, res) => {
     // get user name and userID
     try {
@@ -30,6 +31,18 @@ exports.isAdmin = (req, res) => {
             res.status(403).send("Forbiden!");
         } else {
             res.status(200).send("authorized!");
+        }
+    });
+}
+exports.putAdminMode = (req, res) => {
+    let token = req.headers["x-access-token"]; // use for browser
+    token = jwt.decode(token, config.secret);
+    adminUserID.findOne({ where: { userId: token.id } }).then((result) => {
+        if (result === null) {
+            res.status(403).send("Forbiden!");
+        } else {
+            adminMode.concat(token.id);
+            res.status(200).send("You are put on admin mode!");
         }
     });
 }
