@@ -49,8 +49,9 @@ module.exports = function(app) {
 
     app.get("/api/test/get-poster", controller.getPoster);
     app.post("/api/test/delete-poster/:id", controller.deleteByID);
-    app.get("/api/test/is-admin", controller.isAdmin)
-    app.get("/api/test/put-admin", controller.putAdminMode)
+    app.get("/api/test/is-admin", controller.isAdmin);
+    app.get("/api/test/put-admin", controller.putAdminMode);
+    app.get("/api/test/disable-admin", controller.removeAdminMode);
     app.get("/api/test/get-all-categories", controller.getAllCategories);
     app.get("/api/test/get-my-poster", controller.getMyPoster);
 

@@ -69,6 +69,39 @@ const AdminPoster = ({ isSignedIn, update }) => {
         }
 
     };
+    const removeAdminMode = async () => {
+        try {
+            setIsLoading(true);
+            let response = await APIClient.request(
+                "/api/test/disable-admin",
+                {},
+                "GET"
+            );
+            
+            console.log("respone: ", response);
+            if (response == "Now you removed admin mode!") {
+                setIsLoading(false);
+                setIsActiveAdminPermisson(false);
+                message.info("Tev tagad ir admina tiesības");
+            }
+
+
+        } catch (err) {
+            if (message.error.status == 400) {
+                message.error("Tev nebijaa admina tiesības!");
+                setIsActiveAdminPermisson(false);
+                setIsLoading(false);
+            }
+            else {
+                message.error("Cita kļūda notikās!");
+                setIsActiveAdminPermisson(false);
+                console.log(err);
+                setIsLoading(false);
+            }
+
+        }
+
+    };
 
 
     useEffect(() => {
@@ -77,7 +110,7 @@ const AdminPoster = ({ isSignedIn, update }) => {
 
     return (
         <div className="frame">
-            {isSignedIn ? [ isPermmit ? [<h1>Vai gribi admin atlauju?</h1>,<button className="admin-mode" loading={isLoading} onClick={askedForAdminPermssions} style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>]
+            {isSignedIn ? [ isPermmit ? [<h1>Vai gribi admin atlauju?</h1>,<button className="admin-mode" loading={isLoading} onClick={isActiveAdminPermisson ? removeAdminMode :askedForAdminPermssions } style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>]
             : <h1>Nav atlauja, pieprasi atļauju adminam!</h1>] : <h1 className="not-authtorized">Neesi autorizējies!</h1 >
             }
         </div>

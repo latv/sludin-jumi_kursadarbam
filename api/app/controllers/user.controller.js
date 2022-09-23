@@ -8,7 +8,7 @@ const User = db.user;
 const Poster = db.poster;
 const Viewer = db.viewer;
 const Admin = db.adminUserID;
-const adminMode = [];
+let adminMode = [];
 exports.getUserCredential = (req, res) => {
     // get user name and userID
     try {
@@ -41,10 +41,24 @@ exports.putAdminMode = (req, res) => {
         if (result === null) {
             res.status(403).send("Forbiden!");
         } else {
-            adminMode.concat(token.id);
+            adminMode = adminMode.concat([token.id]);
             res.status(200).send("You are put on admin mode!");
         }
     });
+}
+exports.removeAdminMode = (req, res) => {
+    console.log("Pirms adminmode: ", adminMode);
+    let token = req.headers["x-access-token"]; // use for browser
+    token = jwt.decode(token, config.secret);
+    if (adminMode.includes(token.id)) {
+        adminMode = adminMode.filter((item) => {
+            return item !== token.id
+        })
+        res.status(200).send("Now you removed admin mode!");
+    } else {
+        res.status(400).send("You wasn't have admin mode on!");
+    }
+    console.log("Pēc adminmode: ", adminMode);
 }
 
 exports.registerPoster = (req, res) => {
