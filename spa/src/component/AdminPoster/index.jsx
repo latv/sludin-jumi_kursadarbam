@@ -1,7 +1,7 @@
 import "./styles.css";
 import React, { useState, useEffect } from "react";
 import APIClient from "../../utils/apiClient";
-import { message, Button } from "antd"
+import { message, Button, Spin } from "antd"
 import jwt from "../../utils/jwt";
 
 const AdminPoster = ({ isSignedIn, update }) => {
@@ -10,6 +10,7 @@ const AdminPoster = ({ isSignedIn, update }) => {
     const [isActiveAdminPermisson, setIsActiveAdminPermisson] = useState(false);
     const permisons = async () => {
         try {
+            setIsLoading(true);
 
             let response = await APIClient.request(
                 "/api/test/is-admin",
@@ -19,18 +20,18 @@ const AdminPoster = ({ isSignedIn, update }) => {
             console.log("respone: ", response);
             if (response == "authorized!") {
                 setIsPermit(true)
-           
+                setIsLoading(false);
             }
 
 
         } catch (err) {
             if (message.error.status == 403) {
                 setIsPermit(false);
-            
+                setIsLoading(false);
             }
             else {
                 setIsPermit(false);
-                
+                setIsLoading(false);
                 console.log(err);
             }
 
@@ -110,9 +111,11 @@ const AdminPoster = ({ isSignedIn, update }) => {
 
     return (
         <div className="frame">
+            <Spin spinning={isLoading}>
             {isSignedIn ? [ isPermmit ? [<h1>Vai gribi admin atlauju?</h1>,<button className="admin-mode" loading={isLoading} onClick={isActiveAdminPermisson ? removeAdminMode :askedForAdminPermssions } style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>]
             : <h1>Nav atlauja, pieprasi atļauju adminam!</h1>] : <h1 className="not-authtorized">Neesi autorizējies!</h1 >
             }
+            </Spin>
         </div>
     )
 }
