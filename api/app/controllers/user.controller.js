@@ -4,6 +4,7 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const sharp = require("sharp");
 const { adminUserID } = require("../models");
+const { where } = require("sequelize");
 const User = db.user;
 const Poster = db.poster;
 const Viewer = db.viewer;
@@ -118,29 +119,41 @@ exports.editPoster = (req, res) => {
     // register poster route
     let token = req.body["x-access-token"];
     token = jwt.decode(token, config.secret);
-    if (req.file === undefined) {
-        Poster.update({
-            user_id: token.id,
-            poster: req.body.poster,
-            price: req.body.price,
-            phone_number: req.body.phone_number,
-            userId: token.id,
-            category: req.body.category,
-        }, { where: { id: req.body.postId } });
-        res.status(200).send("Edited poster");
-    } else {
-        Poster.update({
-            user_id: token.id,
-            poster: req.body.posterData,
-            price: req.body.price,
+    Poster.findOne({ where: { id: req.body.postId } }).then((el) => {
+        if (el === null) {
+            res.status(404).send("Not found this poster!"); // for didņt found poster
+        } else if (el.userId == token.userId || adminMode.includes(token.id)) {
+            if (req.file === undefined) { // if user don't wan't change  picture of poster
+                Poster.update({
 
-            image: req.file.path,
-            phone_number: req.body.phone_number,
-            userId: token.id,
-            category: req.body.category,
-        }, { where: { id: req.body.postId } });
-        res.status(200).send("Edited poster");
-    }
+                    poster: req.body.poster,
+                    price: req.body.price,
+                    phone_number: req.body.phone_number,
+
+                    category: req.body.category,
+                }, { where: { id: req.body.postId } });
+                res.status(200).send("Edited poster");
+            } else { // if user want change poster image
+                Poster.update({
+
+                    poster: req.body.posterData,
+                    price: req.body.price,
+
+                    image: req.file.path,
+                    phone_number: req.body.phone_number,
+
+                    category: req.body.category,
+                }, { where: { id: req.body.postId } });
+                res.status(200).send("Edited poster");
+            }
+
+
+        } else { // if user doesn't have permisson to change poster
+
+            res.status(403).send("You don't have right permission to accessS this!");
+        }
+    })
+
 };
 
 exports.deleteByID = (req, res) => {
