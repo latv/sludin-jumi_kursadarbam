@@ -33,7 +33,7 @@ import {
 
 const DefaultLayout = () => {
   const [userCredential, setUserCredential] = useState([]);
-
+  const [isActiveAdminPermisson, setIsActiveAdminPermisson] = useState(false);
   const [isPosterLoading, isSetPosterLoading] = useState(true);
   const [update, setupdate] = useState(true);
   const [isOpened, setIsOpened] = useState(false);
@@ -167,6 +167,8 @@ const DefaultLayout = () => {
                     setupdate={setupdate}
                     isEditPosterModalVisible={isEditPosterModalVisible}
                     setIsEditPosterModalVisible={setIsEditPosterModalVisible}
+                    isActiveAdminPermisson={isActiveAdminPermisson}
+                    setIsActiveAdminPermisson={setIsActiveAdminPermisson}
 
                   />
                 } ></Route>
@@ -202,7 +204,10 @@ const DefaultLayout = () => {
                 setIsOpened={setIsOpened}
               />} />
 
-              <Route path="/admin" element={<AdminPoster isSignedIn={isSignedIn} update={update}/>}></Route>
+              <Route path="/admin" element={<AdminPoster isSignedIn={isSignedIn} update={update} 
+              isActiveAdminPermisson={isActiveAdminPermisson}
+              setIsActiveAdminPermisson={setIsActiveAdminPermisson}
+              />}></Route>
 
               <Route exact to path="/" element={<div><Spin spinning={isCategoriesLoading}>
                 <Dropdown className="left-category-menu" overlay={categoriesMenu}

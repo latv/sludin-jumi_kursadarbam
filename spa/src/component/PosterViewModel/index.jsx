@@ -19,7 +19,7 @@ import "./styles.css";
 import APIClient from "../../utils/apiClient";
 import { useNavigate } from "react-router-dom";
 
-import { LeftCircleOutlined, DeleteOutlined ,EditOutlined } from "@ant-design/icons";
+import { LeftCircleOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import EditPosterModal from "../EditPosterModal";
 
 export default function PosterViewModel({
@@ -30,6 +30,8 @@ export default function PosterViewModel({
   setupdate,
   isEditPosterModalVisible,
   setIsEditPosterModalVisible,
+  isActiveAdminPermisson,
+  setIsActiveAdminPermisson
 }) {
   const xsWidth = 22;
   const mdWidth = 18;
@@ -137,10 +139,10 @@ export default function PosterViewModel({
                     poster.createdAt.split("T")[1].split(".")[0]}{" "}
                 </p>
                 <p>Skatīts: {poster.viewed}</p>
-                {isSignedIn && userCredential.id === poster.userId ? (
+                {(isSignedIn && ((userCredential.id === poster.userId) ) || isActiveAdminPermisson === true) ? (
                   <div class="center" >
                     <Button onClick={() => setIsEditPosterModalVisible(true)}>
-                    <EditOutlined /> Rediģēt
+                      <EditOutlined /> Rediģēt
                     </Button>
 
                     <Popconfirm

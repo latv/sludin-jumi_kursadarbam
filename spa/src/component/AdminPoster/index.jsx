@@ -4,10 +4,10 @@ import APIClient from "../../utils/apiClient";
 import { message, Button, Spin } from "antd"
 import jwt from "../../utils/jwt";
 
-const AdminPoster = ({ isSignedIn, update }) => {
+const AdminPoster = ({ isSignedIn, update ,isActiveAdminPermisson ,setIsActiveAdminPermisson}) => {
     const [isPermmit, setIsPermit] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isActiveAdminPermisson, setIsActiveAdminPermisson] = useState(false);
+
     const permisons = async () => {
         try {
             setIsLoading(true);
@@ -111,7 +111,8 @@ const AdminPoster = ({ isSignedIn, update }) => {
 
     return (
         <div className="frame">
-            <Spin spinning={isLoading}>
+            <Spin spinning={isLoading}>  
+            {/* Vajag ,lai pārbauda vai jau ir pieprasījis admina tiesības  */}
             {isSignedIn ? [ isPermmit ? [<h1>Vai gribi admin atlauju?</h1>,<button className="admin-mode" loading={isLoading} onClick={isActiveAdminPermisson ? removeAdminMode :askedForAdminPermssions } style={isActiveAdminPermisson ? { borderColor: "red" } : null}>{isActiveAdminPermisson ? "Esi adminis tagad!" : "Pieprasīt atlauju"}</button>]
             : <h1>Nav atlauja, pieprasi atļauju adminam!</h1>] : <h1 className="not-authtorized">Neesi autorizējies!</h1 >
             }
