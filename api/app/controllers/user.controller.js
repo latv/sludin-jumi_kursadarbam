@@ -158,6 +158,7 @@ exports.editPoster = (req, res) => {
 
 exports.deleteByID = (req, res) => {
     // delete poster by ID
+    // validate if user is this poster creator or admin
     try {
         const ID_POSTER = req.params.id;
         Poster.destroy({ where: { id: ID_POSTER } });

@@ -70,34 +70,62 @@ export default function AddPosterModal({
 
 
   useEffect(() => {
-    
+
     getCategoriesData();
   }, []);
 
   const onFinish = async (values) => {
-    try {
-      setLoading(true);
-      let data = new FormData();
-      data.append("x-access-token", jwt.getHeader());
-      if (tabs == 2) {
-        data.append("image", addPicture);
-      }
-      data.append("poster", values.posterData);
-      data.append("price", addPriceAmount);
-      data.append("phone_number", values.phone_number);
-      data.append("category", values.category);
-      data.append("postId", poster.id);
-      axios.post("/api/test/edit-poster", data);
 
+    setLoading(true);
+    let data = new FormData();
+    data.append("x-access-token", jwt.getHeader());
+    if (tabs == 2) {
+      data.append("image", addPicture);
+    }
+    data.append("poster", values.posterData);
+    data.append("price", addPriceAmount);
+    data.append("phone_number", values.phone_number);
+    data.append("category", values.category);
+    data.append("postId", poster.id);
+
+    axios.post("/api/test/edit-poster", data).then((el) => {
+      console.log(el);
+      // if (el === 403) {
+
+      //   setLoading(false);
+      //   message.error("Nav atļaujas!");
+      // } else if (el != null) {
       setLoading(false);
       setIsEditPosterModalVisible(false);
       message.info("Esi veiksmīgi rediģējis sludinājumu");
       getPosterData();
-    } catch (err) {
-      message.error("Neizdevās pievienot sludinājumu");
+      // } else {
+      //   message.error("Neizdevās pievienot sludinājumu");
+      //   setLoading(false);
+      // }
+
+
+
+    }).catch((error) => {
+      console.log(error);
       setLoading(false);
-      console.log(err);
-    }
+      if (error.request.status === 403) {
+        message.error("Tev nav atļaujas!");
+      }
+      else if (error.response) {
+        console.log(error.response);
+        console.log("server responded");
+      } else if (error.request) {
+        console.log("network error");
+      }
+      else {
+        console.log(error);
+      }
+    });
+
+
+
+
 
     setupdate(!update);
   };
@@ -147,7 +175,7 @@ export default function AddPosterModal({
                   <TabPane tab="Jaunais attēls" key="2">
                     <input
                       type="file"
-                      required={tabs==2 ? true : false}
+                      required={tabs == 2 ? true : false}
                       onChange={(e) => {
                         console.log(e.target.files[0]);
                         setAddPicture(e.target.files[0]);
@@ -183,7 +211,7 @@ export default function AddPosterModal({
                     placeholder="Ievadi kategoriju"
                   />
                 </Form.Item >
-                 
+
                 <Input
                   defaultValue={poster.price}
                   error={inputError}
