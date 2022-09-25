@@ -17,6 +17,7 @@ import { useParams } from 'react-router';
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import APIClient from "../../utils/apiClient";
+import jwt from "../../utils/jwt";
 import { useNavigate } from "react-router-dom";
 
 import { LeftCircleOutlined, DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -53,16 +54,16 @@ export default function PosterViewModel({
   }, []);
 
   const deleteById = async () => {
-    const path = window.location.pathname.toString();
-    console.log("path " + path);
+    const path = window.location.pathname.toString().split("/")[2];
+    console.log("path " + path.split("/")[2]);
     // let { ID } = useParams();
 
     let response = await APIClient.request(
-      "/api/test/delete-poster" + path,
-      {},
+      "/api/test/delete-poster/" + path,
+      {"x-access-token": jwt.getHeader().toString()},
       "POST"
     );
-    message.info("Izdzēst sekmīgi šis sludinājums");
+    message.info("Izdzēsts sekmīgi šis sludinājums");
     goBack();
   };
 

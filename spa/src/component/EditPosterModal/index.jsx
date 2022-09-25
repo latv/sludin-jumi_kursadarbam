@@ -83,7 +83,7 @@ export default function AddPosterModal({
       data.append("image", addPicture);
     }
     data.append("poster", values.posterData);
-    data.append("price", addPriceAmount);
+    data.append("price", values.money);
     data.append("phone_number", values.phone_number);
     data.append("category", values.category);
     data.append("postId", poster.id);
@@ -211,12 +211,12 @@ export default function AddPosterModal({
                     placeholder="Ievadi kategoriju"
                   />
                 </Form.Item >
-
+                <Form.Item name="money" initialValue={poster.price}>
                 <Input
-                  defaultValue={poster.price}
+                  
                   error={inputError}
-                  placeholder={addPriceAmount}
-                  value={addPriceAmount}
+                  // placeholder={addPriceAmount}
+                  // value={addPriceAmount}
                   onChange={(el) => {
                     const amount = el.target.value;
 
@@ -230,7 +230,7 @@ export default function AddPosterModal({
                     }
                   }}
                 />
-                {/* </Form.Item> */}
+                </Form.Item>
                 <Form.Item
                   initialValue={poster.phone_number}
                   name="phone_number"

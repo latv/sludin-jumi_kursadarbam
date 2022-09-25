@@ -3,7 +3,7 @@ const Sequelize = require("sequelize");
 const config = require("../config/auth.config");
 const db = require("../models");
 const sharp = require("sharp");
-const { adminUserID } = require("../models");
+const { adminUserID, poster } = require("../models");
 const { where } = require("sequelize");
 const User = db.user;
 const Poster = db.poster;
@@ -122,7 +122,7 @@ exports.editPoster = (req, res) => {
     Poster.findOne({ where: { id: req.body.postId } }).then((el) => {
         if (el === null) {
             res.status(404).send("Not found this poster!"); // for didņt found poster
-        } else if (el.userId == token.userId || adminMode.includes(token.id)) {
+        } else if (el.userId == token.id || adminMode.includes(token.id)) {
             if (req.file === undefined) { // if user don't wan't change  picture of poster
                 Poster.update({
 
@@ -159,13 +159,24 @@ exports.editPoster = (req, res) => {
 exports.deleteByID = (req, res) => {
     // delete poster by ID
     // validate if user is this poster creator or admin
-    try {
-        const ID_POSTER = req.params.id;
-        Poster.destroy({ where: { id: ID_POSTER } });
-        res.status(200).send({ message: "Succesful deleted poster" });
-    } catch (err) {
-        res.status(400).message(err);
-    }
+    let token = req.headers["x-access-token"]; // use for browser
+    token = jwt.decode(token, config.secret);
+    const ID_POSTER = req.params.id;
+
+    console.log("\n", token, "\n");
+    Poster.findOne({ where: { id: ID_POSTER } }).then((el) => {
+        if (el === null) {
+            res.status(404).send("Not found this poster!"); // for didņt found poster
+        } else if (el.userId == token.id || adminMode.includes(token.id)) {
+            poster.destroy({ where: { id: token.id } })
+            res.status(200).send({ message: "Succesful deleted poster" });
+        } else { // if user doesn't have permisson to change poster
+
+            res.status(403).send("You don't have right permission to accessS this!");
+        }
+    });
+
+
 };
 
 exports.getPostersByCategory = (req, res) => {
