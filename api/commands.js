@@ -70,8 +70,70 @@ if (argv[0] == "-userToAdminID") {
             }
         });
     }
+} else if (argv[0] == "-posterSeed") {
+    if (argv[1] == null) {
+        const db = require("./app/models");
+
+        const Poster = db.poster;
+        const poster = "mašīna";
+        const userId = 1;
+        price = Math.floor(Math.random() * (10000 - 10) + 10);
+        const email = seed.email();
+        const phone_number = "281663243";
+
+        Poster.create({
+
+            poster: poster,
+            category: "Dārza tehnika",
+            viewed: 0,
+            price: price,
+            userId: userId,
+            image: 'uploads\\2022-11-12T16-09-52.904ZEkrānuzņēmums_20221025_200443.png',
+            password: bcrypt.hashSync("1234567890", 8),
+            phone_number: phone_number,
+        });
+        console.log("Created user");
+    }
 } else if (argv[0] == "-userSeed") {
-    if (argv[1] === null) {
+    if (argv[1] == null) {
+        const db = require("./app/models");
+
+
+        const User = db.user;
+        const name = seed.name.en.firstName();
+        const surname = seed.name.en.lastName();
+        const email = seed.email();
+        const phone_number = "281663243";
+        const password = "1234567890";
+        User.create({
+            name: name,
+            surname: surname,
+            email: email,
+            password: bcrypt.hashSync("1234567890", 8),
+            phone_number: phone_number,
+        });
+        console.log("Created user");
+    }
+} else if (argv[0] == "-userToRemoveAdminID") {
+    if (argv[1] !== null) {
+        const db = require("./app/models");
+
+
+        const User = db.user;
+        const adminUserID = db.adminUserID;
+
+
+        adminUserID.findOne({ where: { userId: argv[1] } }).then((result) => {
+            if (result === null) {
+                console.log("Nav atrasts lietotāja ID !");
+            } else {
+                adminUserID.destroy({ where: { userId: argv[1] } });
+                console.log("Veiksmīgi izdzēsts lietotājs ar ID:", argv[1]);
+            }
+        });
+    }
+} else if (argv[0] == "-userSeed") {
+    if (argv[1] == null) {
         const db = require("./app/models");
 
 
