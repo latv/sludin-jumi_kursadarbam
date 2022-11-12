@@ -250,7 +250,7 @@ exports.getMyHistory = (req, res) => {
     token = jwt.decode(token, config.secret);
     db.sequelize
         .query(
-            "SELECT t2.id, t2.poster, t2.price, t2.image ,MAX(t1.createdAt) FROM viewers t1 LEFT JOIN posters t2 ON t2.id =t1.posterId WHERE t1.userId=:idUser GROUP BY t1.createdAt DESC;", {
+            "SELECT t2.id, t2.poster, t2.price, t2.image ,t1.createdAt FROM viewers t1 LEFT JOIN posters t2 ON t2.id =t1.posterId WHERE t1.userId=:idUser ;", {
                 replacements: { idUser: req.userId },
                 type: db.sequelize.QueryTypes.SELECT,
             }

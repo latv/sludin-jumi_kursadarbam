@@ -463,6 +463,14 @@
     "es5-ext" "^0.10.50"
     "type" "^1.0.1"
 
+"data-seed@^1.3.1":
+  "integrity" "sha512-LX0L1txK5LsudwpTxCnXYJ6zNF8PZ6fr/OQCwRgMSq11TNygc+MtVK/BK5xMpSFcOXjW5aK75sjc9njzZD+w1A=="
+  "resolved" "https://registry.npmjs.org/data-seed/-/data-seed-1.3.1.tgz"
+  "version" "1.3.1"
+  dependencies:
+    "moment" "^2.17.1"
+    "uuid" "^3.0.1"
+
 "debug@^3.2.7":
   "integrity" "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
   "resolved" "https://registry.npmjs.org/debug/-/debug-3.2.7.tgz"
@@ -1385,7 +1393,7 @@
   dependencies:
     "moment" ">= 2.9.0"
 
-"moment@^2.29.1", "moment@>= 2.9.0":
+"moment@^2.17.1", "moment@^2.29.1", "moment@>= 2.9.0":
   "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
   "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
   "version" "2.29.1"
@@ -2267,6 +2275,11 @@
   "integrity" "sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM="
   "resolved" "https://registry.npmjs.org/utils-merge/-/utils-merge-1.0.1.tgz"
   "version" "1.0.1"
+
+"uuid@^3.0.1":
+  "integrity" "sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A=="
+  "resolved" "https://registry.npmjs.org/uuid/-/uuid-3.4.0.tgz"
+  "version" "3.4.0"
 
 "uuid@^8.3.2":
   "integrity" "sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg=="
